@@ -49,6 +49,8 @@ public class EnvironmentConfiguration extends MapConfiguration {
      *
      * @see System#getenv()
      */
+
+    private static final String ENV_MESSAGE_READ_ONLY = "EnvironmentConfiguration is read-only!";
     public EnvironmentConfiguration() {
         super(new HashMap<>(System.getenv()));
     }
@@ -62,7 +64,7 @@ public class EnvironmentConfiguration extends MapConfiguration {
      */
     @Override
     protected void addPropertyDirect(final String key, final Object value) {
-        throw new UnsupportedOperationException("EnvironmentConfiguration is read-only!");
+        throw new UnsupportedOperationException(ENV_MESSAGE_READ_ONLY);
     }
 
     /**
@@ -71,7 +73,7 @@ public class EnvironmentConfiguration extends MapConfiguration {
      */
     @Override
     protected void clearInternal() {
-        throw new UnsupportedOperationException("EnvironmentConfiguration is read-only!");
+        throw new UnsupportedOperationException(ENV_MESSAGE_READ_ONLY);
     }
 
     /**
@@ -82,6 +84,6 @@ public class EnvironmentConfiguration extends MapConfiguration {
      */
     @Override
     protected void clearPropertyDirect(final String key) {
-        throw new UnsupportedOperationException("EnvironmentConfiguration is read-only!");
+        throw new UnsupportedOperationException(ENV_MESSAGE_READ_ONLY);
     }
 }
