@@ -29,6 +29,7 @@ public class StrictConfigurationComparator implements ConfigurationComparator {
      * Create a new strict comparator.
      */
     public StrictConfigurationComparator() {
+        // TODO document why this constructor is empty
     }
 
     /**

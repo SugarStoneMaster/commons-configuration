@@ -34,5 +34,6 @@ public class AlwaysReloadingDetector implements ReloadingDetector {
      */
     @Override
     public void reloadingPerformed() {
+        // TODO document why this method is empty
     }
 }

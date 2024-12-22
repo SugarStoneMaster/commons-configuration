@@ -40,6 +40,7 @@ public class FileURLStreamHandler extends URLStreamHandler {
 
             @Override
             public void connect() throws IOException {
+                // TODO document why this method is empty
             }
 
             @Override

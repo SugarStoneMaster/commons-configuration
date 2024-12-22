@@ -155,6 +155,7 @@ public class TestDynamicCombinedConfiguration {
         }
 
         public ThreadLookup() {
+            // TODO document why this constructor is empty
         }
 
         @Override

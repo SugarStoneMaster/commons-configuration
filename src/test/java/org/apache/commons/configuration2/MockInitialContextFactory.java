@@ -50,6 +50,7 @@ public class MockInitialContextFactory implements InitialContextFactory {
 
         @Override
         public void close() throws NamingException {
+            // TODO document why this method is empty
         }
 
         @Override

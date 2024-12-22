@@ -122,10 +122,12 @@ public class TestPropertiesConfiguration {
 
         @Override
         public void connect() throws IOException {
+            // TODO document why this method is empty
         }
 
         @Override
         public void disconnect() {
+            // TODO document why this method is empty
         }
 
         @Override
