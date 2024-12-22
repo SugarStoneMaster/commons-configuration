@@ -183,7 +183,7 @@ public final class PropertyConverter {
             return toDuration(value);
         }
 
-        throw new ConversionException("The value '" + value + "' (" + value.getClass() + ")" + CANT_BE_CONVERT+ cls.getName() + " object");
+        throw new ConversionException("The value '" + value + "' (" + value.getClass() + ")" + CANT_BE_CONVERT + cls.getName() + " object");
     }
 
     /**
@@ -436,17 +436,17 @@ public final class PropertyConverter {
             try {
                 return Enum.valueOf(cls, (String) value);
             } catch (final Exception e) {
-                throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
+                throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());
             }
         }
         if (!(value instanceof Number)) {
-            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
+            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());
         }
         try {
             final E[] enumConstants = cls.getEnumConstants();
             return enumConstants[((Number) value).intValue()];
         } catch (final Exception e) {
-            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
+            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());
         }
     }
 
