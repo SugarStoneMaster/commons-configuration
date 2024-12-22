@@ -16,6 +16,11 @@
  */
 package org.apache.commons.configuration2.event;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * <p>
  * An event class that is used for reporting errors that occurred while processing configuration properties.
@@ -77,7 +82,7 @@ public class ConfigurationErrorEvent extends Event {
     private final String propertyName;
 
     /** Stores the property value. */
-    private final Object propertyValue;
+    private Object propertyValue;
 
     /** Stores the exception that caused this event. */
     private final Throwable cause;
@@ -135,5 +140,24 @@ public class ConfigurationErrorEvent extends Event {
      */
     public Object getPropertyValue() {
         return propertyValue;
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Serialize other fields
+        if (propertyValue instanceof Serializable) {
+            out.writeBoolean(true);
+            out.writeObject(propertyValue);
+        } else {
+            out.writeBoolean(false);
+        }
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject(); // Deserialize other fields
+        if (propertyValue instanceof Serializable) {
+            propertyValue = in.readObject();
+        } else {
+            propertyValue = null; // Reset if not serializable
+        }
     }
 }

@@ -16,6 +16,11 @@
  */
 package org.apache.commons.configuration2.event;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * <p>
  * An event class for reporting updates on a configuration object.
@@ -134,7 +139,7 @@ public class ConfigurationEvent extends Event {
     private final String propertyName;
 
     /** Stores the property value. */
-    private final Object propertyValue;
+    private Object propertyValue;
 
     /** Stores the before update flag. */
     private final boolean beforeUpdate;
@@ -181,5 +186,33 @@ public class ConfigurationEvent extends Event {
      */
     public boolean isBeforeUpdate() {
         return beforeUpdate;
+    }
+
+    /**
+     * Custom serialization for handling transient fields.
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Serialize non-transient fields
+        // Handle transient field serialization
+        if (propertyValue instanceof Serializable) {
+            out.writeBoolean(true); // Indicate that the field is serializable
+            out.writeObject(propertyValue);
+        } else {
+            out.writeBoolean(false); // Indicate that the field is not serializable
+        }
+    }
+
+    /**
+     * Custom deserialization for handling transient fields.
+     */
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        // Deserialize non-transient fields
+        in.defaultReadObject();
+
+        if (propertyValue instanceof Serializable) {
+            propertyValue = in.readObject(); // Deserialize the property value if it's serializable
+        } else {
+            propertyValue = null; // Set to null if it's not serializable
+        }
     }
 }

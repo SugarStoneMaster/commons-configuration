@@ -50,10 +50,10 @@ public class ConfigurationBuilderResultCreatedEvent extends ConfigurationBuilder
     // [org.apache.commons.configuration2.builder.ConfigurationBuilderResultCreatedEvent] In
     // ConfigurationBuilderResultCreatedEvent.java SE_BAD_FIELD
     //
-    // private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /** The newly created configuration object. */
-    private final ImmutableConfiguration configuration;
+    private final transient ImmutableConfiguration configuration;
 
     /**
      * Creates a new instance of {@code ConfigurationBuilderResultCreatedEvent} and initializes its properties.

@@ -16,6 +16,11 @@
  */
 package org.apache.commons.configuration2.reloading;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import org.apache.commons.configuration2.event.Event;
 import org.apache.commons.configuration2.event.EventType;
 
@@ -40,7 +45,7 @@ public class ReloadingEvent extends Event {
     private static final long serialVersionUID = 20140701L;
 
     /** Stores additional data about this event. */
-    private final Object data;
+    private Object data;
 
     /**
      * Creates a new instance of {@code ReloadingEvent} and initializes it.
@@ -71,5 +76,23 @@ public class ReloadingEvent extends Event {
      */
     public Object getData() {
         return data;
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject(); // Serialize non-transient fields
+        // Handle serialization of 'data' if it is serializable
+        if (data instanceof Serializable) {
+            oos.writeObject(data);
+        } else {
+            oos.writeObject(null); // or throw an exception if non-serializable
+        }
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject(); // Deserialize non-transient fields
+        // Restore the 'data' field if applicable
+        Object restoredData = ois.readObject();
+        // Cast and assign as needed
+        this.data = restoredData; // Ensure compatibility if 'data' is nullable or serializable
     }
 }

@@ -39,7 +39,7 @@ final class ConfigurationAttributePointer<T> extends NodePointer {
     private static final long serialVersionUID = 5504551041716043748L;
 
     /** Stores information about the represented attribute. */
-    private final QueryResult<T> attributeResult;
+    private final transient QueryResult<T> attributeResult;
 
     /**
      * Creates a new instance of {@code ConfigurationAttributePointer}.

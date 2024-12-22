@@ -44,10 +44,10 @@ final class ConfigurationNodePointer<T> extends NodePointer {
     private static final long serialVersionUID = -1087475639680007713L;
 
     /** The node handler. */
-    private final NodeHandler<T> handler;
+    private final transient NodeHandler<T> handler;
 
     /** Stores the associated node. */
-    private final T node;
+    private final transient T node;
 
     /**
      * Creates a new instance of {@code ConfigurationNodePointer} and initializes it with its parent pointer.
