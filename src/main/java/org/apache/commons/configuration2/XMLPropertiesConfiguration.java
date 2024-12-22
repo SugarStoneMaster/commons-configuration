@@ -66,6 +66,11 @@ import org.xml.sax.helpers.DefaultHandler;
  * @since 1.1
  */
 public class XMLPropertiesConfiguration extends BaseConfiguration implements FileBasedConfiguration, FileLocatorAware {
+    /** String literal for comment. */
+    private static final String COMMENT = "comment";
+    /** String literal for entry. */
+    private static final String ENTRY = "entry";
+
 
     /**
      * SAX Handler to parse a XML properties file.
@@ -114,11 +119,11 @@ public class XMLPropertiesConfiguration extends BaseConfiguration implements Fil
 
         @Override
         public void startElement(final String uri, final String localName, final String qName, final Attributes attrs) {
-            if ("comment".equals(qName)) {
+            if (COMMENT.equals(qName)) {
                 inCommentElement = true;
             }
 
-            if ("entry".equals(qName)) {
+            if (ENTRY.equals(qName)) {
                 key = attrs.getValue("key");
                 inEntryElement = true;
             }
@@ -206,9 +211,9 @@ public class XMLPropertiesConfiguration extends BaseConfiguration implements Fil
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node item = childNodes.item(i);
             if (item instanceof Element) {
-                if (item.getNodeName().equals("comment")) {
+                if (item.getNodeName().equals(COMMENT)) {
                     setHeader(item.getTextContent());
-                } else if (item.getNodeName().equals("entry")) {
+                } else if (item.getNodeName().equals(ENTRY)) {
                     final String key = ((Element) item).getAttribute("key");
                     addProperty(key, item.getTextContent());
                 } else {
@@ -249,7 +254,7 @@ public class XMLPropertiesConfiguration extends BaseConfiguration implements Fil
         final Element properties = document.createElement("properties");
         parent.appendChild(properties);
         if (getHeader() != null) {
-            final Element comment = document.createElement("comment");
+            final Element comment = document.createElement(COMMENT);
             properties.appendChild(comment);
             comment.setTextContent(StringEscapeUtils.escapeXml10(getHeader()));
         }
@@ -313,7 +318,7 @@ public class XMLPropertiesConfiguration extends BaseConfiguration implements Fil
     }
 
     private void writeProperty(final Document document, final Node properties, final String key, final Object value) {
-        final Element entry = document.createElement("entry");
+        final Element entry = document.createElement(ENTRY);
         properties.appendChild(entry);
 
         // escape the key

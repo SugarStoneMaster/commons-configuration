@@ -53,6 +53,18 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class PropertyConverter {
 
+    /** String literal for the value. */
+    private static final String THE_VALUE = "The value ";
+
+    /** String literal for could not convert. */
+    private static final String COULD_NOT_CONVERT = "Could not convert ";
+
+    /** String literal for cant convert color. */
+    private static final String CANT_CONVERT_COLOR = " can't be converted to a Color";
+
+    /** String literal for cant be converted. */
+    private static final String CANT_BE_CONVERT = " can't be converted to a ";
+
     /** Constant for the prefix of hex numbers. */
     private static final String HEX_PREFIX = "0x";
 
@@ -171,7 +183,7 @@ public final class PropertyConverter {
             return toDuration(value);
         }
 
-        throw new ConversionException("The value '" + value + "' (" + value.getClass() + ")" + " can't be converted to a " + cls.getName() + " object");
+        throw new ConversionException("The value '" + value + "' (" + value.getClass() + ")" + CANT_BE_CONVERT+ cls.getName() + " object");
     }
 
     /**
@@ -219,11 +231,11 @@ public final class PropertyConverter {
             return (Boolean) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Boolean object");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Boolean object");
         }
         final Boolean b = BooleanUtils.toBooleanObject((String) value);
         if (b == null) {
-            throw new ConversionException("The value " + value + " can't be converted to a Boolean object");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Boolean object");
         }
         return b;
     }
@@ -261,14 +273,14 @@ public final class PropertyConverter {
             return calendar;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Calendar");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Calendar");
         }
         try {
             final Calendar calendar = Calendar.getInstance();
             calendar.setTime(new SimpleDateFormat(format).parse((String) value));
             return calendar;
         } catch (final ParseException e) {
-            throw new ConversionException("The value " + value + " can't be converted to a Calendar", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Calendar", e);
         }
     }
 
@@ -307,7 +319,7 @@ public final class PropertyConverter {
             return (Color) value;
         }
         if (!(value instanceof String) || StringUtils.isBlank((String) value)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Color");
+            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR);
         }
         String color = ((String) value).trim();
 
@@ -316,7 +328,7 @@ public final class PropertyConverter {
         // check the size of the string
         final int minlength = components.length * 2;
         if (color.length() < minlength) {
-            throw new ConversionException("The value " + value + " can't be converted to a Color");
+            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR);
         }
 
         // remove the leading #
@@ -340,7 +352,7 @@ public final class PropertyConverter {
 
             return new Color(components[0], components[1], components[2], alpha);
         } catch (final Exception e) {
-            throw new ConversionException("The value " + value + " can't be converted to a Color", e);
+            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR, e);
         }
     }
 
@@ -360,12 +372,12 @@ public final class PropertyConverter {
             return ((Calendar) value).getTime();
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Date");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Date");
         }
         try {
             return new SimpleDateFormat(format).parse((String) value);
         } catch (final ParseException e) {
-            throw new ConversionException("The value " + value + " can't be converted to a Date", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Date", e);
         }
     }
 
@@ -400,10 +412,10 @@ public final class PropertyConverter {
             try {
                 return Duration.parse((CharSequence) value);
             } catch (final DateTimeParseException e) {
-                throw new ConversionException("Could not convert " + value + " to Duration", e);
+                throw new ConversionException(COULD_NOT_CONVERT + value + " to Duration", e);
             }
         }
-        throw new ConversionException("The value " + value + " can't be converted to a Duration");
+        throw new ConversionException(THE_VALUE + value + " can't be converted to a Duration");
     }
 
     /**
@@ -424,17 +436,17 @@ public final class PropertyConverter {
             try {
                 return Enum.valueOf(cls, (String) value);
             } catch (final Exception e) {
-                throw new ConversionException("The value " + value + " can't be converted to a " + cls.getName());
+                throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
             }
         }
         if (!(value instanceof Number)) {
-            throw new ConversionException("The value " + value + " can't be converted to a " + cls.getName());
+            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
         }
         try {
             final E[] enumConstants = cls.getEnumConstants();
             return enumConstants[((Number) value).intValue()];
         } catch (final Exception e) {
-            throw new ConversionException("The value " + value + " can't be converted to a " + cls.getName());
+            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT+ cls.getName());
         }
     }
 
@@ -456,7 +468,7 @@ public final class PropertyConverter {
         if (value instanceof String) {
             return new File((String) value);
         }
-        throw new ConversionException("The value " + value + " can't be converted to a File");
+        throw new ConversionException(THE_VALUE + value + " can't be converted to a File");
     }
 
     /**
@@ -488,12 +500,12 @@ public final class PropertyConverter {
             return (InetAddress) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a InetAddress");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a InetAddress");
         }
         try {
             return InetAddress.getByName((String) value);
         } catch (final UnknownHostException e) {
-            throw new ConversionException("The value " + value + " can't be converted to a InetAddress", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a InetAddress", e);
         }
     }
 
@@ -528,13 +540,13 @@ public final class PropertyConverter {
             return value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to an InternetAddress");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an InternetAddress");
         }
         try {
             final Constructor<?> ctor = Class.forName(targetClassName).getConstructor(String.class);
             return ctor.newInstance(value);
         } catch (final Exception e) {
-            throw new ConversionException("The value " + value + " can't be converted to an InternetAddress", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an InternetAddress", e);
         }
     }
 
@@ -550,7 +562,7 @@ public final class PropertyConverter {
             return (Locale) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Locale");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Locale");
         }
         final String[] elements = ((String) value).split("_");
         final int size = elements.length;
@@ -562,7 +574,7 @@ public final class PropertyConverter {
 
             return new Locale(language, country, variant);
         }
-        throw new ConversionException("The value " + value + " can't be converted to a Locale");
+        throw new ConversionException(THE_VALUE + value + " can't be converted to a Locale");
     }
 
     /**
@@ -599,7 +611,7 @@ public final class PropertyConverter {
             try {
                 return new BigInteger(str.substring(HEX_PREFIX.length()), HEX_RADIX);
             } catch (final NumberFormatException nex) {
-                throw new ConversionException("Could not convert " + str + " to " + targetClass.getName() + "! Invalid hex number.", nex);
+                throw new ConversionException(COULD_NOT_CONVERT + str + " to " + targetClass.getName() + "! Invalid hex number.", nex);
             }
         }
 
@@ -607,7 +619,7 @@ public final class PropertyConverter {
             try {
                 return new BigInteger(str.substring(BIN_PREFIX.length()), BIN_RADIX);
             } catch (final NumberFormatException nex) {
-                throw new ConversionException("Could not convert " + str + " to " + targetClass.getName() + "! Invalid binary number.", nex);
+                throw new ConversionException(COULD_NOT_CONVERT + str + " to " + targetClass.getName() + "! Invalid binary number.", nex);
             }
         }
 
@@ -615,7 +627,7 @@ public final class PropertyConverter {
             final Constructor<?> constr = targetClass.getConstructor(CONSTR_ARGS);
             return (Number) constr.newInstance(str);
         } catch (final InvocationTargetException itex) {
-            throw new ConversionException("Could not convert " + str + " to " + targetClass.getName(), itex.getTargetException());
+            throw new ConversionException(COULD_NOT_CONVERT + str + " to " + targetClass.getName(), itex.getTargetException());
         } catch (final Exception ex) {
             // Treat all possible exceptions the same way
             throw new ConversionException("Conversion error when trying to convert " + str + " to " + targetClass.getName(), ex);
@@ -640,7 +652,7 @@ public final class PropertyConverter {
         if (value instanceof String) {
             return Paths.get((String) value);
         }
-        throw new ConversionException("The value " + value + " can't be converted to a Path");
+        throw new ConversionException(THE_VALUE + value + " can't be converted to a Path");
     }
 
     /**
@@ -655,12 +667,12 @@ public final class PropertyConverter {
             return (Pattern) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to a Pattern");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Pattern");
         }
         try {
             return Pattern.compile((String) value);
         } catch (final PatternSyntaxException e) {
-            throw new ConversionException("The value " + value + " can't be converted to a Pattern", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to a Pattern", e);
         }
     }
 
@@ -691,12 +703,12 @@ public final class PropertyConverter {
             return (URI) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to an URI");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an URI");
         }
         try {
             return new URI((String) value);
         } catch (final URISyntaxException e) {
-            throw new ConversionException("The value " + value + " can't be converted to an URI", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an URI", e);
         }
     }
 
@@ -712,12 +724,12 @@ public final class PropertyConverter {
             return (URL) value;
         }
         if (!(value instanceof String)) {
-            throw new ConversionException("The value " + value + " can't be converted to an URL");
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an URL");
         }
         try {
             return new URL((String) value);
         } catch (final MalformedURLException e) {
-            throw new ConversionException("The value " + value + " can't be converted to an URL", e);
+            throw new ConversionException(THE_VALUE + value + " can't be converted to an URL", e);
         }
     }
 

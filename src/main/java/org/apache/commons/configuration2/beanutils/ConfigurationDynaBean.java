@@ -52,6 +52,11 @@ import org.apache.commons.logging.LogFactory;
  * @since 1.0-rc1
  */
 public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean {
+    /** String literal for property. */
+    private static final String PROPERTY = "Property '";
+
+    /** String literal for does not exist. */
+    private static final String DOES_NOT_EXIST = "' does not exist.";
 
     /** Constant for the property delimiter. */
     private static final String PROPERTY_DELIMITER = ".";
@@ -83,7 +88,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
         final Object property = getConfiguration().getProperty(name);
 
         if (property == null) {
-            throw new IllegalArgumentException("Property '" + name + "' does not exist.");
+            throw new IllegalArgumentException(PROPERTY + name + DOES_NOT_EXIST);
         }
 
         return property instanceof List || property.getClass().isArray();
@@ -93,7 +98,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
     public boolean contains(final String name, final String key) {
         final Configuration subset = getConfiguration().subset(name);
         if (subset == null) {
-            throw new IllegalArgumentException("Mapped property '" + name + "' does not exist.");
+            throw new IllegalArgumentException("Mapped property '" + name + DOES_NOT_EXIST);
         }
 
         return subset.containsKey(key);
@@ -120,7 +125,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
         }
 
         if (result == null) {
-            throw new IllegalArgumentException("Property '" + name + "' does not exist.");
+            throw new IllegalArgumentException(PROPERTY + name + DOES_NOT_EXIST);
         }
         return result;
     }
@@ -128,7 +133,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
     @Override
     public Object get(final String name, final int index) {
         if (!checkIndexedProperty(name)) {
-            throw new IllegalArgumentException("Property '" + name + "' is not indexed.");
+            throw new IllegalArgumentException(PROPERTY + name + "' is not indexed.");
         }
 
         final List<Object> list = getConfiguration().getList(name);
@@ -139,7 +144,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
     public Object get(final String name, final String key) {
         final Configuration subset = getConfiguration().subset(name);
         if (subset == null) {
-            throw new IllegalArgumentException("Mapped property '" + name + "' does not exist.");
+            throw new IllegalArgumentException("Mapped property '" + name + DOES_NOT_EXIST);
         }
 
         return subset.getProperty(key);
@@ -159,7 +164,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean 
     @Override
     public void set(final String name, final int index, final Object value) {
         if (!checkIndexedProperty(name) && index > 0) {
-            throw new IllegalArgumentException("Property '" + name + "' is not indexed.");
+            throw new IllegalArgumentException(PROPERTY + name + "' is not indexed.");
         }
 
         final Object property = getConfiguration().getProperty(name);

@@ -474,7 +474,7 @@ public class CombinedConfigurationBuilder extends BasicConfigurationBuilder<Comb
     static final String KEY_UNION = "additional";
 
     /** An array with the names of top level configuration sections. */
-    static final String[] CONFIG_SECTIONS = {"additional", "override", SEC_HEADER};
+    static final String[] CONFIG_SECTIONS = {KEY_UNION, "override", SEC_HEADER};
 
     /**
      * Constant for an expression that selects override configurations in the override section.
