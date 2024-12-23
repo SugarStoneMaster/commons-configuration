@@ -174,7 +174,17 @@ public class TestReloadingController {
      */
     @Test
     public void testResetReloadingNotInReloadingState() {
-        createController().resetReloadingState();
+        // Arrange
+        final ReloadingController controller = createController();
+
+        // Assert initial state
+        assertFalse(controller.isInReloadingState(), "Controller should not be in reloading state initially");
+
+        // Act
+        controller.resetReloadingState();
+
+        // Assert final state remains unchanged
+        assertFalse(controller.isInReloadingState(), "Controller should still not be in reloading state after resetReloadingState()");
     }
 
     /**

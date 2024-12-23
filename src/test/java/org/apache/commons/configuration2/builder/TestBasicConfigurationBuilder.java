@@ -16,12 +16,7 @@
  */
 package org.apache.commons.configuration2.builder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -478,13 +473,22 @@ public class TestBasicConfigurationBuilder {
      */
     @Test
     public void testRemoveConfigurationListenersOnReset() throws ConfigurationException {
+        // Arrange
         final EventListenerTestImpl listener = new EventListenerTestImpl(null);
         final BasicConfigurationBuilder<PropertiesConfiguration> builder = new BasicConfigurationBuilder<>(PropertiesConfiguration.class)
-            .configure(new EventListenerParameters().addEventListener(ConfigurationEvent.ANY, listener));
+                .configure(new EventListenerParameters().addEventListener(ConfigurationEvent.ANY, listener));
         final PropertiesConfiguration config = builder.getConfiguration();
+
+        // Act
         builder.resetResult();
         config.addProperty("foo", "bar");
-        listener.done();
+
+        // Assert
+        try {
+            listener.done(); // This will fail if events were recorded
+        } catch (AssertionError e) {
+            fail("Listener should not have recorded any events after reset.");
+        }
     }
 
     /**

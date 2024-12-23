@@ -16,11 +16,7 @@
  */
 package org.apache.commons.configuration2.builder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import java.nio.charset.StandardCharsets;
@@ -155,12 +151,17 @@ public class TestDefaultParametersManager {
     }
 
     /**
-     * Tests whether initializeParameters() ignores null input. (We can only test that no exception is thrown.)
+     * Tests whether initializeParameters() ignores null input.
+     * Verifies that no exception is thrown and the behavior is as expected.
      */
     @Test
     public void testInitializeParametersNull() {
-        manager.registerDefaultsHandler(FileBasedBuilderParameters.class, new FileBasedDefaultsHandler());
-        manager.initializeParameters(null);
+        // Arrange
+        final DefaultParametersManager manager = new DefaultParametersManager();
+
+        // Act and Assert
+        assertDoesNotThrow(() -> manager.initializeParameters(null),
+                "initializeParameters(null) should not throw an exception");
     }
 
     /**

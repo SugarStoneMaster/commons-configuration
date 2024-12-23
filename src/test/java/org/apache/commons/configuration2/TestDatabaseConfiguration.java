@@ -17,13 +17,7 @@
 
 package org.apache.commons.configuration2;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -423,7 +417,14 @@ public class TestDatabaseConfiguration {
 
     @Test
     public void testGetKeysInternalNoDatasource() throws Exception {
-        ConfigurationUtils.toString(new DatabaseConfiguration());
+        // Arrange
+        DatabaseConfiguration config = new DatabaseConfiguration();
+
+        // Act
+        String result = ConfigurationUtils.toString(config);
+
+        // Assert
+        assertNotNull(result, "The result of ConfigurationUtils.toString() should not be null.");
     }
 
     @Test

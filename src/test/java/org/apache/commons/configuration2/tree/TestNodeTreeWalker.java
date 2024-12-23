@@ -18,7 +18,15 @@ package org.apache.commons.configuration2.tree;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.any;
+
+
+
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -183,13 +191,22 @@ public class TestNodeTreeWalker {
     }
 
     /**
-     * Tests a BFS walk if node is passed in.
+     * Tests a BFS walk if node is passed in as null.
      */
     @Test
     public void testWalkBFSNoNode() {
+        // Arrange
         final ConfigurationNodeVisitor<ImmutableNode> visitor = visitorMock();
         final NodeHandler<ImmutableNode> handler = handlerMock();
+
+        // Act
         NodeTreeWalker.INSTANCE.walkBFS(null, visitor, handler);
+
+        // Assert
+        // Verify that the visitor methods are not called
+        verify(visitor, never()).visitBeforeChildren(any(), eq(handler));
+        verify(visitor, never()).visitAfterChildren(any(), eq(handler));
+        verify(visitor, never()).terminate();
     }
 
     /**
@@ -220,9 +237,18 @@ public class TestNodeTreeWalker {
      */
     @Test
     public void testWalkDFSNoNode() {
+        // Arrange
         final ConfigurationNodeVisitor<ImmutableNode> visitor = visitorMock();
         final NodeHandler<ImmutableNode> handler = handlerMock();
+
+        // Act
         NodeTreeWalker.INSTANCE.walkDFS(null, visitor, handler);
+
+        // Assert
+        // Verify that the visitor methods are not called
+        verify(visitor, never()).visitBeforeChildren(any(), eq(handler));
+        verify(visitor, never()).visitAfterChildren(any(), eq(handler));
+        verify(visitor, never()).terminate();
     }
 
     /**

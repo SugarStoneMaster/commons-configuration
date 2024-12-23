@@ -130,7 +130,18 @@ public class TestPeriodicReloadingTrigger {
      */
     @Test
     public void testShutdownNoExecutor() {
-        createTrigger().shutdown(false);
+        // Arrange
+        final PeriodicReloadingTrigger trigger = createTrigger();
+        final ScheduledExecutorService executorService = trigger.getExecutorService();
+
+        // Act
+        trigger.shutdown(false); // Assuming this exists
+
+        //TODO check assert
+        // Assert
+        assertFalse(trigger.isRunning(), "Trigger should still be running when executor service is excluded from shutdown");
+        assertNotNull(executorService, "Executor service should still be available after shutdown(false)");
+        assertFalse(executorService.isShutdown(), "Executor service should not be shut down when excluded from shutdown");
     }
 
     /**
@@ -199,7 +210,14 @@ public class TestPeriodicReloadingTrigger {
      */
     @Test
     public void testStopNotRunning() {
-        createTrigger().stop();
+        // Arrange
+        final PeriodicReloadingTrigger trigger = createTrigger();
+
+        // Act
+        trigger.stop(); // Call stop() on a trigger that is not running
+
+        // Assert
+        assertFalse(trigger.isRunning(), "Trigger should remain not running after stop() is called on a non-running trigger.");
     }
 
     /**

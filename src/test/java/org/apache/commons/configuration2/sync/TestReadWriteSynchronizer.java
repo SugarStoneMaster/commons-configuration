@@ -16,6 +16,7 @@
  */
 package org.apache.commons.configuration2.sync;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -214,15 +215,27 @@ public class TestReadWriteSynchronizer {
      */
     @Test
     public void testReentrance() {
+        // Arrange
         final Synchronizer sync = new ReadWriteSynchronizer();
-        sync.beginWrite();
-        sync.beginRead();
-        sync.beginRead();
-        sync.endRead();
-        sync.endRead();
-        sync.beginWrite();
-        sync.endWrite();
-        sync.endWrite();
+
+        // Act and Assert
+        // Start write operation
+        assertDoesNotThrow(sync::beginWrite, "beginWrite should not throw an exception for the first write lock");
+
+        // Start nested read operations
+        assertDoesNotThrow(sync::beginRead, "beginRead should not throw an exception when called within a write lock");
+        assertDoesNotThrow(sync::beginRead, "beginRead should not throw for nested reads within the same write lock");
+
+        // End read operations
+        assertDoesNotThrow(sync::endRead, "endRead should not throw an exception when ending a read lock");
+        assertDoesNotThrow(sync::endRead, "endRead should not throw for nested reads being released");
+
+        // Start another write operation within the current write lock
+        assertDoesNotThrow(sync::beginWrite, "beginWrite should not throw for nested write locks");
+
+        // End write operations
+        assertDoesNotThrow(sync::endWrite, "endWrite should not throw when ending a nested write lock");
+        assertDoesNotThrow(sync::endWrite, "endWrite should not throw when ending the outermost write lock");
     }
 
     /**

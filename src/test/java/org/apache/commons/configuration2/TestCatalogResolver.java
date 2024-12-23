@@ -17,10 +17,6 @@
 
 package org.apache.commons.configuration2;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.io.ConfigurationLogger;
 import org.apache.commons.configuration2.io.FileHandler;
@@ -28,6 +24,8 @@ import org.apache.commons.configuration2.resolver.CatalogResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for CatalogResolver.
@@ -69,9 +67,13 @@ public class TestCatalogResolver {
 
     @Test
     public void testDebug() throws Exception {
-        resolver.setDebug(true);
-        // There is no really good way to check this except to do something
-        // that causes debug output.
+        // Act & Assert: Enable debug mode
+        assertDoesNotThrow(() -> resolver.setDebug(true),
+                "Enabling debug mode should not throw any exceptions.");
+
+        // Act & Assert: Disable debug mode
+        assertDoesNotThrow(() -> resolver.setDebug(false),
+                "Disabling debug mode should not throw any exceptions.");
     }
 
     @Test
