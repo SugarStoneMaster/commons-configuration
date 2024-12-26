@@ -52,7 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @since 2.0
  */
-public class TrackedNodeModel implements NodeModel<ImmutableNode> {
+public class TrackedNodeModel implements NodeModel<ImmutableNode>, AutoCloseable {
     /** Stores the underlying parent model. */
     private final InMemoryNodeModelSupport parentModelSupport;
 
@@ -131,27 +131,14 @@ public class TrackedNodeModel implements NodeModel<ImmutableNode> {
      * invocation has an effect. After this method has been called this model can no longer be used because there is no
      * guarantee that the node can still be accessed from the parent model.
      */
+    @Override
     public void close() {
         if (closed.compareAndSet(false, true)) {
             getParentModel().untrackNode(getSelector());
         }
     }
 
-    /**
-     * {@inheritDoc} This implementation calls {@code close()} if the {@code untrackOnFinalize} flag was set when this
-     * instance was constructed. While this is not 100 percent reliable, it is better than keeping the tracked node hanging
-     * around. Note that it is not a problem if {@code close()} already had been invoked manually because this method is
-     * idempotent.
-     *
-     * @see #close()
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        if (isReleaseTrackedNodeOnFinalize()) {
-            close();
-        }
-        super.finalize();
-    }
+
 
     /**
      * {@inheritDoc} This implementation returns the tracked node instance acting as root node of this model.

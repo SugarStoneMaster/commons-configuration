@@ -587,64 +587,142 @@ public class XMLPropertyListConfiguration extends BaseHierarchicalConfiguration 
     private void printValue(final PrintWriter out, final int indentLevel, final Object value) {
         final String padding = StringUtils.repeat(" ", indentLevel * INDENT_SIZE);
 
-        if (value instanceof Date) {
-            synchronized (PListNodeBuilder.FORMAT) {
-                out.println(padding + "<date>" + PListNodeBuilder.FORMAT.format((Date) value) + "</date>");
-            }
-        } else if (value instanceof Calendar) {
-            printValue(out, indentLevel, ((Calendar) value).getTime());
-        } else if (value instanceof Number) {
-            if (value instanceof Double || value instanceof Float || value instanceof BigDecimal) {
-                out.println(padding + "<real>" + value.toString() + "</real>");
-            } else {
-                out.println(padding + "<integer>" + value.toString() + "</integer>");
-            }
-        } else if (value instanceof Boolean) {
-            if (((Boolean) value).booleanValue()) {
-                out.println(padding + "<true/>");
-            } else {
-                out.println(padding + "<false/>");
-            }
-        } else if (value instanceof List) {
-            out.println(padding + "<array>");
-            ((List<?>) value).forEach(o -> printValue(out, indentLevel + 1, o));
-            out.println(padding + "</array>");
-        } else if (value instanceof HierarchicalConfiguration) {
-            // This is safe because we have created this configuration
-            @SuppressWarnings("unchecked")
-            final HierarchicalConfiguration<ImmutableNode> config = (HierarchicalConfiguration<ImmutableNode>) value;
-            printNode(out, indentLevel, config.getNodeModel().getNodeHandler().getRootNode());
-        } else if (value instanceof ImmutableConfiguration) {
-            // display a flat Configuration as a dictionary
-            out.println(padding + "<dict>");
-
-            final ImmutableConfiguration config = (ImmutableConfiguration) value;
-            final Iterator<String> it = config.getKeys();
-            while (it.hasNext()) {
-                // create a node for each property
-                final String key = it.next();
-                final ImmutableNode node = new ImmutableNode.Builder().name(key).value(config.getProperty(key)).create();
-
-                // print the node
-                printNode(out, indentLevel + 1, node);
-
-                if (it.hasNext()) {
-                    out.println();
-                }
-            }
-            out.println(padding + "</dict>");
-        } else if (value instanceof Map) {
-            // display a Map as a dictionary
-            final Map<String, Object> map = transformMap((Map<?, ?>) value);
-            printValue(out, indentLevel, new MapConfiguration(map));
-        } else if (value instanceof byte[]) {
-            final String base64 = new String(Base64.encodeBase64((byte[]) value), DATA_ENCODING);
-            out.println(padding + "<data>" + StringEscapeUtils.escapeXml10(base64) + "</data>");
-        } else if (value != null) {
-            out.println(padding + "<string>" + StringEscapeUtils.escapeXml10(String.valueOf(value)) + "</string>");
-        } else {
+        if (value == null) {
             out.println(padding + "<string/>");
+            return;
         }
+
+        if (value instanceof Date || value instanceof Calendar) {
+            handleDateValue(out, indentLevel, value, padding);
+        } else if (value instanceof Number) {
+            handleNumberValue(out, value, padding);
+        } else if (value instanceof Boolean) {
+            handleBooleanValue(out, (Boolean) value, padding);
+        } else if (value instanceof List) {
+            handleListValue(out, indentLevel, (List<?>) value, padding);
+        } else if (value instanceof HierarchicalConfiguration) {
+            handleHierarchicalConfig(out, indentLevel, (HierarchicalConfiguration<ImmutableNode>) value);
+        } else if (value instanceof ImmutableConfiguration) {
+            handleImmutableConfig(out, indentLevel, (ImmutableConfiguration) value, padding);
+        } else if (value instanceof Map) {
+            handleMapValue(out, indentLevel, (Map<?, ?>) value);
+        } else if (value instanceof byte[]) {
+            handleByteArrayValue(out, (byte[]) value, padding);
+        } else {
+            handleDefaultValue(out, value, padding);
+        }
+    }
+
+    /** Handles Date and Calendar values. */
+    private void handleDateValue(final PrintWriter out,
+                                 final int indentLevel,
+                                 final Object value,
+                                 final String padding) {
+        if (value instanceof Calendar) {
+            // Just delegate to date logic
+            printValue(out, indentLevel, ((Calendar) value).getTime());
+        } else {
+            // Date
+            synchronized (PListNodeBuilder.FORMAT) {
+                out.println(padding + "<date>"
+                        + PListNodeBuilder.FORMAT.format((Date) value)
+                        + "</date>");
+            }
+        }
+    }
+
+    /** Handles numeric values (integer vs real). */
+    private void handleNumberValue(final PrintWriter out,
+                                   final Object value,
+                                   final String padding) {
+        if (value instanceof Double
+                || value instanceof Float
+                || value instanceof BigDecimal) {
+            out.println(padding + "<real>" + value + "</real>");
+        } else {
+            out.println(padding + "<integer>" + value + "</integer>");
+        }
+    }
+
+    /** Handles boolean values (true/false). */
+    private void handleBooleanValue(final PrintWriter out,
+                                    final Boolean boolVal,
+                                    final String padding) {
+        if (boolVal) {
+            out.println(padding + "<true/>");
+        } else {
+            out.println(padding + "<false/>");
+        }
+    }
+
+    /** Handles a List by printing <array> and recursively printing each item. */
+    private void handleListValue(final PrintWriter out,
+                                 final int indentLevel,
+                                 final List<?> listVal,
+                                 final String padding) {
+        out.println(padding + "<array>");
+        listVal.forEach(o -> printValue(out, indentLevel + 1, o));
+        out.println(padding + "</array>");
+    }
+
+    /** Handles a HierarchicalConfiguration by printing its root node. */
+    @SuppressWarnings("unchecked")
+    private void handleHierarchicalConfig(final PrintWriter out,
+                                          final int indentLevel,
+                                          final HierarchicalConfiguration<ImmutableNode> config) {
+        printNode(out, indentLevel,
+                config.getNodeModel().getNodeHandler().getRootNode());
+    }
+
+    /** Handles an ImmutableConfiguration by printing <dict> with each key as a child node. */
+    private void handleImmutableConfig(final PrintWriter out,
+                                       final int indentLevel,
+                                       final ImmutableConfiguration config,
+                                       final String padding) {
+        out.println(padding + "<dict>");
+        final Iterator<String> it = config.getKeys();
+        while (it.hasNext()) {
+            final String key = it.next();
+            final ImmutableNode node = new ImmutableNode.Builder()
+                    .name(key)
+                    .value(config.getProperty(key))
+                    .create();
+
+            printNode(out, indentLevel + 1, node);
+
+            // Insert a blank line if not the last property
+            if (it.hasNext()) {
+                out.println();
+            }
+        }
+        out.println(padding + "</dict>");
+    }
+
+    /** Handles a Map by transforming it and then printing as a dict. */
+    private void handleMapValue(final PrintWriter out,
+                                final int indentLevel,
+                                final Map<?, ?> mapVal) {
+        final Map<String, Object> map = transformMap(mapVal);
+        printValue(out, indentLevel, new MapConfiguration(map));
+    }
+
+    /** Handles a byte[] by encoding it as Base64 and printing inside <data>. */
+    private void handleByteArrayValue(final PrintWriter out,
+                                      final byte[] bytesVal,
+                                      final String padding) {
+        final String base64 = new String(Base64.encodeBase64(bytesVal), DATA_ENCODING);
+        out.println(padding + "<data>"
+                + StringEscapeUtils.escapeXml10(base64)
+                + "</data>");
+    }
+
+    /** Handles everything else by printing a standard <string> element. */
+    private void handleDefaultValue(final PrintWriter out,
+                                    final Object value,
+                                    final String padding) {
+        out.println(padding + "<string>"
+                + StringEscapeUtils.escapeXml10(String.valueOf(value))
+                + "</string>");
     }
 
     @Override

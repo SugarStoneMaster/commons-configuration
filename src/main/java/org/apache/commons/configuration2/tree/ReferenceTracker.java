@@ -112,40 +112,88 @@ final class ReferenceTracker {
      * @param removedNodes the list with nodes that have been removed
      * @return the new instance
      */
-    public ReferenceTracker updateReferences(final Map<ImmutableNode, ImmutableNode> replacedNodes, final Collection<ImmutableNode> removedNodes) {
-        if (!references.isEmpty()) {
-            Map<ImmutableNode, Object> newRefs = null;
-            for (final Map.Entry<ImmutableNode, ImmutableNode> e : replacedNodes.entrySet()) {
-                final Object ref = references.get(e.getKey());
-                if (ref != null) {
-                    if (newRefs == null) {
-                        newRefs = new HashMap<>(references);
-                    }
-                    newRefs.put(e.getValue(), ref);
-                    newRefs.remove(e.getKey());
-                }
-            }
-
-            List<Object> newRemovedRefs = newRefs != null ? new LinkedList<>(removedReferences) : null;
-            for (final ImmutableNode node : removedNodes) {
-                final Object ref = references.get(node);
-                if (ref != null) {
-                    if (newRefs == null) {
-                        newRefs = new HashMap<>(references);
-                    }
-                    newRefs.remove(node);
-                    if (newRemovedRefs == null) {
-                        newRemovedRefs = new LinkedList<>(removedReferences);
-                    }
-                    newRemovedRefs.add(ref);
-                }
-            }
-
-            if (newRefs != null) {
-                return new ReferenceTracker(newRefs, newRemovedRefs);
-            }
+    public ReferenceTracker updateReferences(final Map<ImmutableNode, ImmutableNode> replacedNodes,
+                                             final Collection<ImmutableNode> removedNodes) {
+        // If we have no references, nothing to update
+        if (references.isEmpty()) {
+            return this;
         }
 
+        Map<ImmutableNode, Object> newRefs = null;
+
+        // 1) Handle replaced nodes
+        newRefs = handleReplacedNodes(replacedNodes, newRefs);
+
+        // 2) If we replaced at least one node, we prepare a new list
+        //    for removed references; otherwise keep it null
+        List<Object> newRemovedRefs = (newRefs != null) ? new LinkedList<>(removedReferences) : null;
+
+        // 3) Handle removed nodes
+        newRefs = handleRemovedNodes(removedNodes, newRefs, newRemovedRefs);
+
+        // 4) If we created new references, return a new ReferenceTracker
+        if (newRefs != null) {
+            return new ReferenceTracker(newRefs, newRemovedRefs);
+        }
+        // Otherwise, nothing changed
         return this;
+    }
+
+    /**
+     * Processes the map of replaced nodes. If a node has a reference, we copy
+     * the entire map of references (lazy creation of newRefs) and update it
+     * so that the old node is replaced by the new node's reference.
+     *
+     * @param replacedNodes the map of old-node to new-node
+     * @param newRefs       the mutable reference map (may be null if not yet created)
+     * @return the possibly updated reference map (unchanged or newly created)
+     */
+    private Map<ImmutableNode, Object> handleReplacedNodes(
+            final Map<ImmutableNode, ImmutableNode> replacedNodes,
+            Map<ImmutableNode, Object> newRefs) {
+
+        for (final Map.Entry<ImmutableNode, ImmutableNode> e : replacedNodes.entrySet()) {
+            final Object ref = references.get(e.getKey());
+            if (ref != null) {
+                // We need a fresh modifiable map if we haven't created one yet
+                if (newRefs == null) {
+                    newRefs = new HashMap<>(references);
+                }
+                newRefs.put(e.getValue(), ref);
+                newRefs.remove(e.getKey());
+            }
+        }
+        return newRefs;
+    }
+
+    /**
+     * Processes the collection of removed nodes. If a node has a reference, we
+     * ensure we have a new modifiable references map, remove that node's reference,
+     * and add it to newRemovedRefs (also created lazily).
+     *
+     * @param removedNodes   the collection of nodes that got removed
+     * @param newRefs        the mutable reference map (may be null if not yet created)
+     * @param newRemovedRefs the list of removed references (may be null if not yet created)
+     * @return the possibly updated reference map (unchanged or newly created)
+     */
+    private Map<ImmutableNode, Object> handleRemovedNodes(
+            final Collection<ImmutableNode> removedNodes,
+            Map<ImmutableNode, Object> newRefs,
+            List<Object> newRemovedRefs) {
+
+        for (final ImmutableNode node : removedNodes) {
+            final Object ref = references.get(node);
+            if (ref != null) {
+                if (newRefs == null) {
+                    newRefs = new HashMap<>(references);
+                }
+                newRefs.remove(node);
+                if (newRemovedRefs == null) {
+                    newRemovedRefs = new LinkedList<>(removedReferences);
+                }
+                newRemovedRefs.add(ref);
+            }
+        }
+        return newRefs;
     }
 }

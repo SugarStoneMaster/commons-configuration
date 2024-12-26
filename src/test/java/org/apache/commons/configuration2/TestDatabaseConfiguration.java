@@ -58,7 +58,6 @@ public class TestDatabaseConfiguration {
         /** A flag whether a getConnection() call should fail. */
         private boolean failOnConnect;
 
-        @Override
         public DataSource getDatasource() {
             return getDS();
         }

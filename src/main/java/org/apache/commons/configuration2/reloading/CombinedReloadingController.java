@@ -73,8 +73,12 @@ public class CombinedReloadingController extends ReloadingController {
          */
         @Override
         public boolean isReloadingRequired() {
-            return owner.getSubControllers().stream().reduce(false, (b, rc) -> b | rc.checkForReloading(null), (t, u) -> t | u);
-        }
+            return owner.getSubControllers().stream().reduce(false,
+                    (b, rc) -> {
+                        boolean rightOperand = rc.checkForReloading(null);
+                        return b || rightOperand;
+                    },
+                    (t, u) -> t || u);        }
 
         /**
          * {@inheritDoc} This implementation resets the reloading state on all managed controllers.

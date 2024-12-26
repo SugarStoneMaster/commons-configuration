@@ -453,8 +453,9 @@ public final class BeanHelper {
     }
 
     /**
-     * Initializes the passed in bean. This method will obtain all the bean's properties that are defined in the passed in
-     * bean declaration. These properties will be set on the bean. If necessary, further beans will be created recursively.
+     * Initializes the passed in bean. This method will obtain all the bean's properties
+     * that are defined in the passed in bean declaration. These properties will be set
+     * on the bean. If necessary, further beans will be created recursively.
      *
      * @param bean the bean to be initialized
      * @param data the bean declaration
@@ -464,39 +465,51 @@ public final class BeanHelper {
         initBeanProperties(bean, data);
 
         final Map<String, Object> nestedBeans = data.getNestedBeanDeclarations();
-        if (nestedBeans != null) {
-            if (bean instanceof Collection) {
-                // This is safe because the collection stores the values of the
-                // nested beans.
+        if (nestedBeans == null) {
+            return;
+        }
+
+        if (bean instanceof Collection) {
+            initNestedBeansForCollection(bean, nestedBeans);
+        } else {
+            initNestedBeansForObject(bean, nestedBeans);
+        }
+    }
+
+    /** Handles the case when {@code bean} is a {@code Collection}. */
+    private void initNestedBeansForCollection(final Object bean, final Map<String, Object> nestedBeans) {
+        @SuppressWarnings("unchecked")
+        final Collection<Object> coll = (Collection<Object>) bean;
+        if (nestedBeans.size() == 1) {
+            final Map.Entry<String, Object> e = nestedBeans.entrySet().iterator().next();
+            final String propName = e.getKey();
+            final Class<?> defaultClass = getDefaultClass(bean, propName);
+            final Object value = e.getValue();
+
+            if (value instanceof List) {
                 @SuppressWarnings("unchecked")
-                final Collection<Object> coll = (Collection<Object>) bean;
-                if (nestedBeans.size() == 1) {
-                    final Map.Entry<String, Object> e = nestedBeans.entrySet().iterator().next();
-                    final String propName = e.getKey();
-                    final Class<?> defaultClass = getDefaultClass(bean, propName);
-                    if (e.getValue() instanceof List) {
-                        // This is safe, provided that the bean declaration is implemented
-                        // correctly.
-                        @SuppressWarnings("unchecked")
-                        final List<BeanDeclaration> decls = (List<BeanDeclaration>) e.getValue();
-                        decls.forEach(decl -> coll.add(createBean(decl, defaultClass)));
-                    } else {
-                        coll.add(createBean((BeanDeclaration) e.getValue(), defaultClass));
-                    }
-                }
+                final List<BeanDeclaration> decls = (List<BeanDeclaration>) value;
+                decls.forEach(decl -> coll.add(createBean(decl, defaultClass)));
             } else {
-                nestedBeans.forEach((propName, prop) -> {
-                    final Class<?> defaultClass = getDefaultClass(bean, propName);
-                    if (prop instanceof Collection) {
-                        final Collection<Object> beanCollection = createPropertyCollection(propName, defaultClass);
-                        ((Collection<BeanDeclaration>) prop).forEach(elemDef -> beanCollection.add(createBean(elemDef)));
-                        initProperty(bean, propName, beanCollection);
-                    } else {
-                        initProperty(bean, propName, createBean((BeanDeclaration) prop, defaultClass));
-                    }
-                });
+                coll.add(createBean((BeanDeclaration) value, defaultClass));
             }
         }
+    }
+
+    /** Handles the case when {@code bean} is a normal object (not a {@code Collection}). */
+    private void initNestedBeansForObject(final Object bean, final Map<String, Object> nestedBeans) {
+        nestedBeans.forEach((propName, prop) -> {
+            final Class<?> defaultClass = getDefaultClass(bean, propName);
+            if (prop instanceof Collection) {
+                @SuppressWarnings("unchecked")
+                final Collection<BeanDeclaration> beanDecls = (Collection<BeanDeclaration>) prop;
+                final Collection<Object> beanCollection = createPropertyCollection(propName, defaultClass);
+                beanDecls.forEach(elemDef -> beanCollection.add(createBean(elemDef)));
+                initProperty(bean, propName, beanCollection);
+            } else {
+                initProperty(bean, propName, createBean((BeanDeclaration) prop, defaultClass));
+            }
+        });
     }
 
     /**

@@ -99,91 +99,180 @@ public final class PropertyConverter {
         return toEnum(value, enumClass.asSubclass(Enum.class));
     }
 
-    /**
-     * Converts the specified value object to the given target data class. If additional
-     * information is required for this conversion, it is obtained from the passed in {@code DefaultConversionHandler}
-     * object. If the class is a primitive type (Integer.TYPE, Boolean.TYPE, etc), the value returned will use the wrapper
-     * type (Integer.class, Boolean.class, etc).
-     *
-     * @param cls the target class of the converted value
-     * @param value the value to convert
-     * @param convHandler the conversion handler object
-     * @return the converted value
-     * @throws ConversionException if the value is not compatible with the requested type
-     */
-    public static Object to(final Class<?> cls, final Object value, final DefaultConversionHandler convHandler) throws ConversionException {
+    public static Object to(final Class<?> cls, final Object value, final DefaultConversionHandler convHandler)
+            throws ConversionException {
+
+        // 1) If the value is already of type cls, no conversion needed
         if (cls.isInstance(value)) {
-            return value; // no conversion needed
+            return value;
         }
 
+        // 2) Handle simple (non-numeric) cases
         if (String.class.equals(cls)) {
             return String.valueOf(value);
         }
-        if (Boolean.class.equals(cls) || Boolean.TYPE.equals(cls)) {
+        if (isBooleanType(cls)) {
             return toBoolean(value);
         }
-        if (Character.class.equals(cls) || Character.TYPE.equals(cls)) {
+        if (isCharacterType(cls)) {
             return toCharacter(value);
         }
-        if (Number.class.isAssignableFrom(cls) || cls.isPrimitive()) {
-            if (Integer.class.equals(cls) || Integer.TYPE.equals(cls)) {
-                return toInteger(value);
-            }
-            if (Long.class.equals(cls) || Long.TYPE.equals(cls)) {
-                return toLong(value);
-            }
-            if (Byte.class.equals(cls) || Byte.TYPE.equals(cls)) {
-                return toByte(value);
-            }
-            if (Short.class.equals(cls) || Short.TYPE.equals(cls)) {
-                return toShort(value);
-            }
-            if (Float.class.equals(cls) || Float.TYPE.equals(cls)) {
-                return toFloat(value);
-            }
-            if (Double.class.equals(cls) || Double.TYPE.equals(cls)) {
-                return toDouble(value);
-            }
-            if (BigInteger.class.equals(cls)) {
-                return toBigInteger(value);
-            }
-            if (BigDecimal.class.equals(cls)) {
-                return toBigDecimal(value);
-            }
-            return toNumber(value, cls);
-        } else if (Date.class.equals(cls)) {
-            return toDate(value, convHandler.getDateFormat());
-        } else if (Calendar.class.equals(cls)) {
-            return toCalendar(value, convHandler.getDateFormat());
-        } else if (File.class.equals(cls)) {
-            return toFile(value);
-        } else if (Path.class.equals(cls)) {
-            return toPath(value);
-        } else if (URI.class.equals(cls)) {
-            return toURI(value);
-        } else if (URL.class.equals(cls)) {
-            return toURL(value);
-        } else if (Pattern.class.equals(cls)) {
-            return toPattern(value);
-        } else if (Locale.class.equals(cls)) {
-            return toLocale(value);
-        } else if (cls.isEnum()) {
-            return convertToEnum(cls, value);
-        } else if (Color.class.equals(cls)) {
-            return toColor(value);
-        } else if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAVAX)) {
-            // javamail-1.* With javax.mail.* namespace.
-            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAVAX);
-        } else if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAKARTA)) {
-            // javamail-2.0+, with jakarta.mail.* namespace.
-            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAKARTA);
-        } else if (InetAddress.class.isAssignableFrom(cls)) {
-            return toInetAddress(value);
-        } else if (Duration.class.equals(cls)) {
-            return toDuration(value);
+
+        // 3) Handle numeric types
+        if (isNumericType(cls)) {
+            return handleNumericType(cls, value);
         }
 
-        throw new ConversionException("The value '" + value + "' (" + value.getClass() + ")" + CANT_BE_CONVERT + cls.getName() + " object");
+        // 4) Delegate the remaining types to a helper that groups them by category
+        final Object result = handleOtherTypes(cls, value, convHandler);
+        if (result != null) {
+            return result;
+        }
+
+        // 5) If none of the groups returned a result, throw an exception
+        throw new ConversionException(
+                "The value '" + value + "' (" + value.getClass() + ") "
+                        + CANT_BE_CONVERT + cls.getName() + " object"
+        );
+    }
+
+    /**
+     * Attempts conversions for all remaining types (date/time, file/network, patterns, etc.).
+     * Returns {@code null} if none matched, signaling we should throw.
+     */
+    private static Object handleOtherTypes(final Class<?> cls, final Object value, final DefaultConversionHandler convHandler) {
+        // A) Date/time types
+        final Object dateTime = handleDateTimeType(cls, value, convHandler);
+        if (dateTime != null) {
+            return dateTime;
+        }
+
+        // B) File/network types
+        final Object fileNet = handleFileNetworkType(cls, value);
+        if (fileNet != null) {
+            return fileNet;
+        }
+
+        // C) Misc. special-case types (Regex, Locale, Enum, Color, etc.)
+        final Object special = handleSpecialCaseType(cls, value);
+        if (special != null) {
+            return special;
+        }
+
+        // None of the above matched => return null so the caller can throw
+        return null;
+    }
+
+    /**
+     * Handles Date/Calendar conversions, returns null if cls does not match.
+     */
+    private static Object handleDateTimeType(final Class<?> cls, final Object value, final DefaultConversionHandler convHandler) {
+        if (Date.class.equals(cls)) {
+            return toDate(value, convHandler.getDateFormat());
+        }
+        if (Calendar.class.equals(cls)) {
+            return toCalendar(value, convHandler.getDateFormat());
+        }
+        return null;
+    }
+
+    /**
+     * Handles File/Path/URI/URL/InetAddress conversions, returns null if cls does not match.
+     */
+    private static Object handleFileNetworkType(final Class<?> cls, final Object value) {
+        if (File.class.equals(cls)) {
+            return toFile(value);
+        }
+        if (Path.class.equals(cls)) {
+            return toPath(value);
+        }
+        if (URI.class.equals(cls)) {
+            return toURI(value);
+        }
+        if (URL.class.equals(cls)) {
+            return toURL(value);
+        }
+        if (InetAddress.class.isAssignableFrom(cls)) {
+            return toInetAddress(value);
+        }
+        return null;
+    }
+
+    /**
+     * Handles Patterns, Locales, Enums, Color, mail InternetAddress, Duration, etc.
+     * Returns null if cls does not match any known special case.
+     */
+    private static Object handleSpecialCaseType(final Class<?> cls, final Object value) {
+        if (Pattern.class.equals(cls)) {
+            return toPattern(value);
+        }
+        if (Locale.class.equals(cls)) {
+            return toLocale(value);
+        }
+        if (cls.isEnum()) {
+            return convertToEnum(cls, value);
+        }
+        if (Color.class.equals(cls)) {
+            return toColor(value);
+        }
+        if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAVAX)) {
+            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAVAX);
+        }
+        if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAKARTA)) {
+            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAKARTA);
+        }
+        if (Duration.class.equals(cls)) {
+            return toDuration(value);
+        }
+        return null;
+    }
+
+    /** True if cls is either Boolean.class or boolean.class. */
+    private static boolean isBooleanType(final Class<?> cls) {
+        return Boolean.class.equals(cls) || Boolean.TYPE.equals(cls);
+    }
+
+    /** True if cls is either Character.class or char.class. */
+    private static boolean isCharacterType(final Class<?> cls) {
+        return Character.class.equals(cls) || Character.TYPE.equals(cls);
+    }
+
+    /** True if cls is a numeric wrapper (extends Number) or a numeric primitive. */
+    private static boolean isNumericType(final Class<?> cls) {
+        return Number.class.isAssignableFrom(cls) || cls.isPrimitive();
+    }
+
+    /**
+     * Handles all numeric conversions (Integer, Long, Byte, Short, Float,
+     * Double, BigInteger, BigDecimal, or a generic Number).
+     */
+    private static Object handleNumericType(final Class<?> cls, final Object value) {
+        if (Integer.class.equals(cls) || Integer.TYPE.equals(cls)) {
+            return toInteger(value);
+        }
+        if (Long.class.equals(cls) || Long.TYPE.equals(cls)) {
+            return toLong(value);
+        }
+        if (Byte.class.equals(cls) || Byte.TYPE.equals(cls)) {
+            return toByte(value);
+        }
+        if (Short.class.equals(cls) || Short.TYPE.equals(cls)) {
+            return toShort(value);
+        }
+        if (Float.class.equals(cls) || Float.TYPE.equals(cls)) {
+            return toFloat(value);
+        }
+        if (Double.class.equals(cls) || Double.TYPE.equals(cls)) {
+            return toDouble(value);
+        }
+        if (BigInteger.class.equals(cls)) {
+            return toBigInteger(value);
+        }
+        if (BigDecimal.class.equals(cls)) {
+            return toBigDecimal(value);
+        }
+        // Fallback for other numeric wrapper classes
+        return toNumber(value, cls);
     }
 
     /**

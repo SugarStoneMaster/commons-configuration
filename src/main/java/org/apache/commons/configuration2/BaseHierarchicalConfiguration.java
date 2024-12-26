@@ -84,6 +84,12 @@ public class BaseHierarchicalConfiguration extends AbstractHierarchicalConfigura
          * @param node the current node to be processed
          * @param refHandler the {@code ReferenceNodeHandler}
          */
+        /**
+         * Inserts new children that have been added to the specified node.
+         *
+         * @param node the current node to be processed
+         * @param refHandler the {@code ReferenceNodeHandler}
+         */
         private void insertNewChildNodes(final ImmutableNode node, final ReferenceNodeHandler refHandler) {
             final Collection<ImmutableNode> subNodes = new LinkedList<>(refHandler.getChildren(node));
             final Iterator<ImmutableNode> children = subNodes.iterator();
@@ -91,34 +97,100 @@ public class BaseHierarchicalConfiguration extends AbstractHierarchicalConfigura
             ImmutableNode nd = null;
 
             while (children.hasNext()) {
-                // find the next new node
+                // 1) Skip existing (non-new) nodes using do/while:
                 do {
                     sibling1 = nd;
                     nd = children.next();
-                } while (refHandler.getReference(nd) != null && children.hasNext());
+                }
+                while (refHandler.getReference(nd) != null && children.hasNext());
 
+                // 2) If we found a node that is actually new (has no reference)...
                 if (refHandler.getReference(nd) == null) {
-                    // find all following new nodes
-                    final List<ImmutableNode> newNodes = new LinkedList<>();
-                    newNodes.add(nd);
-                    while (children.hasNext()) {
-                        nd = children.next();
-                        if (refHandler.getReference(nd) != null) {
-                            break;
-                        }
-                        newNodes.add(nd);
-                    }
+                    // Gather nd and any immediately-following new nodes
+                    final ConsecutiveNodes consecutive = gatherConsecutiveNewNodes(nd, children, refHandler);
 
-                    // Insert all new nodes
-                    final ImmutableNode sibling2 = refHandler.getReference(nd) == null ? null : nd;
-                    for (final ImmutableNode insertNode : newNodes) {
-                        if (refHandler.getReference(insertNode) == null) {
-                            insert(insertNode, node, sibling1, sibling2, refHandler);
-                            sibling1 = insertNode;
-                        }
-                    }
+                    // The gather method may have broken out upon a non-new node,
+                    // so we must continue from that node in the next iteration:
+                    nd = consecutive.lastReadNode;
+
+                    // Decide which node is the "sibling2" boundary for insertion
+                    final ImmutableNode sibling2 =
+                            refHandler.getReference(nd) == null ? null : nd;
+
+                    // Insert each node in the newly collected block
+                    sibling1 = insertCollectedNodes(consecutive.newNodes, sibling1,
+                            sibling2, node, refHandler);
                 }
             }
+        }
+
+        /**
+         * Holds the consecutive new nodes plus the last node that was read from
+         * the iterator (which might be new or not). This allows the caller to
+         * resume iterating exactly where we left off.
+         */
+        private static final class ConsecutiveNodes {
+            /** new Nodes*/
+            private final List<ImmutableNode> newNodes;
+            /** lastReadNode*/
+            private final ImmutableNode lastReadNode;
+
+            ConsecutiveNodes(final List<ImmutableNode> newNodes, final ImmutableNode lastReadNode) {
+                this.newNodes = newNodes;
+                this.lastReadNode = lastReadNode;
+            }
+        }
+
+        /**
+         * Collects 'startNode' plus any subsequent siblings that are also "new"
+         * (i.e., have a null reference), stopping as soon as we encounter a non-new
+         * node. That non-new node remains in 'lastReadNode' so the caller can
+         * continue from there on the next iteration.
+         */
+        private ConsecutiveNodes gatherConsecutiveNewNodes(
+                ImmutableNode startNode,
+                final Iterator<ImmutableNode> children,
+                final ReferenceNodeHandler refHandler) {
+
+            final List<ImmutableNode> newNodes = new LinkedList<>();
+            newNodes.add(startNode);
+            ImmutableNode current = startNode;
+
+            while (children.hasNext()) {
+                final ImmutableNode next = children.next();
+                if (refHandler.getReference(next) != null) {
+                    // We hit a non-new node.
+                    // We'll return that as 'lastReadNode' so the caller
+                    // sees it in the outer loop.
+                    return new ConsecutiveNodes(newNodes, next);
+                }
+                newNodes.add(next);
+                current = next;
+            }
+
+            // If we ran out of children, the last new node is our lastReadNode
+            return new ConsecutiveNodes(newNodes, current);
+        }
+
+        /**
+         * Inserts all nodes in 'nodesToInsert' that are still new (no reference)
+         * between 'sibling1' and 'sibling2'. Returns the last inserted node
+         * (which becomes the next sibling1).
+         */
+        private ImmutableNode insertCollectedNodes(
+                final List<ImmutableNode> nodesToInsert,
+                ImmutableNode sibling1,
+                final ImmutableNode sibling2,
+                final ImmutableNode parent,
+                final ReferenceNodeHandler refHandler) {
+
+            for (final ImmutableNode insertNode : nodesToInsert) {
+                if (refHandler.getReference(insertNode) == null) {
+                    insert(insertNode, parent, sibling1, sibling2, refHandler);
+                    sibling1 = insertNode;
+                }
+            }
+            return sibling1;
         }
 
         /**

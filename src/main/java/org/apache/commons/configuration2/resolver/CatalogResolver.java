@@ -64,40 +64,65 @@ public class CatalogResolver implements EntityResolver {
             // This is safe because the catalog manager returns a vector of strings.
             final Vector<String> catalogs = catalogManager.getCatalogFiles();
             if (catalogs != null) {
-                for (int count = 0; count < catalogs.size(); count++) {
-                    final String fileName = catalogs.elementAt(count);
-
-                    URL url = null;
-                    InputStream inputStream = null;
-
-                    try {
-                        url = locate(fs, base, fileName);
-                        if (url != null) {
-                            inputStream = fs.getInputStream(url);
-                        }
-                    } catch (final ConfigurationException ce) {
-                        final String name = url.toString();
-                        // Ignore the exception.
-                        catalogManager.debug.message(DEBUG_ALL, "Unable to get input stream for " + name + ". " + ce.getMessage());
-                    }
-                    if (inputStream != null) {
-                        final String mimeType = fileNameMap.getContentTypeFor(fileName);
-                        try {
-                            if (mimeType != null) {
-                                parseCatalog(mimeType, inputStream);
-                                continue;
-                            }
-                        } catch (final Exception ex) {
-                            // Ignore the exception.
-                            catalogManager.debug.message(DEBUG_ALL, "Exception caught parsing input stream for " + fileName + ". " + ex.getMessage());
-                        } finally {
-                            inputStream.close();
-                        }
-                    }
-                    parseCatalog(base, fileName);
+                for (int i = 0; i < catalogs.size(); i++) {
+                    final String fileName = catalogs.elementAt(i);
+                    loadSingleCatalog(fileName, base);
                 }
             }
+        }
 
+        /** Loads a single catalog file by first trying to open an InputStream, then parsing. */
+        private void loadSingleCatalog(final String fileName, final String base) throws IOException {
+            URL url = null;
+            InputStream inputStream = null;
+
+            // Try locating and opening the file. If that fails, we log & ignore.
+            try {
+                url = locate(fs, base, fileName);
+                if (url != null) {
+                    inputStream = fs.getInputStream(url);
+                }
+            } catch (final ConfigurationException ce) {
+                final String name = url.toString();
+                // Ignore the exception, but log it.
+                catalogManager.debug.message(DEBUG_ALL,
+                        "Unable to get input stream for " + name + ". " + ce.getMessage());
+            }
+
+            // If we have a valid InputStream, try parsing by MIME type. Otherwise, parse by fallback.
+            if (inputStream != null) {
+                handleInputStream(base, fileName, inputStream);
+            } else {
+                parseCatalog(base, fileName);
+            }
+        }
+
+        /**
+         * Attempts to parse the catalog from an open InputStream using its MIME type,
+         * then falls back to parseCatalog(base, fileName) if needed.
+         */
+        private void handleInputStream(final String base,
+                                       final String fileName,
+                                       final InputStream inputStream) throws IOException {
+            try {
+                final String mimeType = fileNameMap.getContentTypeFor(fileName);
+                if (mimeType != null) {
+                    parseCatalog(mimeType, inputStream);
+                    return;
+                    // If parseCatalog() succeeds, we skip the fallback below.
+                }
+            } catch (final Exception ex) {
+                // Ignore the exception, but log it.
+                catalogManager.debug.message(
+                        DEBUG_ALL,
+                        "Exception caught parsing input stream for " + fileName + ". " + ex.getMessage()
+                );
+            } finally {
+                inputStream.close();
+            }
+
+            // Fallback to parse by base + fileName if no MIME type or parsing failed
+            parseCatalog(base, fileName);
         }
 
         /**

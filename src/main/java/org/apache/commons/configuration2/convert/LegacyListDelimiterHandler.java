@@ -173,8 +173,9 @@ public class LegacyListDelimiterHandler extends AbstractListDelimiterHandler {
     }
 
     /**
-     * {@inheritDoc} This implementation simulates the old splitting algorithm. The string is split at the delimiter
-     * character if it is not escaped. If the delimiter character is not found, the input is returned unchanged.
+     * {@inheritDoc} This implementation simulates the old splitting algorithm.
+     * The string is split at the delimiter character if it is not escaped.
+     * If the delimiter character is not found, the input is returned unchanged.
      */
     @Override
     protected Collection<String> splitString(final String s, final boolean trim) {
@@ -183,53 +184,58 @@ public class LegacyListDelimiterHandler extends AbstractListDelimiterHandler {
         }
 
         final List<String> list = new ArrayList<>();
-
-        StringBuilder token = new StringBuilder();
-        int begin = 0;
-        boolean inEscape = false;
         final char esc = ESCAPE.charAt(0);
 
-        while (begin < s.length()) {
-            final char c = s.charAt(begin);
+        StringBuilder token = new StringBuilder();
+        boolean inEscape = false;
+
+        for (int i = 0; i < s.length(); i++) {
+            final char c = s.charAt(i);
+
             if (inEscape) {
-                // last character was the escape marker
-                // can current character be escaped?
-                if (c != getDelimiter() && c != esc) {
-                    // no, also add escape character
-                    token.append(esc);
-                }
-                token.append(c);
+                handleEscapedChar(token, c, esc);
                 inEscape = false;
             } else if (c == getDelimiter()) {
-                // found a list delimiter -> add token and
-                // resetDefaultFileSystem buffer
-                String t = token.toString();
-                if (trim) {
-                    t = t.trim();
-                }
-                list.add(t);
+                finalizeToken(list, token, trim);
                 token = new StringBuilder();
             } else if (c == esc) {
-                // eventually escape next character
                 inEscape = true;
             } else {
                 token.append(c);
             }
-
-            begin++;
         }
 
-        // Trailing delimiter?
+        // If the last char was an escape, append the escape char.
         if (inEscape) {
             token.append(esc);
         }
-        // Add last token
+
+        // Add the final token to the list
+        finalizeToken(list, token, trim);
+
+        return list;
+    }
+
+    /**
+     * Appends the current character correctly if we?re in "escape" mode.
+     * If the char cannot be escaped, we re-insert the escape character.
+     */
+    private void handleEscapedChar(final StringBuilder token, final char c, final char esc) {
+        if (c != getDelimiter() && c != esc) {
+            token.append(esc);
+        }
+        token.append(c);
+    }
+
+    /**
+     * Converts the current token to a String, optionally trims it,
+     * and adds it to the list.
+     */
+    private void finalizeToken(final List<String> list, final StringBuilder token, final boolean trim) {
         String t = token.toString();
         if (trim) {
             t = t.trim();
         }
         list.add(t);
-
-        return list;
     }
 }

@@ -486,50 +486,80 @@ public class INIConfiguration extends BaseHierarchicalConfiguration implements F
     }
 
     /**
-     * Reads the content of an INI file from the passed in reader and creates a structure of builders for constructing the
-     * {@code ImmutableNode} objects representing the data.
+     * Reads the content of an INI file from the passed in reader and creates a structure of builders
+     * for constructing the {@code ImmutableNode} objects representing the data.
      *
      * @param in the reader
      * @param rootBuilder the builder for the top-level section
      * @param sectionBuilders a map storing the section builders
      * @throws IOException if an I/O error occurs.
      */
-    private void createNodeBuilders(final BufferedReader in, final ImmutableNode.Builder rootBuilder, final Map<String, ImmutableNode.Builder> sectionBuilders)
-        throws IOException {
+    private void createNodeBuilders(final BufferedReader in,
+                                    final ImmutableNode.Builder rootBuilder,
+                                    final Map<String, ImmutableNode.Builder> sectionBuilders)
+            throws IOException {
+
         ImmutableNode.Builder sectionBuilder = rootBuilder;
         String line = in.readLine();
+
         while (line != null) {
             line = line.trim();
             if (!isCommentLine(line)) {
                 if (isSectionLine(line)) {
-                    final int length = sectionInLineCommentsAllowed ? line.indexOf("]") : line.length() - 1;
-                    String section = line.substring(1, length);
-                    if (section.isEmpty()) {
-                        // use space for sections with no key
-                        section = EMPTY_KEY;
-                    }
-                    sectionBuilder = sectionBuilders.computeIfAbsent(section, k -> new ImmutableNode.Builder());
+                    sectionBuilder = handleSectionLine(line, sectionBuilders);
                 } else {
-                    String key;
-                    String value = "";
-                    final int index = findSeparator(line);
-                    if (index >= 0) {
-                        key = line.substring(0, index);
-                        value = parseValue(line.substring(index + 1), in);
-                    } else {
-                        key = line;
-                    }
-                    key = key.trim();
-                    if (key.isEmpty()) {
-                        // use space for properties with no key
-                        key = EMPTY_KEY;
-                    }
-                    createValueNodes(sectionBuilder, key, value);
+                    handlePropertyLine(line, in, sectionBuilder);
                 }
             }
-
             line = in.readLine();
         }
+    }
+
+    /**
+     * Handles a line that indicates a new section. Returns the builder
+     * for the requested (or newly created) section.
+     */
+    private ImmutableNode.Builder handleSectionLine(final String line,
+                                                    final Map<String, ImmutableNode.Builder> sectionBuilders) {
+
+        final int length = sectionInLineCommentsAllowed
+                ? line.indexOf(']')
+                : line.length() - 1;
+
+        String section = line.substring(1, length);
+        if (section.isEmpty()) {
+            // use space for sections with no key
+            section = EMPTY_KEY;
+        }
+        return sectionBuilders.computeIfAbsent(section, k -> new ImmutableNode.Builder());
+    }
+
+    /**
+     * Handles a line that defines a property key/value pair
+     * (or a key with no value).
+     */
+    private void handlePropertyLine(String line,
+                                    final BufferedReader in,
+                                    final ImmutableNode.Builder sectionBuilder)
+            throws IOException {
+
+        String key;
+        String value = "";
+
+        final int index = findSeparator(line);
+        if (index >= 0) {
+            key = line.substring(0, index);
+            value = parseValue(line.substring(index + 1), in);
+        } else {
+            key = line;
+        }
+
+        key = key.trim();
+        if (key.isEmpty()) {
+            // use space for properties with no key
+            key = EMPTY_KEY;
+        }
+        createValueNodes(sectionBuilder, key, value);
     }
 
     /**

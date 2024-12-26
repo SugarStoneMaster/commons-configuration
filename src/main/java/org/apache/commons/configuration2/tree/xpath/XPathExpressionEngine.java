@@ -283,57 +283,274 @@ public class XPathExpressionEngine implements ExpressionEngine {
     }
 
     /**
-     * Creates a {@code NodeAddData} object as a result of a {@code prepareAdd()} operation. This method interprets the
-     * passed in path of the new node.
+     * Creates a {@code NodeAddData} object as a result of a {@code prepareAdd()} operation.
+     * This method interprets the passed-in path of the new node.
      *
+     * @param <T> the type of the nodes involved
      * @param path the path of the new node
      * @param parentNodeResult the parent node
-     * @param <T> the type of the nodes involved
+     * @return the {@code NodeAddData} for adding a new node
      */
     <T> NodeAddData<T> createNodeAddData(final String path, final QueryResult<T> parentNodeResult) {
+        // If the parent node is actually an attribute, we cannot add children to it.
         if (parentNodeResult.isAttributeResult()) {
             invalidPath(path, " cannot add properties to an attribute.");
         }
-        final List<String> pathNodes = new LinkedList<>();
-        String lastComponent = null;
-        boolean attr = false;
-        boolean first = true;
 
+        // Parse the path into components (list of nodes + final component + attribute flag).
+        final ParsedPathComponents parsed = parsePath(path);
+
+        // Build and return the result using the parsed components.
+        return new NodeAddData<>(
+                parentNodeResult.getNode(),
+                parsed.getLastComponent(),
+                parsed.isAttr(),
+                parsed.getPathNodes()
+        );
+    }
+
+    /**
+     * Parses the given path into its components (list of path nodes, the final component,
+     * and whether that final component is interpreted as an attribute).
+     *
+     * @param path the path to parse
+     * @return a ParsedPathComponents object containing the parsed result
+     */
+    private ParsedPathComponents parsePath(final String path) {
+        final List<String> pathNodes = new LinkedList<>();
         final StringTokenizer tok = new StringTokenizer(path, NODE_PATH_DELIMITERS, true);
+
+        // Track the local parsing state: the "lastComponent," whether we are in "attr" mode,
+        // and whether this is the "first" token.
+        ParseState state = new ParseState(null, false, true);
+
+        // Read and process all tokens from the path.
         while (tok.hasMoreTokens()) {
             final String token = tok.nextToken();
-            if (PATH_DELIMITER.equals(token)) {
-                if (attr) {
-                    invalidPath(path, " contains an attribute" + " delimiter at a disallowed position.");
-                }
-                if (lastComponent == null) {
-                    invalidPath(path, " contains a '/' at a disallowed position.");
-                }
-                pathNodes.add(lastComponent);
-                lastComponent = null;
-            } else if (ATTR_DELIMITER.equals(token)) {
-                if (attr) {
-                    invalidPath(path, " contains multiple attribute delimiters.");
-                }
-                if (lastComponent == null && !first) {
-                    invalidPath(path, " contains an attribute delimiter at a disallowed position.");
-                }
-                if (lastComponent != null) {
-                    pathNodes.add(lastComponent);
-                }
-                attr = true;
-                lastComponent = null;
-            } else {
-                lastComponent = token;
-            }
-            first = false;
+            state = processToken(path, token, pathNodes, state);
         }
 
-        if (lastComponent == null) {
-            invalidPath(path, "contains no components.");
+        // The path must end with a valid lastComponent; otherwise it's incomplete.
+        if (state.getLastComponent() == null) {
+            invalidPath(path, " contains no components.");
         }
 
-        return new NodeAddData<>(parentNodeResult.getNode(), lastComponent, attr, pathNodes);
+        return new ParsedPathComponents(pathNodes, state.getLastComponent(), state.isAttr());
+    }
+
+    /**
+     * Processes a single token from the path, returning an updated ParseState.
+     *
+     * @param path       the original path string (for error messages)
+     * @param token      the current token from the path
+     * @param pathNodes  the list of nodes encountered so far
+     * @param state      the current parse state
+     * @return the updated parse state
+     */
+    private ParseState processToken(final String path,
+                                    final String token,
+                                    final List<String> pathNodes,
+                                    final ParseState state) {
+        // Decide which type of token we have: path delimiter, attribute delimiter, or normal text.
+        switch (token) {
+            case PATH_DELIMITER:
+                return handlePathDelimiter(path, pathNodes, state);
+
+            case ATTR_DELIMITER:
+                return handleAttrDelimiter(path, pathNodes, state);
+
+            default:
+                // Normal (non-delimiter) token => store it as lastComponent.
+                return handleDefaultToken(token, state);
+        }
+    }
+
+    /**
+     * Handles the '/' delimiter case.
+     * If we're already in 'attr' mode or if there's no current token to finalize,
+     * it's an invalid path.
+     *
+     * @param path      the original path string (for error messages)
+     * @param pathNodes the list of nodes encountered so far
+     * @param state     the current parse state
+     * @return the updated parse state
+     */
+    private ParseState handlePathDelimiter(final String path,
+                                           final List<String> pathNodes,
+                                           final ParseState state) {
+        if (state.isAttr()) {
+            invalidPath(path, " contains an attribute delimiter ('@') at a disallowed position.");
+        }
+        if (state.getLastComponent() == null) {
+            invalidPath(path, " contains a '/' at a disallowed position.");
+        }
+
+        // Add the lastComponent to the list of path nodes, then reset it.
+        pathNodes.add(state.getLastComponent());
+        return new ParseState(null, state.isAttr(), false);
+    }
+
+    /**
+     * Handles the '@' delimiter case.
+     * If we've already encountered '@' or if it's placed incorrectly, it's invalid.
+     *
+     * @param path      the original path string (for error messages)
+     * @param pathNodes the list of nodes encountered so far
+     * @param state     the current parse state
+     * @return the updated parse state
+     */
+    private ParseState handleAttrDelimiter(final String path,
+                                           final List<String> pathNodes,
+                                           final ParseState state) {
+        if (state.isAttr()) {
+            invalidPath(path, " contains multiple attribute delimiters.");
+        }
+        if (state.getLastComponent() == null && !state.isFirst()) {
+            invalidPath(path, " contains an attribute delimiter at a disallowed position.");
+        }
+
+        // If we have a lastComponent, add it to the path nodes first.
+        if (state.getLastComponent() != null) {
+            pathNodes.add(state.getLastComponent());
+        }
+        // Now mark that we're in attribute mode, and reset lastComponent to null.
+        return new ParseState(null, true, false);
+    }
+
+    /**
+     * Handles a "normal" token (neither '/' nor '@').
+     * We simply store this token as the last component.
+     *
+     * @param token the current token
+     * @param state the current parse state
+     * @return the updated parse state
+     */
+    private ParseState handleDefaultToken(final String token, final ParseState state) {
+        return new ParseState(token, state.isAttr(), false);
+    }
+
+    /**
+     * A container for partial parse results while iterating through tokens.
+     * We keep track of the 'lastComponent' text, whether we're in 'attr' mode,
+     * and whether this is the 'first' token in the path.
+     */
+    private static final class ParseState {
+        /**
+         * The last token or partial path component encountered.
+         */
+        private final String lastComponent;
+
+        /**
+         * Indicates whether we are currently in attribute mode.
+         */
+        private final boolean attr;
+
+        /**
+         * True if this is the first token encountered.
+         */
+        private final boolean first;
+
+        /**
+         * Constructs a new {@code ParseState}.
+         *
+         * @param lastComponent the last path component seen
+         * @param attr whether we are in attribute mode
+         * @param first whether this is the first token
+         */
+        ParseState(final String lastComponent, final boolean attr, final boolean first) {
+            this.lastComponent = lastComponent;
+            this.attr = attr;
+            this.first = first;
+        }
+
+        /**
+         * Returns the last component encountered.
+         *
+         * @return the last component as a string
+         */
+        String getLastComponent() {
+            return lastComponent;
+        }
+
+        /**
+         * Returns whether we are currently in attribute mode.
+         *
+         * @return {@code true} if we are in attribute mode; {@code false} otherwise
+         */
+        boolean isAttr() {
+            return attr;
+        }
+
+        /**
+         * Returns whether this is the first token encountered.
+         *
+         * @return {@code true} if this is the first token; {@code false} otherwise
+         */
+        boolean isFirst() {
+            return first;
+        }
+    }
+
+    /**
+     * A small container for the final results of parsing a path.
+     */
+    private static final class ParsedPathComponents {
+        /**
+         * The list of path nodes encountered, excluding the very last component.
+         */
+        private final List<String> pathNodes;
+
+        /**
+         * The last token or partial path component encountered in the path.
+         */
+        private final String lastComponent;
+
+        /**
+         * Whether the last token is an attribute or not.
+         */
+        private final boolean attr;
+
+        /**
+         * Constructs a new {@code ParsedPathComponents}.
+         *
+         * @param pathNodes the list of node components so far
+         * @param lastComponent the final path component
+         * @param attr whether this final component is interpreted as an attribute
+         */
+        ParsedPathComponents(final List<String> pathNodes,
+                             final String lastComponent,
+                             final boolean attr) {
+            this.pathNodes = pathNodes;
+            this.lastComponent = lastComponent;
+            this.attr = attr;
+        }
+
+        /**
+         * Returns the list of node components (excluding the final one).
+         *
+         * @return the list of path nodes
+         */
+        List<String> getPathNodes() {
+            return pathNodes;
+        }
+
+        /**
+         * Returns the final path component encountered.
+         *
+         * @return the last path component
+         */
+        String getLastComponent() {
+            return lastComponent;
+        }
+
+        /**
+         * Returns {@code true} if the final component is interpreted as an attribute.
+         *
+         * @return whether the final component is an attribute
+         */
+        boolean isAttr() {
+            return attr;
+        }
     }
 
     /**

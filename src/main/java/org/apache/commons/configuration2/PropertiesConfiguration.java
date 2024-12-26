@@ -336,44 +336,75 @@ public class PropertiesConfiguration extends BaseConfiguration implements FileBa
             final StringBuilder buffer = new StringBuilder();
 
             while (true) {
-                String line = readLine();
-                if (line == null) {
-                    // EOF
-                    if (buffer.length() > 0) {
-                        break;
-                    }
-                    return null;
+                final String line = readLine();
+                if (handleEOF(line, buffer)) {
+                    // If handleEOF() returned true, we've determined we should return null
+                    // or break out of the loop. Either way, we stop here.
+                    return buffer.length() > 0 ? buffer.toString() : null;
                 }
 
-                // while a property line continues there are no comments (even if the line from
-                // the file looks like one)
+                // If it's a comment line and no property data has been read yet, store as comment.
                 if (isCommentLine(line) && buffer.length() == 0) {
                     getCommentLines().add(line);
                     continue;
                 }
 
-                // while property line continues left trim all following lines read from the
-                // file
-                if (buffer.length() > 0) {
-                    // index of the first non-whitespace character
-                    int i;
-                    for (i = 0; i < line.length(); i++) {
-                        if (!Character.isWhitespace(line.charAt(i))) {
-                            break;
-                        }
-                    }
+                // If we already have partial property data, left-trim the new line
+                final String trimmedLine = leftTrimIfContinuing(line, buffer);
 
-                    line = line.substring(i);
-                }
-
-                if (!checkCombineLines(line)) {
-                    buffer.append(line);
+                // If we cannot combine lines, append and finish
+                if (!checkCombineLines(trimmedLine)) {
+                    buffer.append(trimmedLine);
                     break;
                 }
-                line = line.substring(0, line.length() - 1);
-                buffer.append(line);
+
+                // Otherwise, remove the trailing backslash and append
+                final String withoutBackslash = trimmedLine.substring(0, trimmedLine.length() - 1);
+                buffer.append(withoutBackslash);
             }
+
             return buffer.toString();
+        }
+
+        /**
+         * Checks if we're at EOF. If line is null and buffer has data, we
+         * just break out of the loop (returning the buffer later). If line is
+         * null and buffer is empty, we return null now.
+         *
+         * @param line   the line read
+         * @param buffer the buffer with any partial property data
+         * @return true if we should stop reading and return immediately
+         */
+        private boolean handleEOF(final String line, final StringBuilder buffer) {
+            if (line == null) {
+                // EOF
+                if (buffer.length() == 0) {
+                    // No property data yet => return null
+                    return true;
+                }
+                // Some data present => stop reading more lines but return that data
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * If we already have property data in the buffer, we left-trim the next line.
+         * Otherwise, we leave the line as-is.
+         *
+         * @param line   the line to potentially trim
+         * @param buffer the buffer with partial property data
+         * @return the (possibly) trimmed line
+         */
+        private String leftTrimIfContinuing(final String line, final StringBuilder buffer) {
+            if (buffer.length() > 0) {
+                int i = 0;
+                while (i < line.length() && Character.isWhitespace(line.charAt(i))) {
+                    i++;
+                }
+                return line.substring(i);
+            }
+            return line;
         }
 
         @Override
@@ -1137,20 +1168,6 @@ public class PropertiesConfiguration extends BaseConfiguration implements FileBa
         return unescapeJava(str, false);
     }
 
-    /**
-     * Unescapes Java literals found in the {@code String} to a {@code Writer}.
-     * <p>
-     * When the parameter {@code jupCompatible} is {@code false}, the classic behavior is used (see
-     * {@link #unescapeJava(String)}). When it's {@code true} a slightly different behavior that's compatible with
-     * {@link java.util.Properties} is used (see {@link JupIOFactory}).
-     * </p>
-     *
-     * @param str the {@code String} to unescape, may be null
-     * @param jupCompatible whether unescaping is compatible with {@link java.util.Properties}; otherwise the classic
-     *        behavior is used
-     * @return the processed string
-     * @throws IllegalArgumentException if the Writer is {@code null}
-     */
     protected static String unescapeJava(final String str, final boolean jupCompatible) {
         if (str == null) {
             return null;
@@ -1160,77 +1177,122 @@ public class PropertiesConfiguration extends BaseConfiguration implements FileBa
         final StringBuilder unicode = new StringBuilder(UNICODE_LEN);
         boolean hadSlash = false;
         boolean inUnicode = false;
+
         for (int i = 0; i < sz; i++) {
             final char ch = str.charAt(i);
+
+            // 1) If currently reading a Unicode escape, process that first
             if (inUnicode) {
-                // if in unicode, then we're reading unicode
-                // values in somehow
-                unicode.append(ch);
-                if (unicode.length() == UNICODE_LEN) {
-                    // unicode now contains the four hex digits
-                    // which represents our unicode character
-                    try {
-                        final int value = Integer.parseInt(unicode.toString(), HEX_RADIX);
-                        out.append((char) value);
-                        unicode.setLength(0);
-                        inUnicode = false;
-                        hadSlash = false;
-                    } catch (final NumberFormatException nfe) {
-                        throw new ConfigurationRuntimeException("Unable to parse unicode value: " + unicode, nfe);
-                    }
+                // If handleUnicodeChar() returns true, it means
+                // we finished processing the 4 hex digits
+                if (handleUnicodeChar(ch, unicode, out)) {
+                    inUnicode = false;
+                    hadSlash = false;
                 }
                 continue;
             }
 
+            // 2) If we had a preceding backslash, handle the escape sequence
             if (hadSlash) {
-                // handle an escaped value
-                hadSlash = false;
-
-                switch (ch) {
-                case 'r':
-                    out.append('\r');
-                    break;
-                case 'f':
-                    out.append('\f');
-                    break;
-                case 't':
-                    out.append('\t');
-                    break;
-                case 'n':
-                    out.append('\n');
-                    break;
-                default:
-                    if (!jupCompatible && ch == 'b') {
-                        out.append('\b');
-                    } else if (ch == 'u') {
-                        // uh-oh, we're in unicode country....
-                        inUnicode = true;
-                    } else {
-                        // JUP simply throws away the \ of unknown escape sequences
-                        if (!needsUnescape(ch) && !jupCompatible) {
-                            out.append('\\');
-                        }
-                        out.append(ch);
-                    }
-                    break;
+                // If handleEscapedChar() returns true, that means we have '\\u'
+                // so we need to start reading a Unicode sequence
+                if (handleEscapedChar(ch, jupCompatible, out)) {
+                    inUnicode = true;
                 }
-
+                hadSlash = false;
                 continue;
             }
+
+            // 3) Check if the current character is a backslash, which may start an escape
             if (ch == '\\') {
                 hadSlash = true;
                 continue;
             }
+
+            // 4) Otherwise, it's a normal character
             out.append(ch);
         }
 
+        // If the very last character in the string was a lone backslash, append it
         if (hadSlash) {
-            // then we're in the weird case of a \ at the end of the
-            // string, let's output it anyway.
             out.append('\\');
         }
 
         return out.toString();
+    }
+
+    /**
+     * Handles the logic when we?re currently in a Unicode escape sequence.
+     *
+     * @param ch      the current character from the loop
+     * @param unicode buffer accumulating the 4 hex digits
+     * @param out     the main output buffer
+     * @return true if we have completed the 4 hex digits and appended them to 'out'
+     */
+    private static boolean handleUnicodeChar(final char ch,
+                                             final StringBuilder unicode,
+                                             final StringBuilder out) {
+        unicode.append(ch);
+        if (unicode.length() == UNICODE_LEN) {
+            // We have 4 hex digits in 'unicode'
+            try {
+                final int value = Integer.parseInt(unicode.toString(), HEX_RADIX);
+                out.append((char) value);
+                unicode.setLength(0); // reset for any subsequent escapes
+                return true; // signals "done with inUnicode"
+            } catch (final NumberFormatException nfe) {
+                throw new ConfigurationRuntimeException(
+                        "Unable to parse unicode value: " + unicode,
+                        nfe
+                );
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Handles the logic when we just encountered a backslash (but are NOT in a Unicode sequence yet).
+     *
+     * @param ch            the current character after the backslash
+     * @param jupCompatible whether we use JUP-compatible behavior
+     * @param out           the main output buffer
+     * @return true if we detected a '\\u' and must enter Unicode mode; otherwise false
+     */
+    private static boolean handleEscapedChar(final char ch,
+                                             final boolean jupCompatible,
+                                             final StringBuilder out) {
+        switch (ch) {
+            case 'r':
+                out.append('\r');
+                break;
+            case 'f':
+                out.append('\f');
+                break;
+            case 't':
+                out.append('\t');
+                break;
+            case 'n':
+                out.append('\n');
+                break;
+            default:
+                if (!jupCompatible && ch == 'b') {
+                    out.append('\b');
+                } else if (ch == 'u') {
+                    // Next characters will be the 4 hex digits for a Unicode escape
+                    return true; // signals "start inUnicode"
+                } else {
+                    // If it's something like '\x' or an unknown escape,
+                    // JUP behavior is to discard the backslash,
+                    // classic Java might keep it
+                    if (!needsUnescape(ch) && !jupCompatible) {
+                        // Keep the backslash in output
+                        out.append('\\');
+                    }
+                    out.append(ch);
+                }
+                break;
+        }
+        return false;
     }
 
     /** Stores the layout object. */

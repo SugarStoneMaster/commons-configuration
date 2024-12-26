@@ -388,59 +388,84 @@ public class PropertyListConfiguration extends BaseHierarchicalConfiguration imp
     /**
      * Append a node to the writer, indented according to a specific level.
      */
-    private void printNode(final PrintWriter out, final int indentLevel, final ImmutableNode node, final NodeHandler<ImmutableNode> handler) {
+    private void printNode(final PrintWriter out, final int indentLevel, final ImmutableNode node,
+                           final NodeHandler<ImmutableNode> handler) {
         final String padding = StringUtils.repeat(" ", indentLevel * INDENT_SIZE);
 
-        if (node.getNodeName() != null) {
-            out.print(padding + quoteString(node.getNodeName()) + " = ");
-        }
+        printNodeNameIfPresent(out, node, padding);
 
         final List<ImmutableNode> children = new ArrayList<>(node.getChildren());
         if (!children.isEmpty()) {
-            // skip a line, except for the root dictionary
-            if (indentLevel > 0) {
-                out.println();
-            }
-
-            out.println(padding + "{");
-
-            // display the children
-            final Iterator<ImmutableNode> it = children.iterator();
-            while (it.hasNext()) {
-                final ImmutableNode child = it.next();
-
-                printNode(out, indentLevel + 1, child, handler);
-
-                // add a semi colon for elements that are not dictionaries
-                final Object value = child.getValue();
-                if (value != null && !(value instanceof Map) && !(value instanceof Configuration)) {
-                    out.println(";");
-                }
-
-                // skip a line after arrays and dictionaries
-                if (it.hasNext() && (value == null || value instanceof List)) {
-                    out.println();
-                }
-            }
-
-            out.print(padding + "}");
-
-            // line feed if the dictionary is not in an array
-            if (handler.getParent(node) != null) {
-                out.println();
-            }
+            handleNodeWithChildren(out, indentLevel, node, handler, padding, children);
         } else if (node.getValue() == null) {
-            out.println();
-            out.print(padding + "{ };");
-
-            // line feed if the dictionary is not in an array
-            if (handler.getParent(node) != null) {
-                out.println();
-            }
+            handleEmptyValueNode(out, node, handler, padding);
         } else {
             // display the leaf value
             final Object value = node.getValue();
             printValue(out, indentLevel, value);
+        }
+    }
+
+    /** Prints "nodeName = " if the node has a name. */
+    private void printNodeNameIfPresent(final PrintWriter out,
+                                        final ImmutableNode node,
+                                        final String padding) {
+        if (node.getNodeName() != null) {
+            out.print(padding + quoteString(node.getNodeName()) + " = ");
+        }
+    }
+
+    /** Handles the case where a node has children. */
+    private void handleNodeWithChildren(final PrintWriter out,
+                                        final int indentLevel,
+                                        final ImmutableNode node,
+                                        final NodeHandler<ImmutableNode> handler,
+                                        final String padding,
+                                        final List<ImmutableNode> children) {
+        // skip a line, except for the root dictionary
+        if (indentLevel > 0) {
+            out.println();
+        }
+
+        out.println(padding + "{");
+
+        final Iterator<ImmutableNode> it = children.iterator();
+        while (it.hasNext()) {
+            final ImmutableNode child = it.next();
+
+            printNode(out, indentLevel + 1, child, handler);
+
+            // add a semicolon for elements that are not dictionaries
+            final Object value = child.getValue();
+            if (value != null && !(value instanceof Map) && !(value instanceof Configuration)) {
+                out.println(";");
+            }
+
+            // skip a line after arrays and dictionaries, if there's another sibling
+            if (it.hasNext() && (value == null || value instanceof List)) {
+                out.println();
+            }
+        }
+
+        out.print(padding + "}");
+
+        // line feed if the dictionary is not in an array
+        if (handler.getParent(node) != null) {
+            out.println();
+        }
+    }
+
+    /** Handles the case where a node has no children and a null value. */
+    private void handleEmptyValueNode(final PrintWriter out,
+                                      final ImmutableNode node,
+                                      final NodeHandler<ImmutableNode> handler,
+                                      final String padding) {
+        out.println();
+        out.print(padding + "{ };");
+
+        // line feed if the dictionary is not in an array
+        if (handler.getParent(node) != null) {
+            out.println();
         }
     }
 
