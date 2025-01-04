@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>MultiWrapDynaClass.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.builder.combined;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.Stream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.beanutils.DynaBean;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.beanutils.DynaClass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.beanutils.DynaProperty;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An implementation of {@code DynaClass} which combines the properties of multiple other {@code DynaClass} instances.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>final class MultiWrapDynaClass implements DynaClass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** An empty array for converting the properties collection to an array. */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private static final DynaProperty[] EMPTY_PROPS = {};</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A collection with all properties of this class. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Collection&#60;DynaProperty&#62; properties;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A map for accessing properties by name. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Map&#60;String, DynaProperty&#62; namedProperties;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code MultiWrapDynaClass} and initializes it with the collection of classes to be wrapped.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param wrappedCls the collection with wrapped classes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public MultiWrapDynaClass(final Collection&#60;? extends DynaClass&#62; wrappedCls) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        properties = new LinkedList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        namedProperties = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_54'>1</a>
+<span>
+1. &#60;init&#62; : removed call to org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::initProperties &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        initProperties(wrappedCls);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DynaProperty[] getDynaProperties() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_59'>1</a>
+<span>
+1. getDynaProperties : replaced return value with null for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getDynaProperties &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return properties.toArray(EMPTY_PROPS);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DynaProperty getDynaProperty(final String name) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_64'>1</a>
+<span>
+1. getDynaProperty : replaced return value with null for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getDynaProperty &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return namedProperties.get(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} The name of this class is not relevant.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getName() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_72'>1</a>
+<span>
+1. getName : replaced return value with &#34;&#34; for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Initializes the members related to the properties of the wrapped classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param wrappedCls the collection with the wrapped classes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void initProperties(final Collection&#60;? extends DynaClass&#62; wrappedCls) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_81'>2</a>
+<span>
+1. initProperties : removed call to java/util/Collection::forEach &rarr; KILLED<br/>
+2. lambda$initProperties$1 : removed call to java/util/stream/Stream::forEach &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        wrappedCls.forEach(cls -&#62; Stream.of(cls.getDynaProperties()).forEach(p -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            properties.add(p);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            namedProperties.put(p.getName(), p);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This implementation always throws an exception because it is not possible to instantiate a bean of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * multiple classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DynaBean newInstance() throws IllegalAccessException, InstantiationException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        throw new UnsupportedOperationException(&#34;Cannot create an instance of MultiWrapDynaBean!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2be46b20_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2be46b20_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClass()]</span></span> removed call to org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::initProperties &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2be46b20_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_59'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDynaProperties<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getDynaProperties &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2be46b20_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDynaProperty<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClass()]</span></span> replaced return value with null for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getDynaProperty &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2be46b20_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClassName()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass::getName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2be46b20_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2be46b20_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initProperties<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClass()]</span></span> removed call to java/util/Collection::forEach &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$initProperties$1<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClass()]</span></span> removed call to java/util/stream/Stream::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClassNewInstance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testRemove()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClass()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetDynaClassName()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testContains()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetSimpleProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testSetIndexedProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetIndexedProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetPropertyUnknown()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testGetMappedProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testSetMappedProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testSetSimpleProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiWrapDynaBean]/[method:testOrderOfProperties()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetReloadingBuilderNotSupported()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderNoFailOnInit()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderAllowFailOnInit()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderNotReloading()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalWithException()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderReloading()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalWithException()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBasePathForChildConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBasePathForChildConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomEntityResolver()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomResultConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomEntityResolver()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystemForSubConfig()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomResultConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystemForSubConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testEnvironmentProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomLookup()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSetConfigurationBasePath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRemoveSubBuilderListener()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testEnvironmentProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomLookup()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReactOnSubBuilderChange()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testResetBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testResetBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReactOnSubBuilderChange()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRemoveSubBuilderListener()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSystemProperties()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReloadingBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathFromDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSystemProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathInParameters()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReloadingBuilder()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathFromDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathInParameters()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadFromFile()] (4 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testMappingInSameOrder()] (1 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testLoading()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderFromFile()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingNonExisting()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderWithManualAdd()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeInSubDir()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingExisting()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingSet()] (1 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingNonExisting()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingUnset()] (5 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingExisting()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileExplicitBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileDefaultBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRootNodeInitializedAfterCreation()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNames()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testChildBuildersAreInitializedOnlyOnce()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNamesManipulate()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationNoAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetChildBuilders()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilderUnknown()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.TestSubsetConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubsetConfiguration]/[method:testNested()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRootNodeInitializedAfterCreation()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSuppressChildBuilderPropertyInheritance()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNamesManipulate()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSuppressChildBuilderPropertyInheritance()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromURL()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromURL()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationNoAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilderUnknown()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptional()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConcurrentReadAccessWithoutSynchronizer()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testChildBuildersAreInitializedOnlyOnce()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNames()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInitChildBuilderParametersDefaultChildProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInitChildBuilderParametersDefaultChildProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetChildBuilders()] (7 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConcurrentReadAccessWithoutSynchronizer()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testReloadableDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testInitWithParameters()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritEventListeners()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritEventListeners()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProvider()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProvider()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadAdditional()] (26 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInheritProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInheritProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInterpolationOverMultipleSources()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testNestedReloadableSources()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationListNodes()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInterpolationOverMultipleSources()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationAttributes()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testJndiConfiguration()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationListNodes()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationAttributes()] (3 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testUpdateConfiguration()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testINIConfiguration()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testJndiConfiguration()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testINIConfiguration()] (7 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testConcurrentGetAndReload()] (71 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload()] (57 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload2()] (58 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadMultipleClients()] (143 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadFile()] (4039 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationReloading()] (5047 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationReloading()] (5044 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>

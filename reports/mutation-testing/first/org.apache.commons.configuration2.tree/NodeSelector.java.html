@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>NodeSelector.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.tree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.lang3.builder.ToStringBuilder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A class for selecting a specific node based on a key or a set of keys.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An instance of this class is initialized with the key of a node. It is also possible to concatenate multiple keys -</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * e.g. if a sub key is to be constructed from another sub key. {@code NodeSelector} provides the {@code select()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * method which evaluates the wrapped keys on a specified root node and returns the resulting unique target node. The</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * class expects that the key(s) stored in an instance select exactly one target node. If this is not the case, result</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * is &#60;b&#62;null&#60;/b&#62; indicating that the selection criteria are not sufficient.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation node: Instances of this class are immutable. They can be shared between arbitrary components.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class NodeSelector {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Stores the wrapped keys. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;String&#62; nodeKeys;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code NodeSelector} and initializes it with the list of keys to be used as selection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * criteria.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param keys the keys for selecting nodes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private NodeSelector(final List&#60;String&#62; keys) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        nodeKeys = keys;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code NodeSelector} and initializes it with the key to the target node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param key the key</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public NodeSelector(final String key) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(Collections.singletonList(key));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compares this object with another one. Two instances of {@code NodeSelector} are considered equal if they have the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * same keys as selection criteria.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param obj the object to be compared</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a flag whether these objects are equal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(final Object obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_76'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (this == obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_77'>1</a>
+<span>
+1. equals : replaced boolean return with false for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_79'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!(obj instanceof NodeSelector)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_80'>1</a>
+<span>
+1. equals : replaced boolean return with true for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final NodeSelector c = (NodeSelector) obj;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_84'>2</a>
+<span>
+1. equals : replaced boolean return with false for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED<br/>
+2. equals : replaced boolean return with true for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return nodeKeys.equals(c.nodeKeys);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Executes a query for a given key and filters the results for nodes only.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param root the root node for the query</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param resolver the {@code NodeKeyResolver}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code NodeHandler}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param key the key</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param nodes here the results are stored</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void getFilteredResults(final ImmutableNode root, final NodeKeyResolver&#60;ImmutableNode&#62; resolver, final NodeHandler&#60;ImmutableNode&#62; handler,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final String key, final List&#60;ImmutableNode&#62; nodes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final List&#60;QueryResult&#60;ImmutableNode&#62;&#62; results = resolver.resolveKey(root, key, handler);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_99'>1</a>
+<span>
+1. getFilteredResults : removed call to java/util/List::forEach &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        results.forEach(result -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_100'>1</a>
+<span>
+1. lambda$getFilteredResults$0 : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!result.isAttributeResult()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                nodes.add(result.getNode());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a hash code for this object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a hash code</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_113'>1</a>
+<span>
+1. hashCode : replaced int return with 0 for org/apache/commons/configuration2/tree/NodeSelector::hashCode &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return nodeKeys.hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Applies this {@code NodeSelector} on the specified root node. This method applies the selection criteria stored in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * this object and tries to determine a single target node. If this is successful, the target node is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Otherwise, result is &#60;b&#62;null&#60;/b&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param root the root node on which to apply this selector</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param resolver the {@code NodeKeyResolver}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code NodeHandler}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the selected target node or &#60;b&#62;null&#60;/b&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ImmutableNode select(final ImmutableNode root, final NodeKeyResolver&#60;ImmutableNode&#62; resolver, final NodeHandler&#60;ImmutableNode&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;ImmutableNode&#62; nodes = new LinkedList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Iterator&#60;String&#62; itKeys = nodeKeys.iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_129'>1</a>
+<span>
+1. select : removed call to org/apache/commons/configuration2/tree/NodeSelector::getFilteredResults &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        getFilteredResults(root, resolver, handler, itKeys.next(), nodes);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_131'>1</a>
+<span>
+1. select : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        while (itKeys.hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final String currentKey = itKeys.next();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final List&#60;ImmutableNode&#62; currentResults = new LinkedList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_134'>2</a>
+<span>
+1. lambda$select$1 : removed call to org/apache/commons/configuration2/tree/NodeSelector::getFilteredResults &rarr; KILLED<br/>
+2. select : removed call to java/util/List::forEach &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            nodes.forEach(currentRoot -&#62; getFilteredResults(currentRoot, resolver, handler, currentKey, currentResults));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            nodes = currentResults;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_138'>1</a>
+<span>
+1. select : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return nodes.size() == 1 ? nodes.get(0) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a sub {@code NodeSelector} object which uses the key(s) of this selector plus the specified key as selection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * criteria. This is useful when another selection is to be performed on the results of a first selector.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param subKey the additional key for the sub selector</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the sub {@code NodeSelector} instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public NodeSelector subSelector(final String subKey) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_149'/>
+149
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_149'>1</a>
+<span>
+1. subSelector : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final List&#60;String&#62; keys = new ArrayList&#60;&#62;(nodeKeys.size() + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        keys.addAll(nodeKeys);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        keys.add(subKey);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_152'>1</a>
+<span>
+1. subSelector : replaced return value with null for org/apache/commons/configuration2/tree/NodeSelector::subSelector &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new NodeSelector(keys);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a string representation for this object. This string contains the keys to be used as selection criteria.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a string for this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_162'/>
+162
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_162'>1</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for org/apache/commons/configuration2/tree/NodeSelector::toString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new ToStringBuilder(this).append(&#34;keys&#34;, nodeKeys).toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@453d1294_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsOtherObjects()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsTrue()]</span></span> replaced boolean return with false for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsOtherObjects()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsOtherObjects()]</span></span> replaced boolean return with true for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsTrue()]</span></span> replaced boolean return with false for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsFalse()]</span></span> replaced boolean return with true for org/apache/commons/configuration2/tree/NodeSelector::equals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFilteredResults<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectIgnoreAttributeResults()]</span></span> removed call to java/util/List::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$getFilteredResults$0<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSingleAttributeKey()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/configuration2/tree/NodeSelector::hashCode &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>select<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectIgnoreAttributeResults()]</span></span> removed call to org/apache/commons/configuration2/tree/NodeSelector::getFilteredResults &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>select<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSingleAttributeKey()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$select$1<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKey()]</span></span> removed call to org/apache/commons/configuration2/tree/NodeSelector::getFilteredResults &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>select<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKey()]</span></span> removed call to java/util/List::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>select<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSingleAttributeKey()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_149'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subSelector<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subSelector<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testToString()]</span></span> replaced return value with null for org/apache/commons/configuration2/tree/NodeSelector::subSelector &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@453d1294_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@453d1294_162'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testToString()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/tree/NodeSelector::toString &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSingleAttributeKey()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectIgnoreAttributeResults()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectMultipleTargets()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKeyUnknown()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSingleKeySuccess()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKey()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKeyMultipleResults()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testSelectSubKeyComplexEvaluation()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackNodeKeyNoResults()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackNodeKeyMultipleResults()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testReplaceTrackedNodeNull()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testIsDetachedFalseNoUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testUntrackNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeHandlerActive()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackNodeMultipleTimes()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeExisting()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testIsDetachedAfterClear()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeAfterSetRootNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testReplaceTrackedNodeForActiveTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeAfterClear()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testSelectAndTrackNodesNodeAlreadyTracked()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtUnknownSubTreeWithUpdates()] (2 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtMultipleNodesWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testIsDetachedFalseAfterUpdate()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeAfterUpdate()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testIsDetachedTrue()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeHandlerDetached()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeAfterUpdateNoLongerExisting()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testIsDetachedAfterSetRoot()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testClearTreeOnTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackedNodeClearedInOperation()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testReplaceTrackedNodeForDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testClearPropertyOnTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testAddNodesOnTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testClearTreeOnDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInitSubNodeConfigWithNullParent()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testSetPropertyOnTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testClearPropertyOnDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetThrowExceptionOnMissingAffectsParent()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testAddNodesOnDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testAddPropertyOnTrackedNode()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testSetPropertyOnDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testGetNodeModel()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGlobalSectionNodeHandlerGetChildByIndex()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGlobalSectionNodeHandlerGetChildrenCount()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGlobalSectionNodeHandlerIndexOfChild()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelReferences.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelReferences]/[method:testReplaceRoot()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInitSubNodeConfig()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGlobalSectionNodeHandlerGetChildrenByName()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testAddPropertyOnDetachedNode()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionGlobalNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetThrowExceptionOnMissing()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testClone()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetExpressionEngine()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testConfigurationAtWithUpdateSupport()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testGetKeys()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtAttributeNodeWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionGloabalMultiThreaded()] (14 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testGetProperties()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testKeysOfGlobalSection()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testParentChangeDetach()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionMerged()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionGlobal()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testSubConfigurationChangedEventConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtUpdateParentConnected()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testSubConfigurationChangedEventConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtUpdateSubConfigConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionDuplicate()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testConfiguarationAtNoUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInterpolationFromConfigurationAtWithUpdateSupport()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetProperty()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInterpolation()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testMergeDuplicateSection()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testParentChangeDetatchException()] (2 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetListDelimiterHandler()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testImmutableConfigurationAtSupportUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testLocalLookupsInInterpolatorAreInherited()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testChildConfigurationsAtWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationsAtWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInterpolator()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGlobalSectionConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testAddProperty()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtClearAndDetach()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testCloneCopySubnodeData()] (2 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testSubConfigurationWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testSubnodeUpdateBySubnode()] (2 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionNonExistingManipulate()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testSubnodeUpdate()] (2 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAddNodesToSubnodeConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSaveClearedSection()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testReadOnlyAccessToSubConfigurations()] (17 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAutoSaveWithSubnodeConfig()] (4 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAutoSaveWithSubSubnodeConfig()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInterpolationOverMultipleSources()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInterpolationOverMultipleSources()] (3 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsOtherObjects()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsTrue()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testEqualsFalse()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testSelectAndTrackNodes()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackChildNodeWithCreationExisting()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackChildNodes()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testTrackChildNodeWithCreationNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestNodeSelector.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestNodeSelector]/[method:testToString()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testGetTrackedNodeNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestInMemoryNodeModelTrackedNodes]/[method:testUntrackNodeNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtWithUpdateInitialized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testConfigurationsAtWithUpdates()] (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>

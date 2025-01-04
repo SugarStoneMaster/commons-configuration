@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ReloadingBuilderSupportListener.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.builder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.configuration2.event.Event;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.configuration2.event.EventListener;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.configuration2.reloading.ReloadingController;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.configuration2.reloading.ReloadingEvent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An internally used helper class for adding reloading support to an arbitrary {@link ConfigurationBuilder}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class connects a configuration builder with a {@link ReloadingController}. This is done in the following way:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;An instance is registered as listener at a {@code ReloadingController}. Whenever the controller indicates that a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * reload should happen, the associated configuration builder&#39;s {@link BasicConfigurationBuilder#resetResult()} method</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * is called.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;When the builder fires a {@link ConfigurationBuilderResultCreatedEvent} event the reloading controller&#39;s</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * reloading state is reset. At that time the reload has actually happened, and the controller is prepared to observe</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * new changes.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>final class ReloadingBuilderSupportListener implements EventListener&#60;Event&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code ReloadingBuilderSupportListener} which connects the specified</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@code ConfigurationBuilder} with the given {@code ReloadingController}. Listeners are registered to react on</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * notifications and implement a reloading protocol as described in the class comment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param configBuilder the {@code ConfigurationBuilder}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param controller the {@code ReloadingController}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the newly created listener object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static ReloadingBuilderSupportListener connect(final BasicConfigurationBuilder&#60;?&#62; configBuilder, final ReloadingController controller) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final ReloadingBuilderSupportListener listener = new ReloadingBuilderSupportListener(configBuilder, controller);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_54'>1</a>
+<span>
+1. connect : removed call to org/apache/commons/configuration2/reloading/ReloadingController::addEventListener &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        controller.addEventListener(ReloadingEvent.ANY, listener);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_55'>1</a>
+<span>
+1. connect : removed call to org/apache/commons/configuration2/builder/BasicConfigurationBuilder::installEventListener &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        configBuilder.installEventListener(ConfigurationBuilderResultCreatedEvent.RESULT_CREATED, listener);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_56'>1</a>
+<span>
+1. connect : replaced return value with null for org/apache/commons/configuration2/builder/ReloadingBuilderSupportListener::connect &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return listener;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Stores the associated configuration builder. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final BasicConfigurationBuilder&#60;?&#62; builder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Stores the associated reloading controller. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final ReloadingController reloadingController;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code ReloadingBuilderSupportListener} and initializes it with the associated objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param configBuilder the configuration builder</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param controller the {@code ReloadingController}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private ReloadingBuilderSupportListener(final BasicConfigurationBuilder&#60;?&#62; configBuilder, final ReloadingController controller) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder = configBuilder;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        reloadingController = controller;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This implementation resets the controller&#39;s reloading state if an event about a newly created result</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * was received. Otherwise, in case of a reloading event, the builder&#39;s result object is reset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void onEvent(final Event event) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_82'>1</a>
+<span>
+1. onEvent : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (ConfigurationBuilderResultCreatedEvent.RESULT_CREATED.equals(event.getEventType())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_83'>1</a>
+<span>
+1. onEvent : removed call to org/apache/commons/configuration2/reloading/ReloadingController::resetReloadingState &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            reloadingController.resetReloadingState();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_85'>1</a>
+<span>
+1. onEvent : removed call to org/apache/commons/configuration2/builder/BasicConfigurationBuilder::resetResult &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.resetResult();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7a09e3de_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>connect<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()]</span></span> removed call to org/apache/commons/configuration2/reloading/ReloadingController::addEventListener &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>connect<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetReloadingStateOnResultCreation()]</span></span> removed call to org/apache/commons/configuration2/builder/BasicConfigurationBuilder::installEventListener &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>connect<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()]</span></span> replaced return value with null for org/apache/commons/configuration2/builder/ReloadingBuilderSupportListener::connect &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>onEvent<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>onEvent<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetReloadingStateOnResultCreation()]</span></span> removed call to org/apache/commons/configuration2/reloading/ReloadingController::resetReloadingState &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7a09e3de_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7a09e3de_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>onEvent<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()]</span></span> removed call to org/apache/commons/configuration2/builder/BasicConfigurationBuilder::resetResult &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetReloadingStateOnResultCreation()] (3 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testInitAllowFailOnInitFlag()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingDetectorNoFileHandler()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testCreateReloadingDetectoryCustomFactory()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testCreateManagedBuilderWithAllowFailFlag()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testCreateManagedBuilder()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testCreateReloadingDetectorDefaultFactory()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testConnectToReloadingController()] (2 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingDetectorReloadingPerformed()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingDetectorIsReloadingRequired()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testResetReloadingStateInGetConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingControllerEvents()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testGetConfigurationNoLocation()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testInitWithParameters()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerCheck()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerCheckReloadingRequired()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerResetReloadingState()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderReloading()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReloadingBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReloadingBuilder()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadFromFile()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileExplicitBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileDefaultBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testReloadableDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testInitWithParameters()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testNestedReloadableSources()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testConcurrentGetAndReload()] (71 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadFile()] (4039 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationReloading()] (5047 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationReloading()] (5044 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>

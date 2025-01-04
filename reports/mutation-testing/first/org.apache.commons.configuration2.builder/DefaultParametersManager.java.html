@@ -1,0 +1,3191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DefaultParametersManager.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.builder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.CopyOnWriteArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A class for managing a set of {@link DefaultParametersHandler} objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class provides functionality for registering and removing {@code DefaultParametersHandler} objects for arbitrary</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * parameters classes. The handlers registered at an instance can then be applied on a passed in parameters object, so</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * that it gets initialized with the provided default values.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Usage of this class is as follows: First the {@code DefaultParametersHandler} objects to be supported must be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * registered using one of the {@code registerDefaultHandler()} methods. After that arbitrary parameters objects can be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * passed to the {@code initializeParameters()} method. This causes all {@code DefaultParametersHandler} objects</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * supporting this parameters class to be invoked on this object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation note: This class is thread-safe.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class DefaultParametersManager {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A data class storing information about {@code DefaultParametersHandler} objects added to a {@code Parameters} object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Using this class it is possible to find out which default handlers apply for a given parameters object and to invoke</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * them.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final class DefaultHandlerData {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The handler object. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final DefaultParametersHandler&#60;?&#62; handler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The class supported by this handler. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Class&#60;?&#62; parameterClass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The start class for applying this handler. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Class&#60;?&#62; startClass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Creates a new instance of {@code DefaultHandlerData}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param h the {@code DefaultParametersHandler}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param cls the handler&#39;s data class</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param startCls the start class</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        public DefaultHandlerData(final DefaultParametersHandler&#60;?&#62; h, final Class&#60;?&#62; cls, final Class&#60;?&#62; startCls) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            handler = h;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            parameterClass = cls;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            startClass = startCls;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Checks whether the managed {@code DefaultParametersHandler} can be applied to the given parameters object. If this is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * the case, it is executed on this object and can initialize it with default values.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param obj the parameters object to be initialized</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // There are explicit isInstance() checks, so there won&#39;t be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // ClassCastExceptions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void applyHandlerIfMatching(final BuilderParameters obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_82'>3</a>
+<span>
+1. applyHandlerIfMatching : negated conditional &rarr; KILLED<br/>
+2. applyHandlerIfMatching : negated conditional &rarr; KILLED<br/>
+3. applyHandlerIfMatching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (parameterClass.isInstance(obj) &#38;&#38; (startClass == null || startClass.isInstance(obj))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                @SuppressWarnings(&#34;rawtypes&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                final DefaultParametersHandler handlerUntyped = handler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_85'>1</a>
+<span>
+1. applyHandlerIfMatching : removed call to org/apache/commons/configuration2/builder/DefaultParametersHandler::initializeDefaults &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                handlerUntyped.initializeDefaults(obj);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Tests whether this instance refers to the specified occurrence of a {@code DefaultParametersHandler}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param h the handler to be checked</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param startCls the start class</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @return &#60;b&#62;true&#60;/b&#62; if this instance refers to this occurrence, &#60;b&#62;false&#60;/b&#62; otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public boolean isOccurrence(final DefaultParametersHandler&#60;?&#62; h, final Class&#60;?&#62; startCls) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_97'>4</a>
+<span>
+1. isOccurrence : negated conditional &rarr; KILLED<br/>
+2. isOccurrence : negated conditional &rarr; KILLED<br/>
+3. isOccurrence : negated conditional &rarr; KILLED<br/>
+4. isOccurrence : replaced boolean return with true for org/apache/commons/configuration2/builder/DefaultParametersManager$DefaultHandlerData::isOccurrence &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return h == handler &#38;&#38; (startCls == null || startCls.equals(startClass));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A collection with the registered default handlers. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Collection&#60;DefaultHandlerData&#62; defaultHandlers;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code DefaultParametersManager}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public DefaultParametersManager() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        defaultHandlers = new CopyOnWriteArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Initializes the passed in {@code BuilderParameters} object by applying all matching {@link DefaultParametersHandler}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * objects registered at this instance. Using this method the passed in parameters object can be populated with default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * values.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param params the parameters object to be initialized (may be &#60;b&#62;null&#60;/b&#62;, then this method has no effect)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void initializeParameters(final BuilderParameters params) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_119'>1</a>
+<span>
+1. initializeParameters : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (params != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_120'>2</a>
+<span>
+1. initializeParameters : removed call to java/util/Collection::forEach &rarr; KILLED<br/>
+2. lambda$initializeParameters$0 : removed call to org/apache/commons/configuration2/builder/DefaultParametersManager$DefaultHandlerData::applyHandlerIfMatching &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            defaultHandlers.forEach(dhd -&#62; dhd.applyHandlerIfMatching(params));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Registers the specified {@code DefaultParametersHandler} object for the given parameters class. This means that this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * handler object is invoked every time a parameters object of the specified class or one of its subclasses is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * initialized. The handler can set arbitrary default values for the properties supported by this parameters object. If</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * there are multiple handlers registered supporting a specific parameters class, they are invoked in the order in which</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * they were registered. So handlers registered later may override the values set by handlers registered earlier.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the type of the parameters supported by this handler</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param paramsClass the parameters class supported by this handler (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code DefaultParametersHandler} to be registered (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if a required parameter is missing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public &#60;T&#62; void registerDefaultsHandler(final Class&#60;T&#62; paramsClass, final DefaultParametersHandler&#60;? super T&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_137'>1</a>
+<span>
+1. registerDefaultsHandler : removed call to org/apache/commons/configuration2/builder/DefaultParametersManager::registerDefaultsHandler &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        registerDefaultsHandler(paramsClass, handler, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Registers the specified {@code DefaultParametersHandler} object for the given parameters class and start class in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * inheritance hierarchy. This method works like {@link #registerDefaultsHandler(Class, DefaultParametersHandler)}, but</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the defaults handler is only executed on parameter objects that are instances of the specified start class. Parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * classes do not stand in a real inheritance hierarchy; however, there is a logic hierarchy defined by the methods</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * supported by the different parameter objects. A properties parameter object for instance supports all methods defined</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * for a file-based parameter object. So one can argue that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link org.apache.commons.configuration2.builder.fluent.FileBasedBuilderParameters FileBasedBuilderParameters} is a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * base interface of {@link org.apache.commons.configuration2.builder.fluent.PropertiesBuilderParameters</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PropertiesBuilderParameters} (although, for technical reasons, this relation is not reflected in the Java classes). A</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link DefaultParametersHandler} object defined for a base interface can also deal with parameter objects &#34;derived&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * from this base interface (i.e. supporting a super set of the methods defined by the base interface). Now there may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the use case that there is an implementation of {@code DefaultParametersHandler} for a base interface (e.g.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@code FileBasedBuilderParameters}), but it should only process specific derived interfaces (say</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@code PropertiesBuilderParameters}, but not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link org.apache.commons.configuration2.builder.fluent.XMLBuilderParameters XMLBuilderParameters}). This can be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * achieved by passing in {@code PropertiesBuilderParameters} as start class. In this case,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@code DefaultParametersManager} ensures that the handler is only called on parameter objects having both the start</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * class and the actual type supported by the handler as base interfaces. The passed in start class can be &#60;b&#62;null&#60;/b&#62;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * then the parameter class supported by the handler is used (which is the default behavior of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link #registerDefaultsHandler(Class, DefaultParametersHandler)} method).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the type of the parameters supported by this handler</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param paramsClass the parameters class supported by this handler (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code DefaultParametersHandler} to be registered (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param startClass an optional start class in the hierarchy of parameter objects for which this handler should be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *        applied</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if a required parameter is missing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public &#60;T&#62; void registerDefaultsHandler(final Class&#60;T&#62; paramsClass, final DefaultParametersHandler&#60;? super T&#62; handler, final Class&#60;?&#62; startClass) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_170'/>
+170
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_170'>1</a>
+<span>
+1. registerDefaultsHandler : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (paramsClass == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Parameters class must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_173'>1</a>
+<span>
+1. registerDefaultsHandler : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (handler == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;DefaultParametersHandler must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        defaultHandlers.add(new DefaultHandlerData(handler, paramsClass, startClass));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Removes the specified {@code DefaultParametersHandler} from this instance. If this handler has been registered</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * multiple times for different start classes, all occurrences are removed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code DefaultParametersHandler} to be removed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void unregisterDefaultsHandler(final DefaultParametersHandler&#60;?&#62; handler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_186'>1</a>
+<span>
+1. unregisterDefaultsHandler : removed call to org/apache/commons/configuration2/builder/DefaultParametersManager::unregisterDefaultsHandler &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        unregisterDefaultsHandler(handler, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Removes the specified {@code DefaultParametersHandler} from this instance if it is in combination with the given</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * start class. If this handler has been registered multiple times for different start classes, only occurrences for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * given start class are removed. The {@code startClass} parameter can be &#60;b&#62;null&#60;/b&#62;, then all occurrences of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * handler are removed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param handler the {@code DefaultParametersHandler} to be removed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param startClass the start class for which this handler is to be removed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void unregisterDefaultsHandler(final DefaultParametersHandler&#60;?&#62; handler, final Class&#60;?&#62; startClass) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_199'>2</a>
+<span>
+1. lambda$unregisterDefaultsHandler$1 : replaced boolean return with true for org/apache/commons/configuration2/builder/DefaultParametersManager::lambda$unregisterDefaultsHandler$1 &rarr; KILLED<br/>
+2. lambda$unregisterDefaultsHandler$1 : replaced boolean return with false for org/apache/commons/configuration2/builder/DefaultParametersManager::lambda$unregisterDefaultsHandler$1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        defaultHandlers.removeIf(dhd -&#62; dhd.isOccurrence(handler, startClass));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2b48b0de_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyHandlerIfMatching<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaultsStartClass()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyHandlerIfMatching<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyHandlerIfMatching<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyHandlerIfMatching<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> removed call to org/apache/commons/configuration2/builder/DefaultParametersHandler::initializeDefaults &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isOccurrence<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerAll()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isOccurrence<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerSpecific()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isOccurrence<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerAll()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isOccurrence<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerSpecific()]</span></span> replaced boolean return with true for org/apache/commons/configuration2/builder/DefaultParametersManager$DefaultHandlerData::isOccurrence &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initializeParameters<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initializeParameters<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> removed call to java/util/Collection::forEach &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$initializeParameters$0<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()]</span></span> removed call to org/apache/commons/configuration2/builder/DefaultParametersManager$DefaultHandlerData::applyHandlerIfMatching &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>registerDefaultsHandler<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testRegisterDefaultsHandlerNoClass()]</span></span> removed call to org/apache/commons/configuration2/builder/DefaultParametersManager::registerDefaultsHandler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>registerDefaultsHandler<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testRegisterDefaultsHandlerNoClass()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>registerDefaultsHandler<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testRegisterDefaultsHandlerNoHandler()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>unregisterDefaultsHandler<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerAll()]</span></span> removed call to org/apache/commons/configuration2/builder/DefaultParametersManager::unregisterDefaultsHandler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2b48b0de_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2b48b0de_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$unregisterDefaultsHandler$1<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerSpecific()]</span></span> replaced boolean return with true for org/apache/commons/configuration2/builder/DefaultParametersManager::lambda$unregisterDefaultsHandler$1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$unregisterDefaultsHandler$1<br/><b>Killed by : </b>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerAll()]</span></span> replaced boolean return with false for org/apache/commons/configuration2/builder/DefaultParametersManager::lambda$unregisterDefaultsHandler$1 &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaultsStartClass()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerSpecific()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaults()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaultsOnSubClass()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testApplyDefaultsMultipleHandlers()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadFromFile()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInitChildBuilderParametersDefaultChildProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInitChildBuilderParametersDefaultChildProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testConcurrentGetAndReload()] (71 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadFile()] (4039 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testUnregisterDefaultsHandlerAll()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testPropertiesInheritance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testFileBasedInheritance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testHierarchicalInheritance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testProxyObjectMethods()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testXmlInheritance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testJndi()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testCombined()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testDatabase()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testMultiFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testInheritance()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilderBeforeConfigurationAccess()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testHierarchical()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigureResult()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNamesBeforeConfigurationAccess()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testFileBased()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testProperties()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestParameters.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestParameters]/[method:testXml()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigureResult()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedBuilderWithPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilderBeforeConfigurationAccess()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNamesBeforeConfigurationAccess()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedBuilderWithURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedBuilderWithFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testExtractPropertyValueCLOB()] (20 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testLogErrorListener()] (23 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysSingle()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptySingle()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectSingle()] (17 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeyMultiple()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearSingle()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectCommit()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeys()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearCommit()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:containsValueInternal()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptyError()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptyMultiple()] (23 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectMultiple()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetList()] (21 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyMultiple()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeySingle()] (26 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyError()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddNonStringProperty()] (23 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearMultiple()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsValue()] (24 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyError()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyDirectMultiple()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetListWithDelimiterParsingDisabled()] (20 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyDirectSingle()] (24 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyError()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeyError()] (22 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testFileBasedConfigurationBuilderWithHomeDirectoryLocationStrategy()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testAddPropertyEvent()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertySingle()] (27 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyCommit()] (26 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysError()] (24 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearPropertyEvent()] (20 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (21 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyMultipleOtherConfig()] (20 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (20 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearEvent()] (21 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testSetPropertyEvent()] (20 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearEventWithDetails()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearSubset()] (18 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearError()] (33 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (24 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetListWithDelimiter()] (35 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPathIncludeNotFoundFail()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddWithDelimiter()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testSetPropertyWithDelimiter()] (23 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSeparatorUsedInINIOutput()] (2 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testExtractPropertyValueCLOBEmpty()] (67 ms)</li><li>org.apache.commons.configuration2.spring.TestConfigurationPropertiesFactoryBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.spring.TestConfigurationPropertiesFactoryBean]/[method:testLoadResources()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPathIncludeNotFoundPass()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSeparatorUsedInINIInput()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testCommentLeadingSeparatorUsedInINIInput()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testCreateConfigurationNonExistingFileAndThenSave()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeFileViaFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedURL()] (3 ms)</li><li>org.apache.commons.configuration2.io.TestClasspathLocationStrategy.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.io.TestClasspathLocationStrategy]/[method:testLocateSuccess()] (1 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testReadOnlyAccessToSubConfigurations()] (17 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testProviderInDefinitionConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testProviderInDefinitionConfig()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritCustomProviders()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritCustomProviders()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalWithException()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalWithException()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBasePathForChildConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBasePathForChildConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomEntityResolver()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomEntityResolver()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystemForSubConfig()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomResultConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomResultConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysMultiple()] (244 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystemForSubConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testEnvironmentProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomLookup()] (2 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConfiguration()] (24 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSetConfigurationBasePath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRemoveSubBuilderListener()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testEnvironmentProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomLookup()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReactOnSubBuilderChange()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReactOnSubBuilderChange()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testResetBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testResetBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRemoveSubBuilderListener()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSystemProperties()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReloadingBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathFromDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathInParameters()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSystemProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReloadingBuilder()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathFromDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathInParameters()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testMappingInSameOrder()] (1 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testLoading()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderFromFile()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingNonExisting()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderWithManualAdd()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeInSubDir()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingExisting()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingSet()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationProperties()] (4 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingNonExisting()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingUnset()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileExplicitBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingExisting()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileDefaultBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRootNodeInitializedAfterCreation()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNames()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testChildBuildersAreInitializedOnlyOnce()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNamesManipulate()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationNoAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetChildBuilders()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilderUnknown()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.TestSubsetConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubsetConfiguration]/[method:testNested()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRootNodeInitializedAfterCreation()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNamesManipulate()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSuppressChildBuilderPropertyInheritance()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSuppressChildBuilderPropertyInheritance()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromURL()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilderUnknown()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptional()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConcurrentReadAccessWithoutSynchronizer()] (4 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromURL()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationNoAdditional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testChildBuildersAreInitializedOnlyOnce()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNames()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetChildBuilders()] (7 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptional()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConcurrentReadAccessWithoutSynchronizer()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testReloadableDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testInitWithParameters()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritEventListeners()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritEventListeners()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProvider()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProvider()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInheritProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadAdditional()] (26 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInheritProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInterpolationOverMultipleSources()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testNestedReloadableSources()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationListNodes()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInterpolationOverMultipleSources()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationAttributes()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationListNodes()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationAttributes()] (3 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testUpdateConfiguration()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testJndiConfiguration()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testINIConfiguration()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testJndiConfiguration()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testINIConfiguration()] (7 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload()] (57 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload2()] (58 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadMultipleClients()] (143 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationReloading()] (5047 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationReloading()] (5044 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testInitializeParametersNull()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testRegisterDefaultsHandlerNoClass()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestDefaultParametersManager.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestDefaultParametersManager]/[method:testRegisterDefaultsHandlerNoHandler()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>

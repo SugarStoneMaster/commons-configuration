@@ -1,0 +1,3998 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LegacyListDelimiterHandler.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.convert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.lang3.StringUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A specialized implementation of {@code ListDelimiterHandler} which simulates the list delimiter handling as it was</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * used by {@code PropertiesConfiguration} in Commons Configuration 1.x.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class mainly exists for compatibility reasons. It is intended to be used by applications which have to deal with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * properties files created by an older version of this library.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * In the 1.x series of Commons Configuration list handling was not fully consistent. The escaping of property values</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * was done in a different way if they contained a list delimiter or not. From version 2.0 on, escaping is more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * stringent which might cause slightly different results when parsing properties files created by or for Configuration</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * 1.x. If you encounter such problems, you can switch to this {@code ListDelimiterHandler} implementation rather than</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the default one. In other cases, this class should not be used!</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implementation note: An instance of this class can safely be shared between multiple {@code Configuration} instances.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class LegacyListDelimiterHandler extends AbstractListDelimiterHandler {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Constant for the escaping character. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String ESCAPE = &#34;\\&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Constant for the escaped escaping character. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String DOUBLE_ESC = ESCAPE + ESCAPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Constant for a duplicated sequence of escaping characters. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String QUAD_ESC = DOUBLE_ESC + DOUBLE_ESC;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the number of trailing backslashes. This is sometimes needed for the correct handling of escape characters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param line the string to investigate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of trailing backslashes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static int countTrailingBS(final String line) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int bsCount = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_67'/>
+67
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_67'>4</a>
+<span>
+1. countTrailingBS : changed conditional boundary &rarr; SURVIVED<br/>
+2. countTrailingBS : negated conditional &rarr; KILLED<br/>
+3. countTrailingBS : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. countTrailingBS : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (int idx = line.length() - 1; idx &#62;= 0 &#38;&#38; line.charAt(idx) == &#39;\\&#39;; idx--) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_68'>1</a>
+<span>
+1. countTrailingBS : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            bsCount++;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_71'>1</a>
+<span>
+1. countTrailingBS : replaced int return with 0 for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::countTrailingBS &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return bsCount;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The list delimiter character. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final char delimiter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code LegacyListDelimiterHandler} and sets the list delimiter character.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param listDelimiter the list delimiter character</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public LegacyListDelimiterHandler(final char listDelimiter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        delimiter = listDelimiter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This implementation performs delimiter escaping for a single value (which is not part of a list).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Object escape(final Object value, final ValueTransformer transformer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_91'>1</a>
+<span>
+1. escape : replaced return value with null for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escape &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return escapeValue(value, false, transformer);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Performs the escaping of backslashes in the specified properties value. Because a double backslash is used to escape</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the escape character of a list delimiter, double backslashes also have to be escaped if the property is part of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * (single line) list. In addition, because the output is written into a properties file, each occurrence of a backslash</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * again has to be doubled. This method is called by {@code escapeValue()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value the value to be escaped</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param inList a flag whether the value is part of a list</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the value with escaped backslashes as string</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected String escapeBackslashs(final Object value, final boolean inList) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String strValue = String.valueOf(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_107'>2</a>
+<span>
+1. escapeBackslashs : negated conditional &rarr; KILLED<br/>
+2. escapeBackslashs : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (inList &#38;&#38; strValue.contains(DOUBLE_ESC)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            strValue = StringUtils.replace(strValue, DOUBLE_ESC, QUAD_ESC);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_111'>1</a>
+<span>
+1. escapeBackslashs : replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeBackslashs &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return strValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This implementation performs a special encoding of backslashes at the end of a string so that they are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * not interpreted as escape character for a following list delimiter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Object escapeList(final List&#60;?&#62; values, final ValueTransformer transformer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_120'>1</a>
+<span>
+1. escapeList : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!values.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final Iterator&#60;?&#62; it = values.iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            String lastValue = escapeValue(it.next(), true, transformer);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final StringBuilder buf = new StringBuilder(lastValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_124'>1</a>
+<span>
+1. escapeList : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            while (it.hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // if the last value ended with an escape character, it has</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // to be escaped itself; otherwise the list delimiter will</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // be escaped</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_128'>4</a>
+<span>
+1. escapeList : negated conditional &rarr; KILLED<br/>
+2. escapeList : negated conditional &rarr; KILLED<br/>
+3. escapeList : Replaced integer division with multiplication &rarr; KILLED<br/>
+4. escapeList : Replaced integer modulus with multiplication &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (lastValue.endsWith(ESCAPE) &#38;&#38; countTrailingBS(lastValue) / 2 % 2 != 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    buf.append(ESCAPE).append(ESCAPE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                buf.append(getDelimiter());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                lastValue = escapeValue(it.next(), true, transformer);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                buf.append(lastValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_135'>1</a>
+<span>
+1. escapeList : replaced return value with null for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeList &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return buf.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This is just a dummy implementation. It is never called.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected String escapeString(final String s) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_145'>1</a>
+<span>
+1. escapeString : replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeString &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Escapes the given property value. This method is called on saving the configuration for each property value. It</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * ensures a correct handling of backslash characters and also takes care that list delimiter characters in the value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * are escaped.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value the property value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param inList a flag whether the value is part of a list</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param transformer the {@code ValueTransformer}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the escaped property value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected String escapeValue(final Object value, final boolean inList, final ValueTransformer transformer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String escapedValue = String.valueOf(transformer.transformValue(escapeBackslashs(value, inList)));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_160'>1</a>
+<span>
+1. escapeValue : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (getDelimiter() != 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            escapedValue = StringUtils.replace(escapedValue, String.valueOf(getDelimiter()), ESCAPE + getDelimiter());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_163'/>
+163
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_163'>1</a>
+<span>
+1. escapeValue : replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeValue &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return escapedValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the list delimiter character.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the list delimiter character</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public char getDelimiter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_172'>1</a>
+<span>
+1. getDelimiter : replaced char return with 0 for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::getDelimiter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return delimiter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc} This implementation simulates the old splitting algorithm.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The string is split at the delimiter character if it is not escaped.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the delimiter character is not found, the input is returned unchanged.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Collection&#60;String&#62; splitString(final String s, final boolean trim) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_182'>2</a>
+<span>
+1. splitString : changed conditional boundary &rarr; SURVIVED<br/>
+2. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (s.indexOf(getDelimiter()) &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_183'>1</a>
+<span>
+1. splitString : replaced return value with Collections.emptyList for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::splitString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return Collections.singleton(s);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final List&#60;String&#62; list = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final char esc = ESCAPE.charAt(0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        StringBuilder token = new StringBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        boolean inEscape = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_192'/>
+192
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_192'>2</a>
+<span>
+1. splitString : changed conditional boundary &rarr; KILLED<br/>
+2. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; s.length(); i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final char c = s.charAt(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_195'>1</a>
+<span>
+1. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (inEscape) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_196'>1</a>
+<span>
+1. splitString : removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::handleEscapedChar &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                handleEscapedChar(token, c, esc);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                inEscape = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_198'>1</a>
+<span>
+1. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            } else if (c == getDelimiter()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_199'>1</a>
+<span>
+1. splitString : removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::finalizeToken &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                finalizeToken(list, token, trim);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                token = new StringBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_201'>1</a>
+<span>
+1. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            } else if (c == esc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                inEscape = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                token.append(c);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // If the last char was an escape, append the escape char.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_209'>1</a>
+<span>
+1. splitString : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (inEscape) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            token.append(esc);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Add the final token to the list</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_214'/>
+214
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_214'>1</a>
+<span>
+1. splitString : removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::finalizeToken &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        finalizeToken(list, token, trim);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_216'/>
+216
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_216'>1</a>
+<span>
+1. splitString : replaced return value with Collections.emptyList for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::splitString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return list;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Appends the current character correctly if we?re in &#34;escape&#34; mode.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the char cannot be escaped, we re-insert the escape character.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void handleEscapedChar(final StringBuilder token, final char c, final char esc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_224'/>
+224
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_224'>2</a>
+<span>
+1. handleEscapedChar : negated conditional &rarr; KILLED<br/>
+2. handleEscapedChar : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (c != getDelimiter() &#38;&#38; c != esc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            token.append(esc);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        token.append(c);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Converts the current token to a String, optionally trims it,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and adds it to the list.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void finalizeToken(final List&#60;String&#62; list, final StringBuilder token, final boolean trim) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String t = token.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_236'/>
+236
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_236'>1</a>
+<span>
+1. finalizeToken : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (trim) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            t = t.trim();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_238'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        list.add(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7335caed_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testKeepSeparators()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()]</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCopyAndSave()]</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>countTrailingBS<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()]</span></span> replaced int return with 0 for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::countTrailingBS &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escape<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetSeparator()]</span></span> replaced return value with null for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escape &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeBackslashs<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>escapeBackslashs<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeBackslashs<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetSeparator()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeBackslashs &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSave()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSave()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveToHTTPServerSuccess()]</span></span> Replaced integer division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()]</span></span> Replaced integer modulus with multiplication &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeList<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSave()]</span></span> replaced return value with null for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeList &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_145'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeString<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeString &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeValue<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>escapeValue<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetSeparator()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::escapeValue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDelimiter<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> replaced char return with 0 for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::getDelimiter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLineMulti()]</span></span> replaced return value with Collections.emptyList for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::splitString &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_192'>192</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_192'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testBackslashEscapingInLists()]</span></span> removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::handleEscapedChar &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::finalizeToken &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testBackslashEscapingInLists()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_214'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> removed call to org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::finalizeToken &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_216'>216</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_216'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitString<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()]</span></span> replaced return value with Collections.emptyList for org/apache/commons/configuration2/convert/LegacyListDelimiterHandler::splitString &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>handleEscapedChar<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetStringWithEscapedComma()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>handleEscapedChar<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testBackslashEscapingInLists()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7335caed_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7335caed_236'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>finalizeToken<br/><b>Killed by : </b>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testBackslashEscapingInLists()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testKeepSeparators()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveToHTTPServerFail()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryWriter()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveToCustomURL()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveToHTTPServerSuccess()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSlashEscaping()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testClone()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testAppendAndSave()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSave()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCopyAndSave()] (4 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSave()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetIOFactoryDefault()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testUnescapeJava()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testList()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testKeyValueSeparators()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEscapedKeyValueSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryNull()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIsCommentLine()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveMissingFileName()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testBackslashEscapingInLists()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testNewLineEscaping()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testReadCalledDirectly()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testDisableListDelimiter()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetFooterSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetHeaderSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadUnexistingFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeFromClassPath()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetStringWithEscapedChars()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetLayout()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testUnEscapeCharacters()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetHeaderSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testGetStringWithEscapedComma()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoad()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadInclude()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testMultilines()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testReference()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeInterpol()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetFooterSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testPropertyLoadedInclude()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testPropertyLoadedIncludeNotAllowed()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEmptyNoSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEmpty()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testDisableIncludes()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testReadFooterComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCloneNullLayout()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadViaPropertyWithBasePath()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testPropertyLoaded()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeFromReader()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testMixedArray()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadCyclicalMultiStepReferenceFail()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadCyclicalReferenceFail()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadAllOnNotFound()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadViaPropertyWithBasePath2()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeIncludeLoadCyclicalReferenceFail()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testAppend()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadCyclicalReferenceIgnore()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeIncludeLoadAllOnNotFound()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadCyclicalMultiStepReferenceIgnore()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeIncludeLoadCyclicalReferenceIgnore()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeOptional()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testClearFooterComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeLoadAllOnLoadException()] (4 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testMultipleIncludeFiles()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetInclude()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testChangingListDelimiter()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCompress840BeanContextSupport()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCompress840BeanContextServicesSupport()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEscapedKey()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadFromFile()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testFileWithSharpSymbol()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryReader()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLargeKey()] (3 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupRead()] (5 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testWriteFooterComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLineSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithDefaultListDelimiterHandler()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithDelimiterParsingDisabled()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testInitFromNonExistingFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testInMemoryCreatedSave()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEscapeQuote()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithDataConfig()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetPropertyListWithDelimiterParsingDisabled()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupWrite()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupWriteUtf8WithoutUnicodeEscapes()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testThrowExceptionOnMissing()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testThrowExceptionOnMissing()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceNull()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSetListDelimiterInMemoryConfigNonBaseConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testCantRemoveMemoryConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGettingConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCantRemoveMemoryConfig()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGettingConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testAddRemoveConfigurations()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testAddRemoveConfigurations()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testAddFirstRemoveConfigurations()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceUnknown()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetConfigurationSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetNumberOfConfigurationsSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetKeysPreservesOrder()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetInMemoryConfigurationSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testAddConfigurationSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testRemoveConfigurationSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testInstanciateWithCollection()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetKeysPreservesOrder()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCloneInterpolation()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetPropertyWIncludes()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetPropertyWIncludes()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceInMemory()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCloneEventListener()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testAddingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetVector()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetKeys2PreservesOrder()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetPropertyMissing()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testAddingProperty()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventAddProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetKeys2PreservesOrder()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetList()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetList()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testStringArrayInterpolation()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeFileViaFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetPropertyMissing()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCloneNotSupported()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetStringWithDefaults()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceSingle()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventSetProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGetStringWithDefaults()] (3 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceMultiple()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testClone()] (2 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testSubsetCanResolve()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testInterpolationInMultipleConfigs()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testListInterpolation()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSetListDelimiterAfterClear()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSetListDelimiter()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCheckingInMemoryConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testCheckingInMemoryConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testInterpolationArrayReference()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSubsetCanResolve()] (4 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testReplaceInMemoryConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testUseChildConfigAsInMemoryConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventClearProperty()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetStringArrayWithInterpolation()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetListWithInterpolation()] (4 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testDefaultValueWhenKeyMissing()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testDefaultValueWhenKeyMissing()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testList()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testList()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testStringArray()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testStringArray()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testPropertyExistsInOnlyOneConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testPropertyExistsInOnlyOneConfig()] (2 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testMultipleTypesOfConfigs()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testMultipleTypesOfConfigs()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSettingMissingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testSettingMissingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testClearingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testClearingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGettingSubset()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGettingSubset()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeInSubDir()] (6 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetGlobalSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetLineSeparatorInComments()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetLineSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSaveCommentForUnexistingProperty()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testReadAndWrite()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetNullComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLineMulti()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testHeaderCommentWithBlanksAndPresetHeaderComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventClearConfig()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testInitCopy()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testIsSingleLine()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testLineWithBlank()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testHeaderComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testHeaderCommentWithBlanksAndPropComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testHeaderCommentWithBlanks()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testCombineComments()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventAddExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testInitCopyModify()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testBlankLines()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testBlankLinesWithHeaderComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testReadSimple()] (0 ms)</li><li>org.apache.commons.configuration2.TestThreesomeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestThreesomeConfiguration]/[method:testList2()] (0 ms)</li><li>org.apache.commons.configuration2.TestThreesomeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestThreesomeConfiguration]/[method:testList3()] (0 ms)</li><li>org.apache.commons.configuration2.TestThreesomeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestThreesomeConfiguration]/[method:testList1()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithNoComma()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithSeparatingWhitespace()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithOnlyComma()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithCommaSeparatedList()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithOnlyCommaWithStringBuilder()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration605.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration605]/[method:testWithSeparatingNonWhitespace()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>

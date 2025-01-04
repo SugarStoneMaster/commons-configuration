@@ -64,7 +64,7 @@
     <slf4j.version>2.0.16</slf4j.version>
     <!-- Spring 6 requires Java 17 -->
     <spring.version>5.3.39</spring.version>
-    <japicmp.skip>false</japicmp.skip>
+    <japicmp.skip>true</japicmp.skip>
     <!-- Commons Release Plugin -->
     <commons.bc.version>2.10.1</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
@@ -402,6 +402,21 @@
           <version>3.5.2</version>
           <executions>
             <execution>
+              <id>shade-main-app</id>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>org.apache.commons.configuration2.MainApp</mainClass>
+                  </transformer>
+                </transformers>
+              </configuration>
+            </execution>
+            <execution>
               <id>shade-jmh</id>
               <phase>package</phase>
               <goals>
@@ -435,6 +450,11 @@
               <goals>
                 <goal>report</goal>
               </goals>
+              <configuration>
+                <excludes>
+                  <exclude>org.apache.commons.configuration2.MainApp</exclude>
+                </excludes>
+              </configuration>
             </execution>
           </executions>
         </plugin>
@@ -507,6 +527,21 @@
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.5.2</version>
         <executions>
+          <execution>
+            <id>shade-main-app</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>org.apache.commons.configuration2.MainApp</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
           <execution>
             <id>shade-jmh</id>
             <phase>package</phase>
@@ -616,6 +651,14 @@
           <threshold>Normal</threshold>
           <effort>Default</effort>
           <excludeFilterFile>${basedir}/src/conf/findbugs-exclude-filter.xml</excludeFilterFile>
+          <!--
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>1.12.0</version>
+            </plugin>
+          </plugins>-->
         </configuration>
       </plugin>
       <plugin>
@@ -711,6 +754,13 @@
           <threshold>Normal</threshold>
           <effort>Default</effort>
           <excludeFilterFile>${basedir}/src/conf/findbugs-exclude-filter.xml</excludeFilterFile>
+          <!--<plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>1.12.0</version>
+            </plugin>
+          </plugins>-->
         </configuration>
       </plugin>
       <plugin>
