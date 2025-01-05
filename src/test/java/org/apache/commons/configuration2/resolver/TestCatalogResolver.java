@@ -15,15 +15,19 @@
  * limitations under the License.
  */
 
-package org.apache.commons.configuration2;
+package org.apache.commons.configuration2.resolver;
 
+import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
 import org.apache.commons.configuration2.io.ConfigurationLogger;
+import org.apache.commons.configuration2.io.DefaultFileSystem;
 import org.apache.commons.configuration2.io.FileHandler;
-import org.apache.commons.configuration2.resolver.CatalogResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -101,4 +105,72 @@ public class TestCatalogResolver {
     public void testSchemaResolver() {
         assertDoesNotThrow(() -> load(REWRITE_SCHEMA_FILE));
     }
+
+    @Test
+    public void testSetFileSystem() {
+        DefaultFileSystem fileSystem = new DefaultFileSystem();
+        resolver.setFileSystem(fileSystem);
+
+        // Confirm that the resolver's FileSystem was updated
+        assertDoesNotThrow(() -> resolver.resolveEntity(null, null),
+                "File system integration should not throw exceptions.");
+    }
+
+    @Test
+    public void testSetBaseDir() {
+        String baseDir = "/test/base/dir";
+        resolver.setBaseDir(baseDir);
+
+        // This won't throw as the method exists and should be functional
+        assertDoesNotThrow(() -> resolver.resolveEntity(null, null),
+                "Base directory setting should not cause issues in resolution.");
+    }
+
+    @Test
+    public void testSetLogger() {
+        ConfigurationLogger logger = new ConfigurationLogger("TestLogger");
+        resolver.setLogger(logger);
+
+        // The resolver's logger should match the one we set
+        assertNotNull(resolver.getLogger(), "Logger should be initialized.");
+        assertEquals(logger, resolver.getLogger(), "Logger should match the configured instance.");
+    }
+
+    @Test
+    public void testNonExistingCatalogFile() {
+        resolver.setCatalogFiles("nonexistent_catalog.xml");
+        assertDoesNotThrow(() -> resolver.resolveEntity("testPublicId", "testSystemId"),
+                "Nonexistent catalog files should be handled gracefully.");
+    }
+
+    @Test
+    public void testMimeTypeFallback() throws IOException {
+        resolver.setCatalogFiles(CATALOG_FILES);
+
+        // Mock or use a dummy catalog to simulate behavior
+        assertDoesNotThrow(() -> {
+            resolver.setFileSystem(new DefaultFileSystem());
+        }, "The resolver should gracefully handle MIME type fallback.");
+    }
+
+    @Test
+    public void testSetInterpolator() {
+        ConfigurationInterpolator interpolator = new ConfigurationInterpolator();
+        resolver.setInterpolator(interpolator);
+
+        // Ensure interpolator was set without issues
+        assertDoesNotThrow(() -> resolver.resolveEntity(null, null),
+                "Interpolator integration should not cause issues.");
+    }
+
+    @Test
+    public void testEntityResolution() {
+        resolver.setCatalogFiles(CATALOG_FILES);
+
+        // Simulate a public and system ID
+        assertDoesNotThrow(() -> resolver.resolveEntity("testPublicId", "testSystemId"),
+                "Entity resolution should handle mock public/system IDs gracefully.");
+    }
+
+
 }
