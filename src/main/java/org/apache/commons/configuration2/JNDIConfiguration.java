@@ -32,6 +32,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.NotContextException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.configuration2.event.ConfigurationErrorEvent;
 import org.apache.commons.configuration2.io.ConfigurationLogger;
 import org.apache.commons.lang3.StringUtils;
@@ -128,15 +129,24 @@ public class JNDIConfiguration extends AbstractConfiguration {
      * @param key the key to check
      * @return a flag whether this key is stored in this configuration
      */
+    @SuppressFBWarnings(
+            value = "LDAP_INJECTION",
+            justification = "All keys are sanitized with a whitelist regex before lookup()."
+    )
     @Override
     protected boolean containsKeyInternal(String key) {
+        // 1) If we have a clearedProperties set, check that first
         if (clearedProperties.contains(key)) {
             return false;
         }
-        key = key.replace('.', '/');
+
+        // 2) Sanitize and transform the incoming key to JNDI format.
+        //    For example, we replace '.' with '/', but also ensure only certain characters are allowed.
+        String jndiKey = sanitizeKey(key);
+
         try {
-            // throws a NamingException if JNDI doesn't contain the key.
-            getBaseContext().lookup(key);
+            // throws a NamingException if JNDI doesn't contain the key
+            getBaseContext().lookup(jndiKey);
             return true;
         } catch (final NameNotFoundException e) {
             // expected exception, no need to log it
@@ -145,6 +155,25 @@ public class JNDIConfiguration extends AbstractConfiguration {
             fireError(ConfigurationErrorEvent.READ, ConfigurationErrorEvent.READ, key, null, e);
             return false;
         }
+    }
+
+    /**
+     * Sanitizes a key used for JNDI lookup, reducing the likelihood of LDAP injection.
+     * You can customize this method to fit your environment's valid naming patterns.
+     * For example, we replace '.' with '/', then allow only [A-Za-z0-9/_-] characters.
+     * If the result has other characters, we throw an exception.
+     */
+    private String sanitizeKey(String originalKey) {
+        // a) Replace '.' with '/', if that is required
+        String transformed = originalKey.replace('.', '/');
+
+        // b) Validate with a whitelist: only letters, digits, underscore, dash, slash
+        //    Adjust the pattern for your environment.
+        if (!transformed.matches("[A-Za-z0-9/_-]+")) {
+            throw new IllegalArgumentException("Invalid JNDI lookup key: " + transformed);
+        }
+
+        return transformed;
     }
 
     /**

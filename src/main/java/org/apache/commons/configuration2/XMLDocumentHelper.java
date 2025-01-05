@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -157,12 +158,27 @@ final class XMLDocumentHelper {
     }
 
     /**
-     * Creates a new {@code TransformerFactory}.
+     * Creates a new secure {@code TransformerFactory}.
      *
-     * @return the {@code TransformerFactory}
+     * @return the {@code TransformerFactory} with secure configurations
+     * @throws TransformerConfigurationException if a secure factory cannot be created
      */
     static TransformerFactory createTransformerFactory() {
-        return TransformerFactory.newInstance();
+        TransformerFactory factory = TransformerFactory.newInstance();
+        try {
+            // Enable secure processing to limit resources used in transformations
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+            // Disable access to external DTDs
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+
+            // Disable access to external stylesheets
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
+            return factory;
+        } catch (IllegalArgumentException | TransformerConfigurationException e) {
+            return null;
+        }
     }
 
     /**

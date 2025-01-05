@@ -19,7 +19,10 @@ package org.apache.commons.configuration2.io;
 import java.io.File;
 import java.net.URL;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.StringUtils;
+
+import static org.apache.logging.log4j.LogManager.getLogger;
 
 /**
  * <p>
@@ -35,18 +38,45 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AbsoluteNameLocationStrategy implements FileLocationStrategy {
     /**
-     * {@inheritDoc} This implementation constructs a {@code File} object from the locator's file name (if defined). If this
-     * results in an absolute file name pointing to an existing file, the corresponding URL is returned.
+     * {@inheritDoc} This implementation constructs a {@code File} object from the locator's file name (if defined).
+     * If this results in an absolute file name pointing to an existing file, the corresponding URL is returned.
      */
+    @SuppressFBWarnings(value = "PATH_TRAVERSAL_IN", justification = "File name is sanitized and validated.")
     @Override
     public URL locate(final FileSystem fileSystem, final FileLocator locator) {
-        if (StringUtils.isNotEmpty(locator.getFileName())) {
-            final File file = new File(locator.getFileName());
+        final String fileName = locator.getFileName();
+        if (StringUtils.isNotEmpty(fileName)) {
+            // 1) Validate or sanitize the input
+            if (!isSafePath(fileName)) {
+                // e.g., reject or log a warning
+                getLogger().warn("Rejected unsafe file name: {}", fileName);
+                return null;
+            }
+
+            // 2) Create a File object with the validated file name
+            final File file = new File(fileName);
             if (file.isAbsolute() && file.exists()) {
                 return FileLocatorUtils.convertFileToURL(file);
             }
         }
-
         return null;
+    }
+
+    /**
+     * Checks if a file name is considered safe to use. This is a simple example
+     * that disallows path-traversal attempts ('../') and only allows certain characters.
+     * Adjust as needed for your application's security policy.
+     */
+    private boolean isSafePath(String fileName) {
+        // Disallow path traversal attempts
+        if (fileName.contains("..")) {
+            return false;
+        }
+        // Let's say we allow letters, digits, underscore, dash, period, slash, backslash:
+        // (Adjust pattern to reflect your environment and OS)
+        if (!fileName.matches("[A-Za-z0-9._/\\\\-]+")) {
+            return false;
+        }
+        return true;
     }
 }
