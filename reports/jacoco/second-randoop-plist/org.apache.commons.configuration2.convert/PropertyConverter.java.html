@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons Configuration</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.configuration2.convert</a> &gt; <span class="el_source">PropertyConverter.java</span></div><h1>PropertyConverter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.configuration2.convert;
+
+import java.awt.Color;
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import org.apache.commons.configuration2.ex.ConversionException;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * A utility class to convert the configuration properties into any type.
+ *
+ * @since 2.8.0
+ */
+public final class PropertyConverter {
+
+    /** String literal for the value. */
+    private static final String THE_VALUE = &quot;The value &quot;;
+
+    /** String literal for could not convert. */
+    private static final String COULD_NOT_CONVERT = &quot;Could not convert &quot;;
+
+    /** String literal for cant convert color. */
+    private static final String CANT_CONVERT_COLOR = &quot; can't be converted to a Color&quot;;
+
+    /** String literal for cant be converted. */
+    private static final String CANT_BE_CONVERT = &quot; can't be converted to a &quot;;
+
+    /** Constant for the prefix of hex numbers. */
+    private static final String HEX_PREFIX = &quot;0x&quot;;
+
+    /** Constant for the radix of hex numbers. */
+    private static final int HEX_RADIX = 16;
+
+    /** Constant for the prefix of binary numbers. */
+    private static final String BIN_PREFIX = &quot;0b&quot;;
+
+    /** Constant for the radix of binary numbers. */
+    private static final int BIN_RADIX = 2;
+
+    /** Constant for the argument classes of the Number constructor that takes a String. */
+<span class="fc" id="L81">    private static final Class&lt;?&gt;[] CONSTR_ARGS = {String.class};</span>
+
+    /** The fully qualified name of {@code javax.mail.internet.InternetAddress}, as used in the javamail-1.* API.  */
+    private static final String INTERNET_ADDRESS_CLASSNAME_JAVAX = &quot;javax.mail.internet.InternetAddress&quot;;
+
+    /** The fully qualified name of {@code jakarta.mail.internet.InternetAddress}, as used in the javamail-2.0+ API. */
+    private static final String INTERNET_ADDRESS_CLASSNAME_JAKARTA = &quot;jakarta.mail.internet.InternetAddress&quot;;
+
+    /**
+     * Converts a value to a constant of an enumeration class.
+     *
+     * @param enumClass the enumeration class
+     * @param value the value to be converted
+     * @return the converted value
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    // conversion is safe because we know that the class is an Enum class
+    private static Object convertToEnum(final Class&lt;?&gt; enumClass, final Object value) {
+<span class="nc" id="L99">        return toEnum(value, enumClass.asSubclass(Enum.class));</span>
+    }
+
+    public static Object to(final Class&lt;?&gt; cls, final Object value, final DefaultConversionHandler convHandler)
+            throws ConversionException {
+
+        // 1) If the value is already of type cls, no conversion needed
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (cls.isInstance(value)) {</span>
+<span class="fc" id="L107">            return value;</span>
+        }
+
+        // 2) Handle simple (non-numeric) cases
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (String.class.equals(cls)) {</span>
+<span class="fc" id="L112">            return String.valueOf(value);</span>
+        }
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (isBooleanType(cls)) {</span>
+<span class="fc" id="L115">            return toBoolean(value);</span>
+        }
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (isCharacterType(cls)) {</span>
+<span class="fc" id="L118">            return toCharacter(value);</span>
+        }
+
+        // 3) Handle numeric types
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (isNumericType(cls)) {</span>
+<span class="fc" id="L123">            return handleNumericType(cls, value);</span>
+        }
+
+        // 4) Delegate the remaining types to a helper that groups them by category
+<span class="fc" id="L127">        final Object result = handleOtherTypes(cls, value, convHandler);</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (result != null) {</span>
+<span class="fc" id="L129">            return result;</span>
+        }
+
+        // 5) If none of the groups returned a result, throw an exception
+<span class="nc" id="L133">        throw new ConversionException(</span>
+<span class="nc" id="L134">                &quot;The value '&quot; + value + &quot;' (&quot; + value.getClass() + &quot;) &quot;</span>
+<span class="nc" id="L135">                        + CANT_BE_CONVERT + cls.getName() + &quot; object&quot;</span>
+        );
+    }
+
+    /**
+     * Attempts conversions for all remaining types (date/time, file/network, patterns, etc.).
+     * Returns {@code null} if none matched, signaling we should throw.
+     */
+    private static Object handleOtherTypes(final Class&lt;?&gt; cls, final Object value, final DefaultConversionHandler convHandler) {
+        // A) Date/time types
+<span class="fc" id="L145">        final Object dateTime = handleDateTimeType(cls, value, convHandler);</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (dateTime != null) {</span>
+<span class="fc" id="L147">            return dateTime;</span>
+        }
+
+        // B) File/network types
+<span class="fc" id="L151">        final Object fileNet = handleFileNetworkType(cls, value);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (fileNet != null) {</span>
+<span class="fc" id="L153">            return fileNet;</span>
+        }
+
+        // C) Misc. special-case types (Regex, Locale, Enum, Color, etc.)
+<span class="fc" id="L157">        final Object special = handleSpecialCaseType(cls, value);</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (special != null) {</span>
+<span class="fc" id="L159">            return special;</span>
+        }
+
+        // None of the above matched =&gt; return null so the caller can throw
+<span class="nc" id="L163">        return null;</span>
+    }
+
+    /**
+     * Handles Date/Calendar conversions, returns null if cls does not match.
+     */
+    private static Object handleDateTimeType(final Class&lt;?&gt; cls, final Object value, final DefaultConversionHandler convHandler) {
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (Date.class.equals(cls)) {</span>
+<span class="fc" id="L171">            return toDate(value, convHandler.getDateFormat());</span>
+        }
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        if (Calendar.class.equals(cls)) {</span>
+<span class="fc" id="L174">            return toCalendar(value, convHandler.getDateFormat());</span>
+        }
+<span class="fc" id="L176">        return null;</span>
+    }
+
+    /**
+     * Handles File/Path/URI/URL/InetAddress conversions, returns null if cls does not match.
+     */
+    private static Object handleFileNetworkType(final Class&lt;?&gt; cls, final Object value) {
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">        if (File.class.equals(cls)) {</span>
+<span class="nc" id="L184">            return toFile(value);</span>
+        }
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if (Path.class.equals(cls)) {</span>
+<span class="nc" id="L187">            return toPath(value);</span>
+        }
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        if (URI.class.equals(cls)) {</span>
+<span class="fc" id="L190">            return toURI(value);</span>
+        }
+<span class="fc bfc" id="L192" title="All 2 branches covered.">        if (URL.class.equals(cls)) {</span>
+<span class="fc" id="L193">            return toURL(value);</span>
+        }
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (InetAddress.class.isAssignableFrom(cls)) {</span>
+<span class="fc" id="L196">            return toInetAddress(value);</span>
+        }
+<span class="fc" id="L198">        return null;</span>
+    }
+
+    /**
+     * Handles Patterns, Locales, Enums, Color, mail InternetAddress, Duration, etc.
+     * Returns null if cls does not match any known special case.
+     */
+    private static Object handleSpecialCaseType(final Class&lt;?&gt; cls, final Object value) {
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">        if (Pattern.class.equals(cls)) {</span>
+<span class="nc" id="L207">            return toPattern(value);</span>
+        }
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (Locale.class.equals(cls)) {</span>
+<span class="fc" id="L210">            return toLocale(value);</span>
+        }
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">        if (cls.isEnum()) {</span>
+<span class="nc" id="L213">            return convertToEnum(cls, value);</span>
+        }
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (Color.class.equals(cls)) {</span>
+<span class="fc" id="L216">            return toColor(value);</span>
+        }
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAVAX)) {</span>
+<span class="nc" id="L219">            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAVAX);</span>
+        }
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        if (cls.getName().equals(INTERNET_ADDRESS_CLASSNAME_JAKARTA)) {</span>
+<span class="fc" id="L222">            return toInternetAddress(value, INTERNET_ADDRESS_CLASSNAME_JAKARTA);</span>
+        }
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if (Duration.class.equals(cls)) {</span>
+<span class="fc" id="L225">            return toDuration(value);</span>
+        }
+<span class="nc" id="L227">        return null;</span>
+    }
+
+    /** True if cls is either Boolean.class or boolean.class. */
+    private static boolean isBooleanType(final Class&lt;?&gt; cls) {
+<span class="pc bpc" id="L232" title="1 of 4 branches missed.">        return Boolean.class.equals(cls) || Boolean.TYPE.equals(cls);</span>
+    }
+
+    /** True if cls is either Character.class or char.class. */
+    private static boolean isCharacterType(final Class&lt;?&gt; cls) {
+<span class="fc bfc" id="L237" title="All 4 branches covered.">        return Character.class.equals(cls) || Character.TYPE.equals(cls);</span>
+    }
+
+    /** True if cls is a numeric wrapper (extends Number) or a numeric primitive. */
+    private static boolean isNumericType(final Class&lt;?&gt; cls) {
+<span class="fc bfc" id="L242" title="All 4 branches covered.">        return Number.class.isAssignableFrom(cls) || cls.isPrimitive();</span>
+    }
+
+    /**
+     * Handles all numeric conversions (Integer, Long, Byte, Short, Float,
+     * Double, BigInteger, BigDecimal, or a generic Number).
+     */
+    private static Object handleNumericType(final Class&lt;?&gt; cls, final Object value) {
+<span class="fc bfc" id="L250" title="All 4 branches covered.">        if (Integer.class.equals(cls) || Integer.TYPE.equals(cls)) {</span>
+<span class="fc" id="L251">            return toInteger(value);</span>
+        }
+<span class="fc bfc" id="L253" title="All 4 branches covered.">        if (Long.class.equals(cls) || Long.TYPE.equals(cls)) {</span>
+<span class="fc" id="L254">            return toLong(value);</span>
+        }
+<span class="pc bpc" id="L256" title="1 of 4 branches missed.">        if (Byte.class.equals(cls) || Byte.TYPE.equals(cls)) {</span>
+<span class="fc" id="L257">            return toByte(value);</span>
+        }
+<span class="pc bpc" id="L259" title="1 of 4 branches missed.">        if (Short.class.equals(cls) || Short.TYPE.equals(cls)) {</span>
+<span class="fc" id="L260">            return toShort(value);</span>
+        }
+<span class="pc bpc" id="L262" title="1 of 4 branches missed.">        if (Float.class.equals(cls) || Float.TYPE.equals(cls)) {</span>
+<span class="fc" id="L263">            return toFloat(value);</span>
+        }
+<span class="pc bpc" id="L265" title="1 of 4 branches missed.">        if (Double.class.equals(cls) || Double.TYPE.equals(cls)) {</span>
+<span class="fc" id="L266">            return toDouble(value);</span>
+        }
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        if (BigInteger.class.equals(cls)) {</span>
+<span class="fc" id="L269">            return toBigInteger(value);</span>
+        }
+<span class="fc bfc" id="L271" title="All 2 branches covered.">        if (BigDecimal.class.equals(cls)) {</span>
+<span class="fc" id="L272">            return toBigDecimal(value);</span>
+        }
+        // Fallback for other numeric wrapper classes
+<span class="fc" id="L275">        return toNumber(value, cls);</span>
+    }
+
+    /**
+     * Converts the specified object into a BigDecimal.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a BigDecimal
+     */
+    public static BigDecimal toBigDecimal(final Object value) throws ConversionException {
+<span class="fc" id="L286">        final Number n = toNumber(value, BigDecimal.class);</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (n instanceof BigDecimal) {</span>
+<span class="fc" id="L288">            return (BigDecimal) n;</span>
+        }
+<span class="fc" id="L290">        return BigDecimal.valueOf(n.doubleValue());</span>
+    }
+
+    /**
+     * Converts the specified object into a BigInteger.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a BigInteger
+     */
+    public static BigInteger toBigInteger(final Object value) throws ConversionException {
+<span class="fc" id="L301">        final Number n = toNumber(value, BigInteger.class);</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (n instanceof BigInteger) {</span>
+<span class="fc" id="L303">            return (BigInteger) n;</span>
+        }
+<span class="fc" id="L305">        return BigInteger.valueOf(n.longValue());</span>
+    }
+
+    /**
+     * Converts the specified object into a Boolean. Internally the {@code org.apache.commons.lang.BooleanUtils} class from
+     * the &lt;a href=&quot;https://commons.apache.org/lang/&quot;&gt;Commons Lang&lt;/a&gt; project is used to perform this conversion. This
+     * class accepts some more tokens for the boolean value of &lt;b&gt;true&lt;/b&gt;, e.g. {@code yes} and {@code on}. Please refer to
+     * the documentation of this class for more details.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a boolean
+     */
+    public static Boolean toBoolean(final Object value) throws ConversionException {
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">        if (value instanceof Boolean) {</span>
+<span class="nc" id="L320">            return (Boolean) value;</span>
+        }
+<span class="fc bfc" id="L322" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L323">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Boolean object&quot;);</span>
+        }
+<span class="fc" id="L325">        final Boolean b = BooleanUtils.toBooleanObject((String) value);</span>
+<span class="fc bfc" id="L326" title="All 2 branches covered.">        if (b == null) {</span>
+<span class="fc" id="L327">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Boolean object&quot;);</span>
+        }
+<span class="fc" id="L329">        return b;</span>
+    }
+
+    /**
+     * Converts the specified object into a Byte.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a byte
+     */
+    public static Byte toByte(final Object value) throws ConversionException {
+<span class="fc" id="L340">        final Number n = toNumber(value, Byte.class);</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">        if (n instanceof Byte) {</span>
+<span class="fc" id="L342">            return (Byte) n;</span>
+        }
+<span class="fc" id="L344">        return n.byteValue();</span>
+    }
+
+    /**
+     * Converts the specified object into a Calendar.
+     *
+     * @param value the value to convert
+     * @param format the DateFormat pattern to parse String values
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Calendar
+     */
+    public static Calendar toCalendar(final Object value, final String format) throws ConversionException {
+<span class="pc bpc" id="L356" title="1 of 2 branches missed.">        if (value instanceof Calendar) {</span>
+<span class="nc" id="L357">            return (Calendar) value;</span>
+        }
+<span class="fc bfc" id="L359" title="All 2 branches covered.">        if (value instanceof Date) {</span>
+<span class="fc" id="L360">            final Calendar calendar = Calendar.getInstance();</span>
+<span class="fc" id="L361">            calendar.setTime((Date) value);</span>
+<span class="fc" id="L362">            return calendar;</span>
+        }
+<span class="fc bfc" id="L364" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L365">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Calendar&quot;);</span>
+        }
+        try {
+<span class="fc" id="L368">            final Calendar calendar = Calendar.getInstance();</span>
+<span class="fc" id="L369">            calendar.setTime(new SimpleDateFormat(format).parse((String) value));</span>
+<span class="fc" id="L370">            return calendar;</span>
+<span class="fc" id="L371">        } catch (final ParseException e) {</span>
+<span class="fc" id="L372">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Calendar&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified value object to a {@code Character}. This method converts the passed in object to a string. If
+     * the string has exactly one character, this character is returned as result. Otherwise, conversion fails.
+     *
+     * @param value the value to be converted
+     * @return the resulting {@code Character} object
+     * @throws ConversionException if the conversion is not possible
+     */
+    public static Character toCharacter(final Object value) throws ConversionException {
+<span class="fc" id="L385">        final String strValue = String.valueOf(value);</span>
+<span class="fc bfc" id="L386" title="All 2 branches covered.">        if (strValue.length() == 1) {</span>
+<span class="fc" id="L387">            return Character.valueOf(strValue.charAt(0));</span>
+        }
+<span class="fc" id="L389">        throw new ConversionException(String.format(&quot;The value '%s' cannot be converted to a Character object!&quot;, strValue));</span>
+    }
+
+    /**
+     * Converts the specified object into a Color. If the value is a String, the format allowed is
+     * (#)?[0-9A-F]{6}([0-9A-F]{2})?. Examples:
+     * &lt;ul&gt;
+     * &lt;li&gt;FF0000 (red)&lt;/li&gt;
+     * &lt;li&gt;0000FFA0 (semi transparent blue)&lt;/li&gt;
+     * &lt;li&gt;#CCCCCC (gray)&lt;/li&gt;
+     * &lt;li&gt;#00FF00A0 (semi transparent green)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Color
+     */
+    public static Color toColor(final Object value) throws ConversionException {
+<span class="pc bpc" id="L407" title="1 of 2 branches missed.">        if (value instanceof Color) {</span>
+<span class="nc" id="L408">            return (Color) value;</span>
+        }
+<span class="pc bpc" id="L410" title="1 of 4 branches missed.">        if (!(value instanceof String) || StringUtils.isBlank((String) value)) {</span>
+<span class="fc" id="L411">            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR);</span>
+        }
+<span class="fc" id="L413">        String color = ((String) value).trim();</span>
+
+<span class="fc" id="L415">        final int[] components = new int[3];</span>
+
+        // check the size of the string
+<span class="fc" id="L418">        final int minlength = components.length * 2;</span>
+<span class="pc bpc" id="L419" title="1 of 2 branches missed.">        if (color.length() &lt; minlength) {</span>
+<span class="nc" id="L420">            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR);</span>
+        }
+
+        // remove the leading #
+<span class="fc bfc" id="L424" title="All 2 branches covered.">        if (color.startsWith(&quot;#&quot;)) {</span>
+<span class="fc" id="L425">            color = color.substring(1);</span>
+        }
+
+        try {
+            // parse the components
+<span class="fc bfc" id="L430" title="All 2 branches covered.">            for (int i = 0; i &lt; components.length; i++) {</span>
+<span class="fc" id="L431">                components[i] = Integer.parseInt(color.substring(2 * i, 2 * i + 2), HEX_RADIX);</span>
+            }
+
+            // parse the transparency
+            final int alpha;
+<span class="fc bfc" id="L436" title="All 2 branches covered.">            if (color.length() &gt;= minlength + 2) {</span>
+<span class="fc" id="L437">                alpha = Integer.parseInt(color.substring(minlength, minlength + 2), HEX_RADIX);</span>
+            } else {
+<span class="fc" id="L439">                alpha = Color.black.getAlpha();</span>
+            }
+
+<span class="fc" id="L442">            return new Color(components[0], components[1], components[2], alpha);</span>
+<span class="fc" id="L443">        } catch (final Exception e) {</span>
+<span class="fc" id="L444">            throw new ConversionException(THE_VALUE + value + CANT_CONVERT_COLOR, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a Date.
+     *
+     * @param value the value to convert
+     * @param format the DateFormat pattern to parse String values
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Calendar
+     */
+    public static Date toDate(final Object value, final String format) throws ConversionException {
+<span class="pc bpc" id="L457" title="1 of 2 branches missed.">        if (value instanceof Date) {</span>
+<span class="nc" id="L458">            return (Date) value;</span>
+        }
+<span class="fc bfc" id="L460" title="All 2 branches covered.">        if (value instanceof Calendar) {</span>
+<span class="fc" id="L461">            return ((Calendar) value).getTime();</span>
+        }
+<span class="fc bfc" id="L463" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L464">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Date&quot;);</span>
+        }
+        try {
+<span class="fc" id="L467">            return new SimpleDateFormat(format).parse((String) value);</span>
+<span class="fc" id="L468">        } catch (final ParseException e) {</span>
+<span class="fc" id="L469">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Date&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a Double.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Double
+     */
+    public static Double toDouble(final Object value) throws ConversionException {
+<span class="fc" id="L481">        final Number n = toNumber(value, Double.class);</span>
+<span class="fc bfc" id="L482" title="All 2 branches covered.">        if (n instanceof Double) {</span>
+<span class="fc" id="L483">            return (Double) n;</span>
+        }
+<span class="fc" id="L485">        return Double.valueOf(n.doubleValue());</span>
+    }
+
+    /**
+     * Converts the specified object into a Duration.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Duration
+     * @since 2.8.0
+     */
+    public static Duration toDuration(final Object value) throws ConversionException {
+<span class="pc bpc" id="L497" title="1 of 2 branches missed.">        if (value instanceof Duration) {</span>
+<span class="nc" id="L498">            return (Duration) value;</span>
+        }
+<span class="fc bfc" id="L500" title="All 2 branches covered.">        if (value instanceof CharSequence) {</span>
+            try {
+<span class="fc" id="L502">                return Duration.parse((CharSequence) value);</span>
+<span class="fc" id="L503">            } catch (final DateTimeParseException e) {</span>
+<span class="fc" id="L504">                throw new ConversionException(COULD_NOT_CONVERT + value + &quot; to Duration&quot;, e);</span>
+            }
+        }
+<span class="fc" id="L507">        throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Duration&quot;);</span>
+    }
+
+    /**
+     * Converts the specified value into an {@link Enum}.
+     *
+     * @param value the value to convert
+     * @param cls the type of the enumeration
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to an enumeration
+     *
+     * @since 1.5
+     */
+    static &lt;E extends Enum&lt;E&gt;&gt; E toEnum(final Object value, final Class&lt;E&gt; cls) throws ConversionException {
+<span class="fc bfc" id="L521" title="All 2 branches covered.">        if (value.getClass().equals(cls)) {</span>
+<span class="fc" id="L522">            return cls.cast(value);</span>
+        }
+<span class="fc bfc" id="L524" title="All 2 branches covered.">        if (value instanceof String) {</span>
+            try {
+<span class="fc" id="L526">                return Enum.valueOf(cls, (String) value);</span>
+<span class="fc" id="L527">            } catch (final Exception e) {</span>
+<span class="fc" id="L528">                throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());</span>
+            }
+        }
+<span class="pc bpc" id="L531" title="1 of 2 branches missed.">        if (!(value instanceof Number)) {</span>
+<span class="nc" id="L532">            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());</span>
+        }
+        try {
+<span class="fc" id="L535">            final E[] enumConstants = cls.getEnumConstants();</span>
+<span class="fc" id="L536">            return enumConstants[((Number) value).intValue()];</span>
+<span class="fc" id="L537">        } catch (final Exception e) {</span>
+<span class="fc" id="L538">            throw new ConversionException(THE_VALUE + value + CANT_BE_CONVERT + cls.getName());</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a File.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a File
+     * @since 2.3
+     */
+    public static File toFile(final Object value) throws ConversionException {
+<span class="fc bfc" id="L551" title="All 2 branches covered.">        if (value instanceof File) {</span>
+<span class="fc" id="L552">            return (File) value;</span>
+        }
+<span class="fc bfc" id="L554" title="All 2 branches covered.">        if (value instanceof Path) {</span>
+<span class="fc" id="L555">            return ((Path) value).toFile();</span>
+        }
+<span class="pc bpc" id="L557" title="1 of 2 branches missed.">        if (value instanceof String) {</span>
+<span class="fc" id="L558">            return new File((String) value);</span>
+        }
+<span class="nc" id="L560">        throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a File&quot;);</span>
+    }
+
+    /**
+     * Converts the specified object into a Float.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Float
+     */
+    public static Float toFloat(final Object value) throws ConversionException {
+<span class="fc" id="L571">        final Number n = toNumber(value, Float.class);</span>
+<span class="fc bfc" id="L572" title="All 2 branches covered.">        if (n instanceof Float) {</span>
+<span class="fc" id="L573">            return (Float) n;</span>
+        }
+<span class="fc" id="L575">        return Float.valueOf(n.floatValue());</span>
+    }
+
+    /**
+     * Converts the specified value into an internet address.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a InetAddress
+     *
+     * @since 1.5
+     */
+    static InetAddress toInetAddress(final Object value) throws ConversionException {
+<span class="pc bpc" id="L588" title="1 of 2 branches missed.">        if (value instanceof InetAddress) {</span>
+<span class="nc" id="L589">            return (InetAddress) value;</span>
+        }
+<span class="fc bfc" id="L591" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L592">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a InetAddress&quot;);</span>
+        }
+        try {
+<span class="fc" id="L595">            return InetAddress.getByName((String) value);</span>
+<span class="fc" id="L596">        } catch (final UnknownHostException e) {</span>
+<span class="fc" id="L597">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a InetAddress&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into an Integer.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to an integer
+     */
+    public static Integer toInteger(final Object value) throws ConversionException {
+<span class="fc" id="L609">        final Number n = toNumber(value, Integer.class);</span>
+<span class="fc bfc" id="L610" title="All 2 branches covered.">        if (n instanceof Integer) {</span>
+<span class="fc" id="L611">            return (Integer) n;</span>
+        }
+<span class="fc" id="L613">        return n.intValue();</span>
+    }
+
+    /**
+     * Converts the specified value into an email address with the given class name.
+     *
+     * @param value the value to convert
+     * @param targetClassName the fully qualified name of the {@code InternetAddress} class to convert to, e.g.,
+     *      {@value #INTERNET_ADDRESS_CLASSNAME_JAVAX} or {@value #INTERNET_ADDRESS_CLASSNAME_JAKARTA}
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to an email address
+     *
+     * @since 1.5
+     */
+    static Object toInternetAddress(final Object value, final String targetClassName) throws ConversionException {
+<span class="pc bpc" id="L628" title="1 of 2 branches missed.">        if (value.getClass().getName().equals(targetClassName)) {</span>
+<span class="nc" id="L629">            return value;</span>
+        }
+<span class="fc bfc" id="L631" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L632">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an InternetAddress&quot;);</span>
+        }
+        try {
+<span class="fc" id="L635">            final Constructor&lt;?&gt; ctor = Class.forName(targetClassName).getConstructor(String.class);</span>
+<span class="fc" id="L636">            return ctor.newInstance(value);</span>
+<span class="fc" id="L637">        } catch (final Exception e) {</span>
+<span class="fc" id="L638">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an InternetAddress&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a Locale.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Locale
+     */
+    public static Locale toLocale(final Object value) throws ConversionException {
+<span class="pc bpc" id="L650" title="1 of 2 branches missed.">        if (value instanceof Locale) {</span>
+<span class="nc" id="L651">            return (Locale) value;</span>
+        }
+<span class="fc bfc" id="L653" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L654">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Locale&quot;);</span>
+        }
+<span class="fc" id="L656">        final String[] elements = ((String) value).split(&quot;_&quot;);</span>
+<span class="fc" id="L657">        final int size = elements.length;</span>
+
+<span class="pc bpc" id="L659" title="1 of 6 branches missed.">        if (size &gt;= 1 &amp;&amp; (elements[0].length() == 2 || elements[0].isEmpty())) {</span>
+<span class="fc" id="L660">            final String language = elements[0];</span>
+<span class="fc bfc" id="L661" title="All 2 branches covered.">            final String country = size &gt;= 2 ? elements[1] : &quot;&quot;;</span>
+<span class="fc bfc" id="L662" title="All 2 branches covered.">            final String variant = size &gt;= 3 ? elements[2] : &quot;&quot;;</span>
+
+<span class="fc" id="L664">            return new Locale(language, country, variant);</span>
+        }
+<span class="fc" id="L666">        throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Locale&quot;);</span>
+    }
+
+    /**
+     * Converts the specified object into a Long.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Long
+     */
+    public static Long toLong(final Object value) throws ConversionException {
+<span class="fc" id="L677">        final Number n = toNumber(value, Long.class);</span>
+<span class="fc bfc" id="L678" title="All 2 branches covered.">        if (n instanceof Long) {</span>
+<span class="fc" id="L679">            return (Long) n;</span>
+        }
+<span class="fc" id="L681">        return n.longValue();</span>
+    }
+
+    /**
+     * Tries to convert the specified object into a number object. This method is used by the conversion methods for number
+     * types. Note that the return value is not in always of the specified target class, but only if a new object has to be
+     * created.
+     *
+     * @param value the value to be converted (must not be &lt;b&gt;null&lt;/b&gt;)
+     * @param targetClass the target class of the conversion (must be derived from {@link Number})
+     * @return the converted number
+     * @throws ConversionException if the object cannot be converted
+     */
+    static Number toNumber(final Object value, final Class&lt;?&gt; targetClass) throws ConversionException {
+<span class="fc bfc" id="L695" title="All 2 branches covered.">        if (value instanceof Number) {</span>
+<span class="fc" id="L696">            return (Number) value;</span>
+        }
+<span class="fc" id="L698">        final String str = Objects.toString(value, null);</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">        if (StringUtils.startsWithAny(str, HEX_PREFIX)) {</span>
+            try {
+<span class="fc" id="L701">                return new BigInteger(str.substring(HEX_PREFIX.length()), HEX_RADIX);</span>
+<span class="fc" id="L702">            } catch (final NumberFormatException nex) {</span>
+<span class="fc" id="L703">                throw new ConversionException(COULD_NOT_CONVERT + str + &quot; to &quot; + targetClass.getName() + &quot;! Invalid hex number.&quot;, nex);</span>
+            }
+        }
+
+<span class="fc bfc" id="L707" title="All 2 branches covered.">        if (StringUtils.startsWithAny(str, BIN_PREFIX)) {</span>
+            try {
+<span class="fc" id="L709">                return new BigInteger(str.substring(BIN_PREFIX.length()), BIN_RADIX);</span>
+<span class="fc" id="L710">            } catch (final NumberFormatException nex) {</span>
+<span class="fc" id="L711">                throw new ConversionException(COULD_NOT_CONVERT + str + &quot; to &quot; + targetClass.getName() + &quot;! Invalid binary number.&quot;, nex);</span>
+            }
+        }
+
+        try {
+<span class="fc" id="L716">            final Constructor&lt;?&gt; constr = targetClass.getConstructor(CONSTR_ARGS);</span>
+<span class="fc" id="L717">            return (Number) constr.newInstance(str);</span>
+<span class="fc" id="L718">        } catch (final InvocationTargetException itex) {</span>
+<span class="fc" id="L719">            throw new ConversionException(COULD_NOT_CONVERT + str + &quot; to &quot; + targetClass.getName(), itex.getTargetException());</span>
+<span class="fc" id="L720">        } catch (final Exception ex) {</span>
+            // Treat all possible exceptions the same way
+<span class="fc" id="L722">            throw new ConversionException(&quot;Conversion error when trying to convert &quot; + str + &quot; to &quot; + targetClass.getName(), ex);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a Path.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Path
+     * @since 2.3
+     */
+    public static Path toPath(final Object value) throws ConversionException {
+<span class="fc bfc" id="L735" title="All 2 branches covered.">        if (value instanceof File) {</span>
+<span class="fc" id="L736">            return ((File) value).toPath();</span>
+        }
+<span class="fc bfc" id="L738" title="All 2 branches covered.">        if (value instanceof Path) {</span>
+<span class="fc" id="L739">            return (Path) value;</span>
+        }
+<span class="pc bpc" id="L741" title="1 of 2 branches missed.">        if (value instanceof String) {</span>
+<span class="fc" id="L742">            return Paths.get((String) value);</span>
+        }
+<span class="nc" id="L744">        throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Path&quot;);</span>
+    }
+
+    /**
+     * Converts the specified object into a Pattern.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a Pattern
+     */
+    public static Pattern toPattern(final Object value) throws ConversionException {
+<span class="fc bfc" id="L755" title="All 2 branches covered.">        if (value instanceof Pattern) {</span>
+<span class="fc" id="L756">            return (Pattern) value;</span>
+        }
+<span class="pc bpc" id="L758" title="1 of 2 branches missed.">        if (!(value instanceof String)) {</span>
+<span class="nc" id="L759">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Pattern&quot;);</span>
+        }
+        try {
+<span class="fc" id="L762">            return Pattern.compile((String) value);</span>
+<span class="nc" id="L763">        } catch (final PatternSyntaxException e) {</span>
+<span class="nc" id="L764">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to a Pattern&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into a Short.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to a short
+     */
+    public static Short toShort(final Object value) throws ConversionException {
+<span class="fc" id="L776">        final Number n = toNumber(value, Short.class);</span>
+<span class="fc bfc" id="L777" title="All 2 branches covered.">        if (n instanceof Short) {</span>
+<span class="fc" id="L778">            return (Short) n;</span>
+        }
+<span class="fc" id="L780">        return n.shortValue();</span>
+    }
+
+    /**
+     * Converts the specified object into an URI.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to an URI
+     */
+    public static URI toURI(final Object value) throws ConversionException {
+<span class="pc bpc" id="L791" title="1 of 2 branches missed.">        if (value instanceof URI) {</span>
+<span class="nc" id="L792">            return (URI) value;</span>
+        }
+<span class="pc bpc" id="L794" title="1 of 2 branches missed.">        if (!(value instanceof String)) {</span>
+<span class="nc" id="L795">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an URI&quot;);</span>
+        }
+        try {
+<span class="fc" id="L798">            return new URI((String) value);</span>
+<span class="nc" id="L799">        } catch (final URISyntaxException e) {</span>
+<span class="nc" id="L800">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an URI&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Converts the specified object into an URL.
+     *
+     * @param value the value to convert
+     * @return the converted value
+     * @throws ConversionException thrown if the value cannot be converted to an URL
+     */
+    public static URL toURL(final Object value) throws ConversionException {
+<span class="pc bpc" id="L812" title="1 of 2 branches missed.">        if (value instanceof URL) {</span>
+<span class="nc" id="L813">            return (URL) value;</span>
+        }
+<span class="fc bfc" id="L815" title="All 2 branches covered.">        if (!(value instanceof String)) {</span>
+<span class="fc" id="L816">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an URL&quot;);</span>
+        }
+        try {
+<span class="fc" id="L819">            return new URL((String) value);</span>
+<span class="fc" id="L820">        } catch (final MalformedURLException e) {</span>
+<span class="fc" id="L821">            throw new ConversionException(THE_VALUE + value + &quot; can't be converted to an URL&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Private constructor prevents instances from being created.
+     */
+    private PropertyConverter() {
+        // presvents instantiation.
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

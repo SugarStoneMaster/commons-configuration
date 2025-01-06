@@ -111,5 +111,17 @@
   <Match>
     <Class name="~.*" />
     <Bug pattern="CT_CONSTRUCTOR_THROW" />
-  </Match>  
+  </Match>
+
+  <!-- Exclude JMH-generated classes in target/classes -->
+  <Package name="org.apache.commons.configuration2.benchmarks.jmh_generated" />
+
+  <!-- Exclude JMH-generated sources in target/generated-sources/annotations -->
+  <Source name="~.*generated-sources/annotations/.*\.java" />
+
+  <Match>
+    <Class name="org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark"/>
+    <Bug pattern="DM_DEFAULT_ENCODING"/>
+  </Match>
+
 </FindBugsFilter>
