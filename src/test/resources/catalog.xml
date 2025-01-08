@@ -17,6 +17,25 @@
 -->
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
 
+  <!-- Map "badPrefixPublicId" to "file://my/bad/prefix" (missing one slash) -->
+  <public
+          publicId="badPrefixPublicId"
+          uri="file://my/bad/prefix" />
+
+  <!-- Map "nullUrlPublicId" to something that won't exist, e.g. file:///some/path/that/wont/resolve -->
+  <public
+          publicId="nullUrlPublicId"
+          uri="file:///some/path/that/wont/resolve" />
+
+  <!-- Map "ioExceptionPublicId" to a path that does exist but we can cause an I/O error on read.
+         We'll rely on a real file or some trick in test. Alternatively,
+         you can let it exist but the file is locked or something.
+         For demonstration, let's say file:///some/realfile
+    -->
+  <public
+          publicId="ioExceptionPublicId"
+          uri="file:///some/existingFile" />
+
   <public publicId="-//Apache//DTD Resolver Test V1.0//EN"
           uri="resolver.dtd"/>
   <rewriteSystem systemIdStartString="http://java.sun.com/dtd/"

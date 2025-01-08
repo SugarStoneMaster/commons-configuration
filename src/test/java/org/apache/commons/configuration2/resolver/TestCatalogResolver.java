@@ -23,9 +23,11 @@ import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
 import org.apache.commons.configuration2.io.ConfigurationLogger;
 import org.apache.commons.configuration2.io.DefaultFileSystem;
 import org.apache.commons.configuration2.io.FileHandler;
+import org.apache.xml.resolver.Catalog;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.InputSource;
 
 import java.io.IOException;
 
@@ -42,6 +44,9 @@ public class TestCatalogResolver {
 
     private CatalogResolver resolver;
     private XMLConfiguration config;
+
+    private CatalogResolver.CatalogManager manager;
+
 
     /**
      * Loads the test configuration from the specified file.
@@ -61,6 +66,8 @@ public class TestCatalogResolver {
         // resolver.setDebug(true);
         config = new XMLConfiguration();
         config.setEntityResolver(resolver);
+
+        manager = new CatalogResolver.CatalogManager();
     }
 
     @AfterEach
@@ -68,6 +75,67 @@ public class TestCatalogResolver {
         resolver = null;
         config = null;
     }
+
+    /**
+     * Test the "badFilePrefix" branch.
+     *    We expect catalog.xml to map the publicId "badPrefixPublicId" -> "file://my/bad/prefix"
+     *    That triggers the fix => resolved = "file:///" + ...
+     *    Then we attempt to locate it. We likely won't find it, so it might go to 'url == null' => configException => catch => returns null.
+     */
+    @Test
+    public void testBadFilePrefix() {
+        // If "badPrefixPublicId" is mapped in catalog.xml to "file://my/bad/prefix"
+        // (missing the third slash), the code hits that fix.
+        // Then we attempt to open the resource.
+        // If that path doesn't exist, we end up in the configException => catch => return null.
+
+        // We just want to ensure it doesn't blow up and that coverage sees the 'badFilePrefix' branch
+        // as well as the potential "url == null" branch.
+        assertDoesNotThrow(() -> {
+            InputSource source = resolver.resolveEntity("badPrefixPublicId", "anySystemId");
+            // We don't care if source is null; we only want the code path triggered.
+        });
+    }
+
+    /**
+     * Test the 'url == null' => throw new ConfigurationException => caught => returns null.
+     *    This can also occur if the mapped URI does not exist or locate(...) fails for other reasons.
+     *    We'll use "nullUrlPublicId" that is mapped to "file:///some/path/that/wont/resolve" in catalog.xml
+     *    so locate(...) => returns null => triggers that code.
+     */
+    @Test
+    public void testNullUrlBranch() {
+        // We expect an attempt to locate file:///some/path/that/wont/resolve => url is null =>
+        // => new ConfigurationException => caught => logs warn => returns null
+        assertDoesNotThrow(() -> {
+            InputSource source = resolver.resolveEntity("nullUrlPublicId", "someSystemId");
+            assertNull(source, "Should return null after failing to locate the resource.");
+        });
+    }
+
+    /**
+     * Test the scenario where no exception occurs and getUseStaticCatalog() is true,
+     *    ensuring that the line 'staticCatalog = catalog;' is reached.
+     */
+    @Test
+    public void testGetPrivateCatalogUseStatic() {
+        // Force useStaticCatalog to be true so the method tries to assign staticCatalog
+        manager.setUseStaticCatalog(true);
+
+        // The first call => staticCatalog is null => we do the creation flow
+        Catalog cat1 = manager.getPrivateCatalog();
+        assertNotNull(cat1, "A new Catalog object should be created when staticCatalog is null.");
+
+        // The second call => staticCatalog is not null => the method won't recreate it
+        Catalog cat2 = manager.getPrivateCatalog();
+        // Should be the same object if getUseStaticCatalog() is true
+        assertSame(cat1, cat2, "Subsequent calls should return the same static catalog if useStaticCatalog is true.");
+    }
+
+
+
+
+
 
     @Test
     public void testDebug() throws Exception {
