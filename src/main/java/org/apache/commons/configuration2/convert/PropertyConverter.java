@@ -63,7 +63,7 @@ public final class PropertyConverter {
     private static final String CANT_CONVERT_COLOR = " can't be converted to a Color";
 
     /** String literal for cant be converted. */
-    private static final String CANT_BE_CONVERT = " can't be converted to a ";
+    public static final String CANT_BE_CONVERT = " can't be converted to a ";
 
     /** Constant for the prefix of hex numbers. */
     private static final String HEX_PREFIX = "0x";
@@ -81,10 +81,10 @@ public final class PropertyConverter {
     private static final Class<?>[] CONSTR_ARGS = {String.class};
 
     /** The fully qualified name of {@code javax.mail.internet.InternetAddress}, as used in the javamail-1.* API.  */
-    private static final String INTERNET_ADDRESS_CLASSNAME_JAVAX = "javax.mail.internet.InternetAddress";
+    public static final String INTERNET_ADDRESS_CLASSNAME_JAVAX = "javax.mail.internet.InternetAddress";
 
     /** The fully qualified name of {@code jakarta.mail.internet.InternetAddress}, as used in the javamail-2.0+ API. */
-    private static final String INTERNET_ADDRESS_CLASSNAME_JAKARTA = "jakarta.mail.internet.InternetAddress";
+    public static final String INTERNET_ADDRESS_CLASSNAME_JAKARTA = "jakarta.mail.internet.InternetAddress";
 
     /**
      * Converts a value to a constant of an enumeration class.
@@ -95,7 +95,7 @@ public final class PropertyConverter {
      */
     @SuppressWarnings("unchecked")
     // conversion is safe because we know that the class is an Enum class
-    private static Object convertToEnum(final Class<?> enumClass, final Object value) {
+    public static Object convertToEnum(final Class<?> enumClass, final Object value) {
         return toEnum(value, enumClass.asSubclass(Enum.class));
     }
 
@@ -245,8 +245,11 @@ public final class PropertyConverter {
     /**
      * Handles all numeric conversions (Integer, Long, Byte, Short, Float,
      * Double, BigInteger, BigDecimal, or a generic Number).
+     * @param cls the target class
+     * @param value the value to convert
+     * @return the converted value
      */
-    private static Object handleNumericType(final Class<?> cls, final Object value) {
+    public static Object handleNumericType(final Class<?> cls, final Object value) {
         if (Integer.class.equals(cls) || Integer.TYPE.equals(cls)) {
             return toInteger(value);
         }
@@ -584,7 +587,7 @@ public final class PropertyConverter {
      *
      * @since 1.5
      */
-    static InetAddress toInetAddress(final Object value) throws ConversionException {
+    public static InetAddress toInetAddress(final Object value) throws ConversionException {
         if (value instanceof InetAddress) {
             return (InetAddress) value;
         }
@@ -624,7 +627,7 @@ public final class PropertyConverter {
      *
      * @since 1.5
      */
-    static Object toInternetAddress(final Object value, final String targetClassName) throws ConversionException {
+    public static Object toInternetAddress(final Object value, final String targetClassName) throws ConversionException {
         if (value.getClass().getName().equals(targetClassName)) {
             return value;
         }
@@ -691,7 +694,7 @@ public final class PropertyConverter {
      * @return the converted number
      * @throws ConversionException if the object cannot be converted
      */
-    static Number toNumber(final Object value, final Class<?> targetClass) throws ConversionException {
+    public static Number toNumber(final Object value, final Class<?> targetClass) throws ConversionException {
         if (value instanceof Number) {
             return (Number) value;
         }

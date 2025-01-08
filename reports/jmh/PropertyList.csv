@@ -1,0 +1,7 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit","Param: plistResourceName"
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkGetProperty","thrpt",1,5,4800.318358,174.256776,"ops/ms",sampleSmall.plist
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkGetProperty","thrpt",1,5,3883.706418,74.239745,"ops/ms",sampleMedium.plist
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkGetProperty","thrpt",1,5,3953.175176,136.373619,"ops/ms",sampleLarge.plist
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkWriteConfiguration","thrpt",1,5,632.902294,22.427964,"ops/ms",sampleSmall.plist
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkWriteConfiguration","thrpt",1,5,201.183086,4.314659,"ops/ms",sampleMedium.plist
+"org.apache.commons.configuration2.benchmarks.PropertyListConfigurationBenchmark.benchmarkWriteConfiguration","thrpt",1,5,59.697500,0.259507,"ops/ms",sampleLarge.plist
