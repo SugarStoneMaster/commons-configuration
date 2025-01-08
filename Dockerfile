@@ -15,7 +15,7 @@
 
 
 # Use an official Java runtime as a parent image
-FROM openjdk:17-jdk-slim
+FROM openjdk:23-jdk-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -23,8 +23,11 @@ WORKDIR /app
 # Copy the application's JAR file to the container
 COPY target/commons-configuration2-2.11.1-SNAPSHOT.jar app.jar
 
-# Expose a port if necessary (e.g., for web apps)
-# EXPOSE 8080
+# Copy configuration files
+COPY src/main/resources/config.properties /app/config.properties
+
+# Set an environment variable for the config file path
+ENV CONFIG_FILE_PATH /app/config.properties
 
 # Command to run the application
 CMD ["java", "-jar", "app.jar"]
