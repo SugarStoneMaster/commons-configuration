@@ -37,7 +37,7 @@ Apache Commons Configuration,org.apache.commons.configuration2,EnvironmentConfig
 Apache Commons Configuration,org.apache.commons.configuration2,DataConfiguration.DataConversionHandler,1,34,1,5,0,7,1,4,0,2
 Apache Commons Configuration,org.apache.commons.configuration2,PropertiesConfiguration.DefaultIOFactory,0,19,0,0,0,4,0,4,0,4
 Apache Commons Configuration,org.apache.commons.configuration2,HierarchicalConfigurationXMLReader.SAXVisitor,6,81,3,5,0,18,3,8,0,7
-Apache Commons Configuration,org.apache.commons.configuration2,XMLDocumentHelper,0,192,0,4,0,52,0,20,0,18
+Apache Commons Configuration,org.apache.commons.configuration2,XMLDocumentHelper,3,206,0,4,2,56,0,20,0,18
 Apache Commons Configuration,org.apache.commons.configuration2,XMLListReference,0,136,1,17,0,34,1,16,0,8
 Apache Commons Configuration,org.apache.commons.configuration2,ConfigurationUtils.new EventSource() {...},0,6,0,0,0,3,0,3,0,3
 Apache Commons Configuration,org.apache.commons.configuration2,HierarchicalConfigurationXMLReader,0,35,0,0,0,12,0,6,0,6
@@ -83,7 +83,7 @@ Apache Commons Configuration,org.apache.commons.configuration2,AbstractHierarchi
 Apache Commons Configuration,org.apache.commons.configuration2,XMLConfiguration.new DefaultHandler() {...},0,8,0,0,0,2,0,2,0,2
 Apache Commons Configuration,org.apache.commons.configuration2,PropertiesConfiguration.JupPropertiesReader,5,120,3,17,1,34,3,13,0,6
 Apache Commons Configuration,org.apache.commons.configuration2,CombinedConfiguration.ConfigData,0,161,0,8,0,39,0,14,0,10
-Apache Commons Configuration,org.apache.commons.configuration2,JNDIConfiguration,21,365,4,34,4,105,8,31,4,16
+Apache Commons Configuration,org.apache.commons.configuration2,JNDIConfiguration,33,375,5,35,5,108,9,32,4,17
 Apache Commons Configuration,org.apache.commons.configuration2,ImmutableConfigurationInvocationHandler.ImmutableIterator,0,19,0,0,0,6,0,4,0,4
 Apache Commons Configuration,org.apache.commons.configuration2,INIConfiguration.GlobalSectionNodeModel,0,11,0,0,0,3,0,2,0,2
 Apache Commons Configuration,org.apache.commons.configuration2,BaseHierarchicalConfiguration.InterpolatedVisitor,28,174,4,10,5,38,3,17,0,13
@@ -167,7 +167,7 @@ Apache Commons Configuration,org.apache.commons.configuration2.builder,DatabaseB
 Apache Commons Configuration,org.apache.commons.configuration2.builder,DefaultParametersManager,0,69,0,6,0,18,0,11,0,8
 Apache Commons Configuration,org.apache.commons.configuration2.builder,EventListenerParameters,0,26,0,0,0,9,0,5,0,5
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.new FileHandler.AbstractUpdater() {...},0,31,0,0,0,5,0,2,0,2
-Apache Commons Configuration,org.apache.commons.configuration2.io,AbsoluteNameLocationStrategy,0,24,0,6,0,6,0,5,0,2
+Apache Commons Configuration,org.apache.commons.configuration2.io,AbsoluteNameLocationStrategy,0,49,0,12,0,15,0,9,0,3
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.new FileHandler.AbstractUpdater() {...},0,17,0,0,0,3,0,2,0,2
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.new FileHandler.AbstractUpdater() {...},0,21,0,0,0,4,0,2,0,2
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.new FileHandler.AbstractUpdater() {...},0,17,0,0,0,3,0,2,0,2
@@ -185,7 +185,7 @@ Apache Commons Configuration,org.apache.commons.configuration2.io,CombinedLocati
 Apache Commons Configuration,org.apache.commons.configuration2.io,VerifiableOutputStream,0,3,0,0,0,1,0,1,0,1
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileSystem,8,22,0,2,3,7,2,6,2,5
 Apache Commons Configuration,org.apache.commons.configuration2.io,DefaultFileSystem.HttpOutputStream,14,50,0,2,5,13,3,6,3,5
-Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.AbstractUpdater,0,32,1,1,0,8,1,2,0,2
+Apache Commons Configuration,org.apache.commons.configuration2.io,FileHandler.AbstractUpdater,0,32,0,2,0,8,0,3,0,2
 Apache Commons Configuration,org.apache.commons.configuration2.io,VFSFileSystem,418,105,52,14,98,31,37,8,5,7
 Apache Commons Configuration,org.apache.commons.configuration2.io,FileLocator.FileLocatorBuilder,0,77,0,2,0,27,0,11,0,10
 Apache Commons Configuration,org.apache.commons.configuration2.io,HomeDirectoryLocationStrategy,0,68,0,10,0,20,0,13,0,8
@@ -218,9 +218,9 @@ Apache Commons Configuration,org.apache.commons.configuration2.plist,PropertyLis
 Apache Commons Configuration,org.apache.commons.configuration2.plist,PropertyListConfiguration,98,616,19,63,20,110,19,41,2,17
 Apache Commons Configuration,org.apache.commons.configuration2.plist,PropertyListParserConstants,0,124,0,0,0,1,0,1,0,1
 Apache Commons Configuration,org.apache.commons.configuration2.resolver,DefaultEntityResolver,40,25,3,3,12,8,3,4,1,3
-Apache Commons Configuration,org.apache.commons.configuration2.resolver,CatalogResolver,43,139,5,9,5,40,4,15,0,12
+Apache Commons Configuration,org.apache.commons.configuration2.resolver,CatalogResolver,41,141,4,10,4,41,3,16,0,12
 Apache Commons Configuration,org.apache.commons.configuration2.resolver,CatalogResolver.CatalogManager,8,53,5,3,3,22,4,9,0,9
-Apache Commons Configuration,org.apache.commons.configuration2.resolver,CatalogResolver.Catalog,74,188,8,12,15,46,7,9,0,6
+Apache Commons Configuration,org.apache.commons.configuration2.resolver,CatalogResolver.Catalog,51,211,5,15,11,50,4,12,0,6
 Apache Commons Configuration,org.apache.commons.configuration2.reloading,CombinedReloadingController,0,55,0,4,0,15,0,8,0,6
 Apache Commons Configuration,org.apache.commons.configuration2.reloading,PeriodicReloadingTrigger,0,111,0,12,0,29,0,17,0,11
 Apache Commons Configuration,org.apache.commons.configuration2.reloading,ManagedReloadingDetector,0,22,0,0,0,8,0,4,0,4

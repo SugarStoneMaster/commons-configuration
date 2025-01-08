@@ -119,7 +119,7 @@ public class FileHandler {
 <span class="fc" id="L119">                final FileLocatorBuilder builder = FileLocatorUtils.fileLocator(oldLocator);</span>
 <span class="fc" id="L120">                updateBuilder(builder);</span>
 <span class="fc" id="L121">                done = fileLocator.compareAndSet(oldLocator, builder.create());</span>
-<span class="pc bpc" id="L122" title="1 of 2 branches missed.">            } while (!done);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">            } while (!done);</span>
 <span class="fc" id="L123">            fireLocationChangedEvent();</span>
 <span class="fc" id="L124">        }</span>
 

@@ -79,7 +79,7 @@ public class CatalogResolver implements EntityResolver {
             // Try locating and opening the file. If that fails, we log &amp; ignore.
             try {
 <span class="fc" id="L81">                url = locate(fs, base, fileName);</span>
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                if (url != null) {</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">                if (url != null) {</span>
 <span class="fc" id="L83">                    inputStream = fs.getInputStream(url);</span>
                 }
 <span class="nc" id="L85">            } catch (final ConfigurationException ce) {</span>
@@ -90,10 +90,10 @@ public class CatalogResolver implements EntityResolver {
 <span class="fc" id="L90">            }</span>
 
             // If we have a valid InputStream, try parsing by MIME type. Otherwise, parse by fallback.
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            if (inputStream != null) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            if (inputStream != null) {</span>
 <span class="fc" id="L94">                handleInputStream(base, fileName, inputStream);</span>
             } else {
-<span class="nc" id="L96">                parseCatalog(base, fileName);</span>
+<span class="fc" id="L96">                parseCatalog(base, fileName);</span>
             }
 <span class="fc" id="L98">        }</span>
 
@@ -159,9 +159,9 @@ public class CatalogResolver implements EntityResolver {
 
                 try {
 <span class="fc" id="L161">                    inputStream = fs.getInputStream(base);</span>
-<span class="nc" id="L162">                } catch (final Exception ex) {</span>
-<span class="nc" id="L163">                    catalogManager.debug.message(DEBUG_NORMAL, &quot;Unable to access &quot; + base + ex.getMessage());</span>
-<span class="nc" id="L164">                    break;</span>
+<span class="fc" id="L162">                } catch (final Exception ex) {</span>
+<span class="fc" id="L163">                    catalogManager.debug.message(DEBUG_NORMAL, &quot;Unable to access &quot; + base + ex.getMessage());</span>
+<span class="fc" id="L164">                    break;</span>
 <span class="fc" id="L165">                }</span>
 
                 try {
@@ -184,7 +184,7 @@ public class CatalogResolver implements EntityResolver {
                 }
             }
 
-<span class="pc bpc" id="L187" title="1 of 2 branches missed.">            if (parsed) {</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">            if (parsed) {</span>
 <span class="fc" id="L188">                parsePendingCatalogs();</span>
             }
 <span class="fc" id="L190">        }</span>
@@ -416,7 +416,7 @@ public class CatalogResolver implements EntityResolver {
     public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException {
 <span class="fc" id="L417">        String resolved = getResolver().getResolvedEntity(publicId, systemId);</span>
 
-<span class="pc bpc" id="L419" title="1 of 2 branches missed.">        if (resolved != null) {</span>
+<span class="fc bfc" id="L419" title="All 2 branches covered.">        if (resolved != null) {</span>
 <span class="fc" id="L420">            final String badFilePrefix = &quot;file://&quot;;</span>
 <span class="fc" id="L421">            final String correctFilePrefix = &quot;file:///&quot;;</span>
 
@@ -440,7 +440,7 @@ public class CatalogResolver implements EntityResolver {
             }
         }
 
-<span class="nc" id="L443">        return null;</span>
+<span class="fc" id="L443">        return null;</span>
     }
 
     /**

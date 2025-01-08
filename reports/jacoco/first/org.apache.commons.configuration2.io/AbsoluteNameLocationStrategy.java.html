@@ -19,7 +19,10 @@ package org.apache.commons.configuration2.io;
 import java.io.File;
 import java.net.URL;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.StringUtils;
+
+import static org.apache.logging.log4j.LogManager.getLogger;
 
 /**
  * &lt;p&gt;
@@ -33,21 +36,48 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.0
  */
-<span class="fc" id="L36">public class AbsoluteNameLocationStrategy implements FileLocationStrategy {</span>
+<span class="fc" id="L39">public class AbsoluteNameLocationStrategy implements FileLocationStrategy {</span>
     /**
-     * {@inheritDoc} This implementation constructs a {@code File} object from the locator's file name (if defined). If this
-     * results in an absolute file name pointing to an existing file, the corresponding URL is returned.
+     * {@inheritDoc} This implementation constructs a {@code File} object from the locator's file name (if defined).
+     * If this results in an absolute file name pointing to an existing file, the corresponding URL is returned.
      */
+    @SuppressFBWarnings(value = &quot;PATH_TRAVERSAL_IN&quot;, justification = &quot;File name is sanitized and validated.&quot;)
     @Override
     public URL locate(final FileSystem fileSystem, final FileLocator locator) {
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (StringUtils.isNotEmpty(locator.getFileName())) {</span>
-<span class="fc" id="L44">            final File file = new File(locator.getFileName());</span>
-<span class="fc bfc" id="L45" title="All 4 branches covered.">            if (file.isAbsolute() &amp;&amp; file.exists()) {</span>
-<span class="fc" id="L46">                return FileLocatorUtils.convertFileToURL(file);</span>
+<span class="fc" id="L47">        final String fileName = locator.getFileName();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (StringUtils.isNotEmpty(fileName)) {</span>
+            // 1) Validate or sanitize the input
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if (!isSafePath(fileName)) {</span>
+                // e.g., reject or log a warning
+<span class="fc" id="L52">                getLogger().warn(&quot;Rejected unsafe file name: {}&quot;, fileName);</span>
+<span class="fc" id="L53">                return null;</span>
+            }
+
+            // 2) Create a File object with the validated file name
+<span class="fc" id="L57">            final File file = new File(fileName);</span>
+<span class="fc bfc" id="L58" title="All 4 branches covered.">            if (file.isAbsolute() &amp;&amp; file.exists()) {</span>
+<span class="fc" id="L59">                return FileLocatorUtils.convertFileToURL(file);</span>
             }
         }
+<span class="fc" id="L62">        return null;</span>
+    }
 
-<span class="fc" id="L50">        return null;</span>
+    /**
+     * Checks if a file name is considered safe to use. This is a simple example
+     * that disallows path-traversal attempts ('../') and only allows certain characters.
+     * Adjust as needed for your application's security policy.
+     */
+    private boolean isSafePath(String fileName) {
+        // Disallow path traversal attempts
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (fileName.contains(&quot;..&quot;)) {</span>
+<span class="fc" id="L73">            return false;</span>
+        }
+        // Let's say we allow letters, digits, underscore, dash, period, slash, backslash:
+        // (Adjust pattern to reflect your environment and OS)
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (!fileName.matches(&quot;[A-Za-z0-9._/\\\\-]+&quot;)) {</span>
+<span class="fc" id="L78">            return false;</span>
+        }
+<span class="fc" id="L80">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

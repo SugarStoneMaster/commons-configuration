@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -67,12 +68,12 @@ final class XMLDocumentHelper {
      * @throws ConfigurationException if an error occurs
      */
     private static Document copyDocument(final Document doc) throws ConfigurationException {
-<span class="fc" id="L70">        final Transformer transformer = createTransformer();</span>
-<span class="fc" id="L71">        final DOMSource source = new DOMSource(doc);</span>
-<span class="fc" id="L72">        final DOMResult result = new DOMResult();</span>
-<span class="fc" id="L73">        transform(transformer, source, result);</span>
+<span class="fc" id="L71">        final Transformer transformer = createTransformer();</span>
+<span class="fc" id="L72">        final DOMSource source = new DOMSource(doc);</span>
+<span class="fc" id="L73">        final DOMResult result = new DOMResult();</span>
+<span class="fc" id="L74">        transform(transformer, source, result);</span>
 
-<span class="fc" id="L75">        return (Document) result.getNode();</span>
+<span class="fc" id="L76">        return (Document) result.getNode();</span>
     }
 
     /**
@@ -85,9 +86,9 @@ final class XMLDocumentHelper {
      */
     static DocumentBuilder createDocumentBuilder(final DocumentBuilderFactory factory) throws ConfigurationException {
         try {
-<span class="fc" id="L88">            return factory.newDocumentBuilder();</span>
-<span class="fc" id="L89">        } catch (final ParserConfigurationException pcex) {</span>
-<span class="fc" id="L90">            throw new ConfigurationException(pcex);</span>
+<span class="fc" id="L89">            return factory.newDocumentBuilder();</span>
+<span class="fc" id="L90">        } catch (final ParserConfigurationException pcex) {</span>
+<span class="fc" id="L91">            throw new ConfigurationException(pcex);</span>
         }
     }
 
@@ -97,7 +98,7 @@ final class XMLDocumentHelper {
      * @return the new factory object
      */
     private static DocumentBuilderFactory createDocumentBuilderFactory() {
-<span class="fc" id="L100">        return DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L101">        return DocumentBuilderFactory.newInstance();</span>
     }
 
     /**
@@ -109,9 +110,9 @@ final class XMLDocumentHelper {
      * @return the element mapping
      */
     private static Map&lt;Node, Node&gt; createElementMapping(final Document doc1, final Document doc2) {
-<span class="fc" id="L112">        final Map&lt;Node, Node&gt; mapping = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L113">        createElementMappingForNodes(doc1.getDocumentElement(), doc2.getDocumentElement(), mapping);</span>
-<span class="fc" id="L114">        return mapping;</span>
+<span class="fc" id="L113">        final Map&lt;Node, Node&gt; mapping = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L114">        createElementMappingForNodes(doc1.getDocumentElement(), doc2.getDocumentElement(), mapping);</span>
+<span class="fc" id="L115">        return mapping;</span>
     }
 
     /**
@@ -122,14 +123,14 @@ final class XMLDocumentHelper {
      * @param mapping the mapping to be filled
      */
     private static void createElementMappingForNodes(final Node n1, final Node n2, final Map&lt;Node, Node&gt; mapping) {
-<span class="fc" id="L125">        mapping.put(n1, n2);</span>
-<span class="fc" id="L126">        final NodeList childNodes1 = n1.getChildNodes();</span>
-<span class="fc" id="L127">        final NodeList childNodes2 = n2.getChildNodes();</span>
-<span class="fc" id="L128">        final int count = Math.min(childNodes1.getLength(), childNodes2.getLength());</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (int i = 0; i &lt; count; i++) {</span>
-<span class="fc" id="L130">            createElementMappingForNodes(childNodes1.item(i), childNodes2.item(i), mapping);</span>
+<span class="fc" id="L126">        mapping.put(n1, n2);</span>
+<span class="fc" id="L127">        final NodeList childNodes1 = n1.getChildNodes();</span>
+<span class="fc" id="L128">        final NodeList childNodes2 = n2.getChildNodes();</span>
+<span class="fc" id="L129">        final int count = Math.min(childNodes1.getLength(), childNodes2.getLength());</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        for (int i = 0; i &lt; count; i++) {</span>
+<span class="fc" id="L131">            createElementMappingForNodes(childNodes1.item(i), childNodes2.item(i), mapping);</span>
         }
-<span class="fc" id="L132">    }</span>
+<span class="fc" id="L133">    }</span>
 
     /**
      * Creates a new {@code Transformer} object. No initializations are performed on the new instance.
@@ -138,7 +139,7 @@ final class XMLDocumentHelper {
      * @throws ConfigurationException if the {@code Transformer} could not be created
      */
     public static Transformer createTransformer() throws ConfigurationException {
-<span class="fc" id="L141">        return createTransformer(createTransformerFactory());</span>
+<span class="fc" id="L142">        return createTransformer(createTransformerFactory());</span>
     }
 
     /**
@@ -150,19 +151,34 @@ final class XMLDocumentHelper {
      */
     static Transformer createTransformer(final TransformerFactory factory) throws ConfigurationException {
         try {
-<span class="fc" id="L153">            return factory.newTransformer();</span>
-<span class="fc" id="L154">        } catch (final TransformerConfigurationException tex) {</span>
-<span class="fc" id="L155">            throw new ConfigurationException(tex);</span>
+<span class="fc" id="L154">            return factory.newTransformer();</span>
+<span class="fc" id="L155">        } catch (final TransformerConfigurationException tex) {</span>
+<span class="fc" id="L156">            throw new ConfigurationException(tex);</span>
         }
     }
 
     /**
-     * Creates a new {@code TransformerFactory}.
+     * Creates a new secure {@code TransformerFactory}.
      *
-     * @return the {@code TransformerFactory}
+     * @return the {@code TransformerFactory} with secure configurations
+     * @throws TransformerConfigurationException if a secure factory cannot be created
      */
     static TransformerFactory createTransformerFactory() {
-<span class="fc" id="L165">        return TransformerFactory.newInstance();</span>
+<span class="fc" id="L167">        TransformerFactory factory = TransformerFactory.newInstance();</span>
+        try {
+            // Enable secure processing to limit resources used in transformations
+<span class="fc" id="L170">            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
+
+            // Disable access to external DTDs
+<span class="fc" id="L173">            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
+
+            // Disable access to external stylesheets
+<span class="fc" id="L176">            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, &quot;&quot;);</span>
+
+<span class="fc" id="L178">            return factory;</span>
+<span class="nc" id="L179">        } catch (IllegalArgumentException | TransformerConfigurationException e) {</span>
+<span class="nc" id="L180">            return null;</span>
+        }
     }
 
     /**
@@ -171,7 +187,7 @@ final class XMLDocumentHelper {
      * @return the empty mapping
      */
     private static Map&lt;Node, Node&gt; emptyElementMapping() {
-<span class="fc" id="L174">        return Collections.emptyMap();</span>
+<span class="fc" id="L190">        return Collections.emptyMap();</span>
     }
 
     /**
@@ -183,10 +199,10 @@ final class XMLDocumentHelper {
      * @throws ConfigurationException if an error occurs when creating the document
      */
     public static XMLDocumentHelper forNewDocument(final String rootElementName) throws ConfigurationException {
-<span class="fc" id="L186">        final Document doc = createDocumentBuilder(createDocumentBuilderFactory()).newDocument();</span>
-<span class="fc" id="L187">        final Element rootElem = doc.createElement(rootElementName);</span>
-<span class="fc" id="L188">        doc.appendChild(rootElem);</span>
-<span class="fc" id="L189">        return new XMLDocumentHelper(doc, emptyElementMapping(), null, null);</span>
+<span class="fc" id="L202">        final Document doc = createDocumentBuilder(createDocumentBuilderFactory()).newDocument();</span>
+<span class="fc" id="L203">        final Element rootElem = doc.createElement(rootElementName);</span>
+<span class="fc" id="L204">        doc.appendChild(rootElem);</span>
+<span class="fc" id="L205">        return new XMLDocumentHelper(doc, emptyElementMapping(), null, null);</span>
     }
 
     /**
@@ -207,15 +223,15 @@ final class XMLDocumentHelper {
     public static XMLDocumentHelper forSourceDocument(final Document srcDoc) throws ConfigurationException {
         final String pubID;
         final String sysID;
-<span class="fc bfc" id="L210" title="All 2 branches covered.">        if (srcDoc.getDoctype() != null) {</span>
-<span class="fc" id="L211">            pubID = srcDoc.getDoctype().getPublicId();</span>
-<span class="fc" id="L212">            sysID = srcDoc.getDoctype().getSystemId();</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        if (srcDoc.getDoctype() != null) {</span>
+<span class="fc" id="L227">            pubID = srcDoc.getDoctype().getPublicId();</span>
+<span class="fc" id="L228">            sysID = srcDoc.getDoctype().getSystemId();</span>
         } else {
-<span class="fc" id="L214">            pubID = null;</span>
-<span class="fc" id="L215">            sysID = null;</span>
+<span class="fc" id="L230">            pubID = null;</span>
+<span class="fc" id="L231">            sysID = null;</span>
         }
 
-<span class="fc" id="L218">        return new XMLDocumentHelper(copyDocument(srcDoc), emptyElementMapping(), pubID, sysID);</span>
+<span class="fc" id="L234">        return new XMLDocumentHelper(copyDocument(srcDoc), emptyElementMapping(), pubID, sysID);</span>
     }
 
     /**
@@ -229,11 +245,11 @@ final class XMLDocumentHelper {
      */
     public static void transform(final Transformer transformer, final Source source, final Result result) throws ConfigurationException {
         try {
-<span class="fc" id="L232">            transformer.transform(source, result);</span>
-<span class="fc" id="L233">        } catch (final TransformerException tex) {</span>
-<span class="fc" id="L234">            throw new ConfigurationException(tex);</span>
-<span class="fc" id="L235">        }</span>
-<span class="fc" id="L236">    }</span>
+<span class="fc" id="L248">            transformer.transform(source, result);</span>
+<span class="fc" id="L249">        } catch (final TransformerException tex) {</span>
+<span class="fc" id="L250">            throw new ConfigurationException(tex);</span>
+<span class="fc" id="L251">        }</span>
+<span class="fc" id="L252">    }</span>
 
     /** Stores the document managed by this instance. */
     private final Document document;
@@ -257,12 +273,12 @@ final class XMLDocumentHelper {
      * @param pubID the public ID of the source document
      * @param sysID the system ID of the source document
      */
-<span class="fc" id="L260">    XMLDocumentHelper(final Document doc, final Map&lt;Node, Node&gt; elemMap, final String pubID, final String sysID) {</span>
-<span class="fc" id="L261">        document = doc;</span>
-<span class="fc" id="L262">        elementMapping = elemMap;</span>
-<span class="fc" id="L263">        sourcePublicID = pubID;</span>
-<span class="fc" id="L264">        sourceSystemID = sysID;</span>
-<span class="fc" id="L265">    }</span>
+<span class="fc" id="L276">    XMLDocumentHelper(final Document doc, final Map&lt;Node, Node&gt; elemMap, final String pubID, final String sysID) {</span>
+<span class="fc" id="L277">        document = doc;</span>
+<span class="fc" id="L278">        elementMapping = elemMap;</span>
+<span class="fc" id="L279">        sourcePublicID = pubID;</span>
+<span class="fc" id="L280">        sourceSystemID = sysID;</span>
+<span class="fc" id="L281">    }</span>
 
     /**
      * Creates a copy of this object. This copy contains a copy of the document and an element mapping which allows mapping
@@ -272,8 +288,8 @@ final class XMLDocumentHelper {
      * @throws ConfigurationException if an error occurs
      */
     public XMLDocumentHelper createCopy() throws ConfigurationException {
-<span class="fc" id="L275">        final Document docCopy = copyDocument(getDocument());</span>
-<span class="fc" id="L276">        return new XMLDocumentHelper(docCopy, createElementMapping(getDocument(), docCopy), getSourcePublicID(), getSourceSystemID());</span>
+<span class="fc" id="L291">        final Document docCopy = copyDocument(getDocument());</span>
+<span class="fc" id="L292">        return new XMLDocumentHelper(docCopy, createElementMapping(getDocument(), docCopy), getSourcePublicID(), getSourceSystemID());</span>
     }
 
     /**
@@ -282,7 +298,7 @@ final class XMLDocumentHelper {
      * @return the wrapped {@code Document}
      */
     public Document getDocument() {
-<span class="fc" id="L285">        return document;</span>
+<span class="fc" id="L301">        return document;</span>
     }
 
     /**
@@ -293,7 +309,7 @@ final class XMLDocumentHelper {
      * @return the element mapping to the source document
      */
     public Map&lt;Node, Node&gt; getElementMapping() {
-<span class="fc" id="L296">        return elementMapping;</span>
+<span class="fc" id="L312">        return elementMapping;</span>
     }
 
     /**
@@ -302,7 +318,7 @@ final class XMLDocumentHelper {
      * @return the public ID of the source document
      */
     public String getSourcePublicID() {
-<span class="fc" id="L305">        return sourcePublicID;</span>
+<span class="fc" id="L321">        return sourcePublicID;</span>
     }
 
     /**
@@ -311,7 +327,7 @@ final class XMLDocumentHelper {
      * @return the system ID of the source document
      */
     public String getSourceSystemID() {
-<span class="fc" id="L314">        return sourceSystemID;</span>
+<span class="fc" id="L330">        return sourceSystemID;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
