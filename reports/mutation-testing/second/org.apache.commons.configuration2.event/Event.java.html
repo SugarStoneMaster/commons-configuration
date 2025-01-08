@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Event.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.configuration2.event;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.EventObject;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The base class for all events generated by this library.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The events produced by objects in this library are arranged in an inheritance hierarchy. This base class defines some</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * basic properties common to all configuration events. Especially, an event has an {@link EventType} which describes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * its semantics. The event type can also be used for filtering for events or for defining event listeners on a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * fine-grained basis.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Event extends EventObject {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The root event type for all configuration-related events. All specific event types have this type as super direct</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * (directly or indirectly).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final EventType&#60;Event&#62; ANY = new EventType&#60;&#62;(null, &#34;ANY&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = -8168310049858198944L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constant for the format used in toString() for a property representation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String FMT_PROPERTY = &#34; %s=%s&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constant for the initial buffer size for the generation of the string representation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int BUF_SIZE = 256;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The type of this event. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final EventType&#60;? extends Event&#62; eventType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new instance of {@code Event} and sets basic properties.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source the object on which the Event initially occurred (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param evType the type of this event (must not be &#60;b&#62;null&#60;/b&#62;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if a required parameter is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Event(final Object source, final EventType&#60;? extends Event&#62; evType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(source);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_66'>1</a>
+<span>
+1. &#60;init&#62; : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (evType == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Event type must not be null!&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        eventType = evType;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Helper method for appending a representation for a property to the overall string representation for this object.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is called by {@code toString()} for generating string fragments for the properties of this class. It can</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * also be used by derived classes which extend the string representation of this base class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buf the target buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param property the name of the property</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value the property value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void appendPropertyRepresentation(final StringBuilder buf, final String property, final Object value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buf.append(String.format(FMT_PROPERTY, property, String.valueOf(value)));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the type of this event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the event type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public EventType&#60;? extends Event&#62; getEventType() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_91'>1</a>
+<span>
+1. getEventType : replaced return value with null for org/apache/commons/configuration2/event/Event::getEventType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return eventType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a string representation for this object. This string contains the event class and a list of all properties.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a string for this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final StringBuilder buf = new StringBuilder(BUF_SIZE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buf.append(getClass().getSimpleName());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buf.append(&#34; [&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_104'>1</a>
+<span>
+1. toString : removed call to org/apache/commons/configuration2/event/Event::appendPropertyRepresentation &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        appendPropertyRepresentation(buf, &#34;source&#34;, getSource());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_105'>1</a>
+<span>
+1. toString : removed call to org/apache/commons/configuration2/event/Event::appendPropertyRepresentation &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        appendPropertyRepresentation(buf, &#34;eventType&#34;, getEventType());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        buf.append(&#34; ]&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_107'>1</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for org/apache/commons/configuration2/event/Event::toString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return buf.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@39d48d14_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@39d48d14_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testInitNoType()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@39d48d14_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEventType<br/><b>Killed by : </b>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testToString()]</span></span> replaced return value with null for org/apache/commons/configuration2/event/Event::getEventType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@39d48d14_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testToString()]</span></span> removed call to org/apache/commons/configuration2/event/Event::appendPropertyRepresentation &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@39d48d14_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testToString()]</span></span> removed call to org/apache/commons/configuration2/event/Event::appendPropertyRepresentation &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@39d48d14_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@39d48d14_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testToString()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/configuration2/event/Event::toString &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testToString()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testEventListenerIteratorWrongEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testReceiveEventOfExactType()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testReceiveEventSubType()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testReceiveEventMultipleListeners()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testListenerRegistrationWithListenerData()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testReceiveEventDifferentType()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testMultipleListenerRegistration()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testSuppressEventOfSuperType()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventListenerList.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventListenerList]/[method:testRemoveEventListenerExisting()] (0 ms)</li><li>org.apache.commons.configuration2.reloading.TestReloadingController.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.reloading.TestReloadingController]/[method:testResetReloadingState()] (0 ms)</li><li>org.apache.commons.configuration2.reloading.TestReloadingController.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.reloading.TestReloadingController]/[method:testCheckForReloadingInReloadingState()] (0 ms)</li><li>org.apache.commons.configuration2.reloading.TestCombinedReloadingController.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.reloading.TestCombinedReloadingController]/[method:testCheckForReloadingTrue()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventSource.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventSource]/[method:testFireEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testNoDefinitionBuilder()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testNoDefinitionBuilder()] (0 ms)</li><li>org.apache.commons.configuration2.reloading.TestCombinedReloadingController.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.reloading.TestCombinedReloadingController]/[method:testResetReloadingState()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testBuilderResetEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventSource.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventSource]/[method:testFireError()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testRemoveEventListener()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetBuilderOnReloadingEvent()] (0 ms)</li><li>org.apache.commons.configuration2.reloading.TestReloadingController.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.reloading.TestReloadingController]/[method:testCheckForReloadingTrue()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestEventSource.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEventSource]/[method:testRemoveListenerInFireEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventSetNonExisting()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventAddMultiple()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventDelete()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventAdd()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestConfigurationUtils.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestConfigurationUtils]/[method:testEnableRuntimeExceptions()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestSystemConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSystemConfiguration]/[method:testSetSystemProperties()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testInitializationErrorNotAllowed()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolationNoInterpolator()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testCyclicInterpolation()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testInvalidateEventBeforeAndAfterChange()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestMapConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestMapConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testInitializationErrorAllowed()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testSetNodeCombiner()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testReservedParameter()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolateString()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolateRecursive()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetEncodedStringWithDefaultDecoder()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testResetResult()] (0 ms)</li><li>org.apache.commons.configuration2.TestJNDIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestJNDIConfiguration]/[method:testGetKeysError()] (2 ms)</li><li>org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestPropertiesConfigurationEvents]/[method:testClearPropertyEvent()] (6 ms)</li><li>org.apache.commons.configuration2.TestJNDIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestJNDIConfiguration]/[method:testIsEmptyError()] (2 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testInitializableCalled()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGet()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testReset()] (0 ms)</li><li>org.apache.commons.configuration2.TestJNDIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestJNDIConfiguration]/[method:testContainsKeyError()] (3 ms)</li><li>org.apache.commons.configuration2.TestJNDIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestJNDIConfiguration]/[method:testGetPropertyError()] (3 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolateStringWithListVariable()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetCollectionSingleValue()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testAddConfigurationListener()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testConfigurationRequestEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testResultCreatedEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testGetConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseConfiguration]/[method:testCloneModify()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testBeanHelperInConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolateList()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestMapConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestMapConfiguration]/[method:testCloneModify()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testEventListenerConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestSubsetConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestSubsetConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testRemoveConfigurationListener()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetList()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetCollection()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolateArray()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetCollectionNullTarget()] (1 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testResetOnConfigurationRequestEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetArray()] (2 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingBuilderSupportListener]/[method:testResetReloadingStateOnResultCreation()] (4 ms)</li><li>org.apache.commons.configuration2.TestSystemConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSystemConfiguration]/[method:testAppendWhileConcurrentAccess()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventClearConfig()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetArrayPrimitive()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testGetConfigurationConcurrently()] (11 ms)</li><li>org.apache.commons.configuration2.builder.TestBuilderConfigurationWrapperFactory.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBuilderConfigurationWrapperFactory]/[method:testEventSourceSupportBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testAppendEvents()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetGlobalSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventAddExisting()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testConnectToReloadingController()] (2 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testGetConfigurationNoLocation()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestPropertiesBuilderParametersImpl.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestPropertiesBuilderParametersImpl]/[method:testSetIOFactoryProperty()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetLineSeparatorInComments()] (0 ms)</li><li>org.apache.commons.configuration2.spring.TestConfigurationPropertySource.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.spring.TestConfigurationPropertySource]/[method:testSystemPropertyValueInjection()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestPropertiesBuilderParametersImpl.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestPropertiesBuilderParametersImpl]/[method:testSetIncludeListenerProperty()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testCopyEventListeners()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testCopyEvents()] (3 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testRemoveConfigurationListenersOnReset()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSetLineSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSaveForceSingleLine()] (0 ms)</li><li>org.apache.commons.configuration2.io.TestFileHandler.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.io.TestFileHandler]/[method:testSaveSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingDetectorReloadingPerformed()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingDetectorIsReloadingRequired()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testSave()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testResetReloadingStateInGetConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testReloadingControllerEvents()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestReloadingFileBasedConfigurationBuilder]/[method:testGetConfigurationNoLocation()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testInterpolationUnknownVariable()] (26 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testLogErrorListener()] (24 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilder]/[method:testGetResultDeclarationInvalidBeanClass()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysSingle()] (22 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationBasicFeatures]/[method:testGetEncodedStringValue()] (49 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:containsValueInternal()] (21 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectSingle()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptyError()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptySingle()] (27 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearCommit()] (22 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testExtractPropertyValueCLOB()] (33 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetListWithDelimiterParsingDisabled()] (22 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testFileBasedConfigurationBuilderWithHomeDirectoryLocationStrategy()] (1 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyMultiple()] (24 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearSingle()] (27 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testAddPropertyEvent()] (19 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyDirectMultiple()] (27 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeySingle()] (33 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectMultiple()] (28 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationSynchronization]/[method:testClearPropertySynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationSynchronization]/[method:testAddPropertySynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationSynchronization]/[method:testClearSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertySingle()] (32 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testInvalidateSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (22 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfigurationWithNameTwice()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfigurationSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testSetConversionExpressionEngineSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testSetNodeCombinerSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestAbstractConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestAbstractConfigurationSynchronization]/[method:testSetPropertySynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetNumberOfConfigurationsSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationNamesSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyDirectSingle()] (34 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeyError()] (31 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationByIdxSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationNameListSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationsSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConversionExpressionEngineSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationByNameSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetNodeCombinerSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyMultipleOtherConfig()] (24 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyDirectCommit()] (36 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testAddNodesEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testLocationIsFullyDefined()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddPropertyError()] (30 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearSubset()] (19 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsValue()] (39 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testAddNodesEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeys()] (42 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysError()] (35 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testClearFooterComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testClearTreeEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetConfigurationNameList()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearEvent()] (28 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testRemoveConfigurationAt()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testIsEmptyMultiple()] (41 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyCommit()] (38 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testSetLocationNoFileHandler()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearPropertyError()] (35 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testClearTreeEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testRemoveNamedConfigurationAt()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearMultiple()] (37 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Path(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testRemoveConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testRemoveNamedConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testRemoveConfigurationByName()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#1] (2 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testFileNotFound()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayList(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearEventWithDetails()] (29 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840PriorityQueue(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testResetLocation()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetInclude()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCompress840BeanContextSupport()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEscapedKey()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCompress840BeanContextServicesSupport()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840Exception(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[test-template:testCompress840ArrayListCycle(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPathIncludeNotFoundFail()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testGetConfigurationLoadFromJarFile()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearPropertyEvent()] (32 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (30 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadFromFile()] (1 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testClearRemoveChildListener()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLargeKey()] (3 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetIOFactoryReader()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestSystemConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSystemConfiguration]/[method:testSetSystemPropertiesFromPropertiesFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testFileNotFoundAllowFailOnInit()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (36 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddWithDelimiter()] (27 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetListWithDelimiter()] (42 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testGetConfigurationLoadFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupRead()] (3 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testLocationSurvivesResetResult()] (1 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testChangeLocationAfterCreation()] (1 ms)</li><li>org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestHierarchicalConfigurationEvents]/[method:testSubConfigurationChangedEventConnected()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testChangeLocationAfterReset()] (2 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetList()] (52 ms)</li><li>org.apache.commons.configuration2.TestConfigurationUtils.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestConfigurationUtils]/[method:testConvertToHierarchicalOrderOfProperties()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestXMLConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestXMLConfigurationEvents]/[method:testSubConfigurationChangedEventConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetPropertyError()] (51 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtUpdateSubConfigConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testCloneModify()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testUpdateContainedConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSeparatorUsedInINIOutput()] (2 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testContainsKeyMultiple()] (61 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testWriteFooterComment()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfigurationWithName()] (0 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationCast()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfigurationAt()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLineSeparator()] (0 ms)</li><li>org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestDatabaseConfigurationEvents]/[method:testSetPropertyEvent()] (49 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourcesUnknownKey()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceUnknown()] (0 ms)</li><li>org.apache.commons.configuration2.spring.TestConfigurationPropertiesFactoryBean.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.spring.TestConfigurationPropertiesFactoryBean]/[method:testLoadResources()] (1 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetProperty()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAddConfigurationComplexAt()] (1 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationIteratorRemove()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testClear()] (0 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationIterate()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testSetListDelimiterHandler()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testLockHandlingWithExceptionWhenConstructingRootNode()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testEscapeListDelimiters()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testAddNonStringProperty()] (66 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testInitFromNonExistingFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithDelimiterParsingDisabled()] (1 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceWithCombinedChildConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceHierarchical()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testChildConfigurationsAtWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testInMemoryCreatedSave()] (1 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testSetPropertyWithDelimiter()] (40 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceNonHierarchical()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testConversionExpressionEngine()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testEscapeQuote()] (1 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceMulti()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationsAtWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testAddByteArrayPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSlashEscaping()] (3 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithDataConfig()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testSaveNewFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceCombined()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testAccessPropertyMulti()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourcesMultiSources()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceSynchronized()] (0 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testInterpolator()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testGetSourceMultiSources()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupWrite()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPathIncludeNotFoundPass()] (0 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationAccess()] (6 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromFile()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSetPropertyListWithDelimiterParsingDisabled()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesFromPath()] (1 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testConfigurationsAt()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveEscapedEscapingCharacter()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testAppendAndSave()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testJupWriteUtf8WithoutUnicodeEscapes()] (2 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testPropertiesBuilderFromURL()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSaveWithBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationLiveUpdate()] (2 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testSave()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.TestSubnodeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubnodeConfiguration]/[method:testAddProperty()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testSetByteArrayPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestHierarchicalConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestHierarchicalConfiguration]/[method:testConfigurationAtClearAndDetach()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testCloneSynchronized()] (1 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionConnected()] (0 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testUnmodifiableConfigurationOtherTypes()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSeparatorUsedInINIInput()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testCommentLeadingSeparatorUsedInINIInput()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testCopyAndSave()] (3 ms)</li><li>org.apache.commons.configuration2.TestImmutableConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestImmutableConfiguration]/[method:testImmutableSubset()] (2 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testSave()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testAutoSaveWithPropertiesConfiguration()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testConfigurationsAtWithUpdates()] (1 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testCreateConfigurationNonExistingFileAndThenSave()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestXMLPropertyListConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testDisableAutoSave()] (1 ms)</li><li>org.apache.commons.configuration2.tree.TestOverrideCombiner.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.tree.TestOverrideCombiner]/[method:testCombineProperties()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testAutoSaveWithReset()] (1 ms)</li><li>org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder]/[method:testAutoSave()] (5 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testClone()] (0 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testSubConfigurationWithUpdates()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromURL()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIBuilderFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testINIFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testClearError()] (95 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testAddByteArrayPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testSubnodeUpdateBySubnode()] (3 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testClearEvent()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testGetSectionNonExistingManipulate()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testClearEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testRecursiveInterpolation()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testNoReloadableSources()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testAddPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testCaching()] (0 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testExtractPropertyValueCLOBEmpty()] (116 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testAddPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromURL()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testBuilderListenerOtherTypes()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromPath()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testSetByteArrayPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testCachingWithReset()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLFromFile()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromPath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testManagedConfigurationSettings()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromFile()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testXMLBuilderFromURL()] (4 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventAddProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testLoadIncludeFileViaFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testLoadFromBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testBuilderListenerReset()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testRemoveBuilderListenerOnReset()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceSingle()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventSetProperty()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testAddConfigurationListener()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetSourceMultiple()] (1 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testClearPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testInitWithParameters()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedFile()] (0 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testClearPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testListInterpolation()] (1 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedPath()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testInterpolationInMultipleConfigs()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testInterpolationArrayReference()] (2 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testSetPropertyEvent()] (0 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testFileBasedURL()] (5 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testCheckingInMemoryConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testReplaceInMemoryConfig()] (1 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAddNodesToSubnodeConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.plist.TestPropertyListConfigurationEvents]/[method:testSetPropertyEventWithDetails()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerResetReloadingState()] (0 ms)</li><li>org.apache.commons.configuration2.TestINIConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestINIConfiguration]/[method:testSaveClearedSection()] (0 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testUseChildConfigAsInMemoryConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerCheck()] (3 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testCheckingInMemoryConfiguration()] (5 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testEventClearProperty()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingMultiFileConfigurationBuilder]/[method:testReloadingControllerCheckReloadingRequired()] (3 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetStringArrayWithInterpolation()] (1 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGetListWithInterpolation()] (10 ms)</li><li>org.apache.commons.configuration2.io.TestClasspathLocationStrategy.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.io.TestClasspathLocationStrategy]/[method:testLocateSuccess()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testInterpolatorFromParameters()] (0 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testSettingMissingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testConcurrentGetAndReload()] (23 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testSettingMissingProperty()] (1 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testClearingProperty()] (2 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testClearingProperty()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomBuilderProvider()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomBuilderProvider()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testGetConfiguration()] (31 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testLoadAndSaveFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testCombinedCopyToXML()] (51 ms)</li><li>org.apache.commons.configuration2.TestCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCompositeConfiguration]/[method:testGettingSubset()] (2 ms)</li><li>org.apache.commons.configuration2.TestNullCompositeConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestNullCompositeConfiguration]/[method:testGettingSubset()] (2 ms)</li><li>org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestBaseHierarchicalConfigurationSynchronization]/[method:testReadOnlyAccessToSubConfigurations()] (41 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAutoSaveAddNodes()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalForceCreate()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAutoSaveWithSubnodeConfig()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testProviderInDefinitionConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testProviderInDefinitionConfig()] (0 ms)</li><li>org.apache.commons.configuration2.TestXMLConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestXMLConfiguration]/[method:testAutoSaveWithSubSubnodeConfig()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritCustomProviders()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritCustomProviders()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderNotReloading()] (13 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestBaseConfigurationBuilderProvider]/[method:testGetBuilderReloading()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptionalWithException()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptionalWithException()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBasePathForChildConfigurations()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystem()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBasePathForChildConfigurations()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystem()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomResultConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomEntityResolver()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomEntityResolver()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomFileSystemForSubConfig()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomResultConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomFileSystemForSubConfig()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testEnvironmentProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCustomLookup()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSetConfigurationBasePath()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasePath()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRemoveSubBuilderListener()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReactOnSubBuilderChange()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReactOnSubBuilderChange()] (0 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testResetBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testEnvironmentProperties()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCustomLookup()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRemoveSubBuilderListener()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testResetBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testReloadingBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConfiguration()] (36 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSystemProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathFromDefinitionBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSystemProperties()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testDefaultBasePathInParameters()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathFromDefinitionBuilder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testDefaultBasePathInParameters()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testReloadingBuilder()] (19 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testMappingInSameOrder()] (1 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadFromFile()] (9 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderFromFile()] (2 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testLoading()] (4 ms)</li><li>org.apache.commons.configuration2.TestPropertiesSequence.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesSequence]/[method:testConfigurationValuesInSameOrderWithManualAdd()] (1 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfiguration]/[method:testIncludeInSubDir()] (6 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingNonExisting()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfiguration()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testDeletingExisting()] (4 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingNonExisting()] (1 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingSet()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadAdditional()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationProperties()] (7 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationProperties()] (2 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testAddingUnset()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileExplicitBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testReloadDefinitionFileDefaultBuilder()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNames()] (2 ms)</li><li>org.apache.commons.configuration2.TestDatabaseConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDatabaseConfiguration]/[method:testGetKeysMultiple()] (325 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testRootNodeInitializedAfterCreation()] (3 ms)</li><li>org.apache.commons.configuration2.TestEqualBehavior.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestEqualBehavior]/[method:testSettingExisting()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testBuilderNamesManipulate()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationNoAdditional()] (4 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromFile()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetNamedBuilderUnknown()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromPath()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testChildBuildersAreInitializedOnlyOnce()] (4 ms)</li><li>org.apache.commons.configuration2.TestSubsetConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestSubsetConfiguration]/[method:testNested()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testRootNodeInitializedAfterCreation()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetChildBuilders()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNamesManipulate()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testBuilderNames()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilder()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testGetNamedBuilderUnknown()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromFile()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationNoAdditional()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testSuppressChildBuilderPropertyInheritance()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadConfiguration()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testSuppressChildBuilderPropertyInheritance()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testChildBuildersAreInitializedOnlyOnce()] (2 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedFromURL()] (3 ms)</li><li>org.apache.commons.configuration2.builder.fluent.TestConfigurations.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.fluent.TestConfigurations]/[method:testCombinedBuilderFromURL()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testGetChildBuilders()] (10 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInitChildBuilderParametersDefaultChildProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadConfiguration()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInitChildBuilderParametersDefaultChildProperties()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConcurrentReadAccessWithoutSynchronizer()] (8 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConcurrentReadAccessWithoutSynchronizer()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritEventListeners()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testReloadableDefinitionBuilder()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testInitWithParameters()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProvider()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProvider()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testLoadOptional()] (16 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadOptional()] (13 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInheritProperties()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInheritProperties()] (3 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testInterpolationOverMultipleSources()] (4 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritEventListeners()] (13 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationListNodes()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testInterpolationOverMultipleSources()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testConfigurationBuilderProviderInheritBasicProperties()] (12 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder]/[method:testNestedReloadableSources()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testCombinedConfigurationAttributes()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationListNodes()] (2 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testCombinedConfigurationAttributes()] (3 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testUpdateConfiguration()] (7 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testJndiConfiguration()] (5 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testINIConfiguration()] (9 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testJndiConfiguration()] (6 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testINIConfiguration()] (24 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testLoadAdditional()] (76 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload2()] (82 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReload()] (94 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased]/[method:testConcurrentGetAndReload()] (171 ms)</li><li>org.apache.commons.configuration2.TestCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestCombinedConfiguration]/[method:testConcurrentAccess()] (335 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadMultipleClients()] (210 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestMultiFileConfigurationBuilder]/[method:testSchemaValidationError()] (699 ms)</li><li>org.apache.commons.configuration2.TestDynamicCombinedConfiguration.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestDynamicCombinedConfiguration]/[method:testConcurrentGetAndReloadFile()] (4032 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS]/[method:testMultiTenentConfigurationReloading()] (5036 ms)</li><li>org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder]/[method:testMultiTenentConfigurationReloading()] (5044 ms)</li><li>org.apache.commons.configuration2.event.TestEvent.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.event.TestEvent]/[method:testInitNoType()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestBasicConfigurationBuilderEvents]/[method:testResultCreatedEventNoConfiguration()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestAutoSaveListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestAutoSaveListener]/[method:testConfigurationChangedBeforeUpdateNoSave()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestAutoSaveListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestAutoSaveListener]/[method:testConfigurationChangedAutoSaveException()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestAutoSaveListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestAutoSaveListener]/[method:testConfigurationChangedWhileLoading()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestAutoSaveListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestAutoSaveListener]/[method:testConfigurationChangedAfterLoading()] (0 ms)</li><li>org.apache.commons.configuration2.TestPropertiesConfigurationLayout.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.TestPropertiesConfigurationLayout]/[method:testEventAddBefore()] (0 ms)</li><li>org.apache.commons.configuration2.builder.TestAutoSaveListener.[engine:junit-jupiter]/[class:org.apache.commons.configuration2.builder.TestAutoSaveListener]/[method:testConfigurationChangedAutoSave()] (53 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.2
+
+</body>
+</html>
